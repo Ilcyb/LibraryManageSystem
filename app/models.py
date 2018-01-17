@@ -21,15 +21,18 @@ class Book(db.Model):
     publish_date = db.Column(db.Integer, nullable=False)
     book_collections = db.relationship('BookCollection', backref='book', lazy=True)
     comments = db.relationship('Comment', backref='book', lazy=True)
+    image = db.Column(db.String(160), nullable=False)
+    call_number = db.Column(db.String(30), nullable=False)
 
-    def __init__(self, isbn, language, name, topic, publish_house, classification, publish_date):
+    def __init__(self, isbn, language, name, topic, 
+                publish_date, call_number, image='/static/images/BookImages/icon_book.png'):
         self.isbn = isbn
         self.language = language
         self.name = name
         self.topic = topic
-        self.publishing_house_id = publish_house
-        self.classification_id = classification
         self.publish_date = publish_date
+        self.call_number = call_number
+        self.image = image
 
     def __repr__(self):
         return '<Book:{}({})>'.format(self.name, self.book_id)
@@ -53,7 +56,7 @@ class BookCollection(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'), nullable=False)
     collection_address = db.Column(db.String(50), nullable=False)
     campus = db.Column(db.String(50), nullable=False)
-    status = db.Column(db.Boolean, default=True, nullable=False) #True在藏 False借出
+    statu = db.Column(db.Boolean, default=True, nullable=False) #True在藏 False借出
     lending_infos = db.relationship('LendingInfo', backref='book_collection', lazy=True)
 
     def __init__(self, book, collection_address, campus):
