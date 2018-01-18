@@ -12,16 +12,16 @@ def book_search():
     author_name = request.args.get('author', None)
     publish_house = request.args.get('publishhouse', None)
     isbn = request.args.get('isbn', None)
-    all_filed = request.args.get('allfiled', None)
+    all_field = request.args.get('allfield', None)
 
-    q = Book.query()
-    if all_filed:
-        books = q.filter(or_(Book.name.ilike('%' + book_name + '%'),
-                             author_name in [author.name for author in Book.authors],
-                             Book.publish_house.name == publish_house, Book.isbn == isbn)).all()
+    q = Book.query
+    if all_field:
+        books = q.filter(or_(Book.name.ilike('%' + all_field + '%'),
+                             all_field in [author.name for author in Book.authors],
+                             Book.publish_house.name == all_field, Book.isbn == all_field)).all()
         returned_dict = {}
         returned_dict['lengths'] = len(books)
-        returned_dict['keyword'] = all_filed
+        returned_dict['keyword'] = all_field
         books_list = []
         for book in books:
             book_dict = {}
@@ -111,7 +111,7 @@ def create_new_book():
     image = request.form.get('image', None)
 
     if not (isbn and language and name and authors and topic and publish_house_name and \
-    classification_name and publish_date and call_number):
+            classification_name and publish_date and call_number):
         return jsonify({'created': False, 'reason': '缺少创建书籍的必要信息'}), 403
 
     try:
@@ -124,6 +124,10 @@ def create_new_book():
 
     returned_book = {}
     try:
+        same_isbn = session.query(Book).filter_by(isbn=isbn).first()
+        if same_isbn is not None:
+            return jsonify({'created': False, 'reason': 'ISBN号重复，书籍资料创建失败'}), 403
+
         classification = session.query(Classification).filter_by(name=classification_name).first()
         if not classification:
             return jsonify({'created': False, 'reason': '该分类不存在，书籍资料创建失败'}), 403
@@ -166,4 +170,4 @@ def create_new_book():
     finally:
         session.close()
 
-    return jsonify({'created':True, 'created_book':returned_book}), 201
+    return jsonify({'created': True, 'created_book': returned_book}), 201
