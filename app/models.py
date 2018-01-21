@@ -155,9 +155,8 @@ class Classification(db.Model):
     upper_layer_id = db.Column(db.Integer, db.ForeignKey('classification.classification_id'), nullable=True)
     upper_layer = db.relationship('Classification', remote_side=[classification_id], backref='sub_layers', lazy=True)
 
-    def __init__(self, name, upper_layer_id):
+    def __init__(self, name):
         self.name = name
-        self.upper_layer_id = upper_layer_id
 
     def __repr__(self):
         return '<Classification:{}>'.format(self.name)
