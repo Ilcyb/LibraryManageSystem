@@ -33,8 +33,8 @@ class TestBackendApi(unittest.TestCase):
     def tearDown(self):
         TestBackendApi.db.drop_all()
 
-    def write_data_to_db(self, data_size=None):
-        mdg = MyDataGenerator()
+    def write_data_to_db(self, data_size=None, **kwargs):
+        mdg = MyDataGenerator(**kwargs)
         authors = mdg.generate_author(current_app.config['TESTING_DATA_SIZE'] * 2 
                                     if data_size is None else data_size * 2)
         publish_houses = mdg.generate_publish_house(data_size or current_app.config['TESTING_DATA_SIZE'])
@@ -73,8 +73,9 @@ class TestBackendApi(unittest.TestCase):
             session.commit()
 
     # def test_write_data_to_db(self):
-    #     self.write_data_to_db()
+    #     self.write_data_to_db(book_name='测试')
     #     assert len(Book.query.all()) == current_app.config['TESTING_DATA_SIZE']
+    #     assert len(Book.query.filter(Book.name.ilike('%测试%')).all()) == current_app.config['TESTING_DATA_SIZE']
 
     def test_create_new_classification(self):
         response = self.app.post('/api/book/classification',
@@ -129,4 +130,97 @@ class TestBackendApi(unittest.TestCase):
         assert response.status_code == 404
 
         response = self.app.post('/api/book/isbn/' + book.isbn)
-        assert response.status_code == 405        
+        assert response.status_code == 405
+
+    def test_get_books_by_name(self):
+        self.write_data_to_db(data_size=20, book_name='测试')
+
+        response = self.app.get('/api/book/searchByBookName/测试')
+        assert '测试'.encode() in response.data
+        assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
+
+        response = self.app.get('/api/book/searchByBookName/测试?perpage=15')
+        assert '"length": 15'.encode() in response.data
+
+        response = self.app.get('/api/book/searchByBookName/测试?perpage=10&page=2')
+        assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
+
+        response = self.app.get('/api/book/searchByBookName/%$#GFD')
+        assert '"length": 0'.encode() in response.data
+
+    def test_get_books_by_author(self):
+        self.write_data_to_db(data_size=20, author_name='测试')
+
+        response = self.app.get('/api/book/searchByAuthor/测试')
+        assert '测试'.encode() in response.data
+        assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
+
+        response = self.app.get('/api/book/searchByAuthor/测试?perpage=15')
+        assert '"length": 15'.encode() in response.data
+
+        response = self.app.get('/api/book/searchByAuthor/测试?perpage=10&page=2')
+        assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
+
+        response = self.app.get('/api/book/searchByAuthor/%$#GFD')
+        assert '"length": 0'.encode() in response.data
+
+    def test_get_books_by_publish_house(self):
+        self.write_data_to_db(data_size=30, publish_house='测试')
+
+        response = self.app.get('/api/book/searchByPublishHouse/测试')
+        assert '测试'.encode() in response.data
+        assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
+
+        response = self.app.get('/api/book/searchByPublishHouse/测试?perpage=6')
+        assert '"length": 6'.encode() in response.data
+
+        response = self.app.get('/api/book/searchByPublishHouse/测试?perpage=7&page=3')
+        assert '"id": 15'.encode() in response.data and '"id": 14'.encode() not in response.data
+
+        response = self.app.get('/api/book/searchByPublishHouse/%$#GFD')
+        assert '"length": 0'.encode() in response.data
+
+    def test_get_boos_by_topic(self):
+        self.write_data_to_db(data_size=20, topic='测试')
+
+        response = self.app.get('/api/book/searchByTopic/测试')
+        assert '测试'.encode() in response.data
+        assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
+
+        response = self.app.get('/api/book/searchByTopic/测试?perpage=15')
+        assert '"length": 15'.encode() in response.data
+
+        response = self.app.get('/api/book/searchByTopic/测试?perpage=10&page=2')
+        assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
+
+        response = self.app.get('/api/book/searchByTopic/%$#GFD')
+        assert '"length": 0'.encode() in response.data
+
+    def test_get_books_by_all_field(self):
+        self.write_data_to_db(data_size=1)
+        book = self.session.query(Book).first()
+
+        response = self.app.get('/api/book/searchAllField/' + book.isbn)
+        assert book.name.encode() in response.data
+
+        self.write_data_to_db(data_size=10, book_name='测试书')
+        self.write_data_to_db(data_size=1, author_name='测试作者')
+        self.write_data_to_db(data_size=1, publish_house='测试出版社')
+        self.write_data_to_db(data_size=1, topic='测试主题')
+
+        response = self.app.get('/api/book/searchAllField/测试书?perpage=2&page=4')
+        assert '"length": 2'.encode() in response.data \
+        and '"id": 8'.encode() in response.data \
+        and '"id": 7'.encode() not in response.data
+
+        response = self.app.get('/api/book/searchAllField/测试作者')
+        assert '"length": 1'.encode() in response.data
+        
+        response = self.app.get('/api/book/searchAllField/测试出版社')
+        assert '"length": 1'.encode() in response.data
+
+        response = self.app.get('/api/book/searchAllField/测试主题')
+        assert '"length": 1'.encode() in response.data
+
+        response = self.app.get('/api/book/searchAllField/%$#GFD')
+        assert '"length": 0'.encode() in response.data
