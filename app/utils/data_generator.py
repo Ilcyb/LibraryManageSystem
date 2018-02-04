@@ -31,20 +31,34 @@ fake.add_provider(LibraryProvider)
 
 
 class MyDataGenerator:
+    
+    def __init__(self, **kwargs):
+        self.book_name = kwargs.get('book_name', None)
+        self.author_name = kwargs.get('author_name', None)
+        self.classification_name = kwargs.get('classification_name', None)
+        self.publish_house = kwargs.get('publish_house', None)
+        self.language = kwargs.get('language', None)
+        self.topic = kwargs.get('topic', None)
+        self.year = kwargs.get('year', None)
 
     def generate_author(self, n):
         for i in range(n):
-            yield Author(fake.name())
+            yield Author(fake.name() if self.author_name is None else fake.name() + self.author_name)
 
     def generate_publish_house(self, n):
         for i in range(n):
-            yield PublishHouse(fake.publish_house())
+            yield PublishHouse(fake.publish_house() if self.publish_house is None
+                             else fake.publish_house() + self.publish_house)
 
     def generate_classification(self, n):
         for i in range(n):
-            yield Classification(fake.classification())
+            yield Classification(fake.classification() if self.classification_name is None 
+                                else fake.classification() + self.classification_name)
 
     def generate_book(self, n):
         for i in range(n):
-            yield Book(fake.isbn13(), fake.language(), fake.name(), fake.topic(),
-                    fake.year(), fake.ssn())
+            yield Book(fake.isbn13(), 
+                        fake.language() if self.language is None else fake.language() + self.language, 
+                        fake.name() if self.book_name is None else fake.name() + self.book_name, 
+                        fake.topic() if self.topic is None else self.topic,
+                        fake.year() if self.year is None else self.year, fake.ssn())
