@@ -83,13 +83,16 @@ def get_book_by_isbn(isbn):
 
 @book.route('/searchByBookName/<string:name>', methods=['GET'])
 def get_books_by_name(name):
-    # FIXME:修复长度一定为perpage参数的值的错误
     # TODO:是否能用上迭代器
     """
     根据书籍名查找书籍
     :url /api/book/searchByBookName/:name
     :method get
     :param name 书籍名
+    :param perpage 每页显示多少条数据
+    :param page 显示第几页
+    :param sortfield 排序方式
+    :param isdesc 是否倒序
     :return json {'books':书籍常规格式列表,'keyword':搜索关键字,'length':搜索结果长度}
     """
     try:
@@ -127,6 +130,17 @@ def get_books_by_name(name):
 
 @book.route('/searchByAuthor/<string:name>', methods=['GET'])
 def get_books_by_author(name):
+    """
+    根据作者名查找书籍
+    :url /api/book/searchByAuthor/:name
+    :method get
+    :param name 作者名
+    :param perpage 每页显示多少条数据
+    :param page 显示第几页
+    :param sortfield 排序方式
+    :param isdesc 是否倒序
+    :return json {'books':书籍常规格式列表,'keyword':搜索关键字,'length':搜索结果长度}
+    """
     try:
         # 每页显示多少条数据
         per_page = int(
@@ -143,7 +157,7 @@ def get_books_by_author(name):
         books = Book.query.join(Author, Book.authors) \
             .filter(Author.name.ilike('%' + name + '%')) \
             .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
-            .limit(per_page).offset(offset).all()
+            .all()[offset:offset + per_page]
     except ValueError:
         abort(403)
     except Exception as e:
@@ -163,6 +177,17 @@ def get_books_by_author(name):
 
 @book.route('/searchByPublishHouse/<string:name>', methods=['GET'])
 def get_books_by_publish_house(name):
+    """
+    根据出版社查找书籍
+    :url /api/book/searchByPublishHouse/:name
+    :method get
+    :param name 出版社
+    :param perpage 每页显示多少条数据
+    :param page 显示第几页
+    :param sortfield 排序方式
+    :param isdesc 是否倒序
+    :return json {'books':书籍常规格式列表,'keyword':搜索关键字,'length':搜索结果长度}
+    """
     try:
         # 每页显示多少条数据
         per_page = int(
@@ -199,6 +224,17 @@ def get_books_by_publish_house(name):
 
 @book.route('/searchByTopic/<string:name>', methods=['GET'])
 def get_boos_by_topic(name):
+    """
+    根据主题查找书籍
+    :url /api/book/searchByTopic/:name
+    :method get
+    :param name 主题
+    :param perpage 每页显示多少条数据
+    :param page 显示第几页
+    :param sortfield 排序方式
+    :param isdesc 是否倒序
+    :return json {'books':书籍常规格式列表,'keyword':搜索关键字,'length':搜索结果长度}
+    """
     try:
         # 每页显示多少条数据
         per_page = int(
@@ -234,6 +270,17 @@ def get_boos_by_topic(name):
 
 @book.route('/searchAllField/<string:name>', methods=['GET'])
 def get_books_by_all_field(name):
+    """
+    根据全字段查找书籍
+    :url /api/book/searchAllField/:name
+    :method get
+    :param name 搜索关键字
+    :param perpage 每页显示多少条数据
+    :param page 显示第几页
+    :param sortfield 排序方式
+    :param isdesc 是否倒序
+    :return json {'books':书籍常规格式列表,'keyword':搜索关键字,'length':搜索结果长度}
+    """
     try:
         # 每页显示多少条数据
         per_page = int(
@@ -254,7 +301,7 @@ def get_books_by_all_field(name):
                         Book.isbn == name,
                         Book.topic == name)) \
             .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
-            .limit(per_page).offset(offset).all()
+            .all()[offset:offset+per_page]
     except ValueError:
         abort(403)
     except Exception as e:
@@ -379,6 +426,14 @@ def create_new_book():
 
 @book.route('/classification', methods=['POST'])
 def create_new_classification():
+    """
+    新建图书分类接口
+    :url /api/book/classification
+    :method post
+    :param classification_name 分类名
+    :param upper_classification_name 上级分类名（可选）
+    :return {'created':true, 'classification':{'id','name','upper_classification'}}
+    """
     data = request.get_json()
     classification_name = data.get('classification_name')
     upper_classification_name = data.get('upper_classification_name', None)
