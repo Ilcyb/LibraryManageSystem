@@ -8,7 +8,7 @@ from flask import request, g, session, jsonify, url_for
 def login_api():
     """
     登陆请求接口
-    :url /api/auth/login
+    :url /api/user/login
     :method post
     :param username 登陆框中的用户名
     :param password 登陆框中的密码
@@ -31,7 +31,7 @@ def login_api():
 def register_api():
     """
     注册请求接口
-    :url /api/auth/register
+    :url /api/user/register
     :method post
     :param username
     :param password
