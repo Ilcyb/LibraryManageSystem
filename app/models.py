@@ -140,7 +140,8 @@ class User(db.Model):
         if self.role is None:
             if self.username == current_app.config['ADMIN_USERNAME']:
                 self.role = Role.query.filter_by(name='Administrator')
-            else self.role = Role.query.filter_by(default=True)
+            else:
+                self.role = Role.query.filter_by(default=True)
 
     def __repr__(self):
         return '<User:{}({})>'.format(self.username, self.user_id)
