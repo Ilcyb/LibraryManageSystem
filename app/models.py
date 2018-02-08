@@ -1,10 +1,49 @@
 from . import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
+from flask import current_app
 
 book_author = db.Table('book_author',
                        db.Column('book_id', db.Integer, db.ForeignKey('book.book_id'), primary_key=True),
                        db.Column('author_id', db.Integer, db.ForeignKey('author.author_id'), primary_key=True))
+
+
+class Permission:
+    COMMENT = 0x0000001
+    BAN_COMMENT = 0x0000010
+    BORROWING_NOTICE = 0x0000100
+    BOOK_MODIFY = 0x0001000
+    ANNOUNCEMENT_MODIFY = 0x0010000
+    BAN_USER = 0x0100000
+    ADMINISTOR = 0x1000000
+
+
+class Role(db.Model):
+    __tablename__ = 'role'
+    role_id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    default = db.Column(db.Boolean, default=False, index=True)
+    permission = db.Column(db.Integer)
+    users = db.relationship('User', backref='role', lazy='dynamic')
+
+    @staticmethod
+    def insert_roles():
+        roles = {
+            'User' : (Permission.COMMENT | Permission.BORROWING_NOTICE, True),
+            'Moderator' : (Permission.COMMENT | Permission.BAN_COMMENT | Permission.BOOK_MODIFY, False), 
+            'Administrator ' : (0x1111011, False)
+        }
+        for r in roles:
+            role = Role.query.filter_by(name=r).first()
+            if role is None:
+                role = Role(name=r)
+            role.default = roles[role][1]
+            role.permission = roles[role][0]
+            db.session.add(role)
+        db.session.commit()
+
+    def __repr__(self):
+        return '<Role:{}>'.format(self.name)
 
 
 class Book(db.Model):
@@ -81,6 +120,7 @@ class User(db.Model):
     lended_nums = db.Column(db.Integer, nullable=True)
     lending_infos = db.relationship('LendingInfo', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
+    role = db.Column(db.Integer, db.ForeignKey('role.role_id'), nullable=False)
 
     @property
     def password(self):
@@ -97,6 +137,10 @@ class User(db.Model):
         self.username = username
         self.password = password
         self.email = email
+        if self.role is None:
+            if self.username == current_app.config['ADMIN_USERNAME']:
+                self.role = Role.query.filter_by(name='Administrator')
+            else self.role = Role.query.filter_by(default=True)
 
     def __repr__(self):
         return '<User:{}({})>'.format(self.username, self.user_id)
