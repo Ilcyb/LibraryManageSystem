@@ -37,8 +37,8 @@ class Role(db.Model):
             role = Role.query.filter_by(name=r).first()
             if role is None:
                 role = Role(name=r)
-            role.default = roles[role][1]
-            role.permission = roles[role][0]
+            role.default = roles[r][1]
+            role.permission = roles[r][0]
             db.session.add(role)
         db.session.commit()
 
@@ -120,7 +120,7 @@ class User(db.Model):
     lended_nums = db.Column(db.Integer, nullable=True)
     lending_infos = db.relationship('LendingInfo', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
-    role = db.Column(db.Integer, db.ForeignKey('role.role_id'), nullable=False)
+    role_id = db.Column(db.Integer, db.ForeignKey('role.role_id'), nullable=False)
 
     @property
     def password(self):
@@ -133,15 +133,16 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __init__(self, username, password, email):
+    def __init__(self, username, password, email, role=None):
         self.username = username
         self.password = password
         self.email = email
+        self.role = role
         if self.role is None:
             if self.username == current_app.config['ADMIN_USERNAME']:
-                self.role = Role.query.filter_by(name='Administrator')
+                self.role = db.session.query(Role).filter_by(name='Administrator').first()
             else:
-                self.role = Role.query.filter_by(default=True)
+                self.role = db.session.query(Role).filter_by(default=True).first()
 
     def __repr__(self):
         return '<User:{}({})>'.format(self.username, self.user_id)

@@ -1,7 +1,7 @@
 from . import auth
 from .. import db
 from ..models import User
-from flask import request, g, session, jsonify, url_for
+from flask import request, g, session, jsonify, url_for, abort
 
 
 @auth.route('/login', methods=['POST'])
@@ -15,8 +15,10 @@ def login_api():
     :return json {'login_statu':true,'page':'url'} 登陆成功  url为登陆成功后要跳转的页面url
     :return json {'login_statu':false,'error':'reason'} 登陆失败 reason为错误信息
     """
-    username_or_email = request.form['username']
-    password = request.form['password']
+    username_or_email = request.args.get('username', None)
+    password = request.args.get('password', None)
+    if not (username_or_email and password):
+        abort(403, '用户名或密码不能为空')
     user = User.query.filter((User.username == username_or_email) | (User.email == username_or_email)).first()
     if user and user.check_password(password):
         session['username'] = user.username
@@ -39,9 +41,11 @@ def register_api():
     :return json {'register_statu':true,'page':'url'} 注册成功 url为注册成功后要跳转的页面url
     :return json {'register_statu':false,'error':'reason'} 注册失败 reason为错误信息
     """
-    username = request.form['username']
-    email = request.form['email']
-    password = request.form['password']
+    username = request.args.get('username', None)
+    email = request.args.get('email', None)
+    password = request.get('password', None)
+    if not (username and email and password):
+        abort(403, '用户名、邮箱、密码都不能为空')
     if User.query.filter(User.username == username).count() != 0:
         return jsonify({'register_statu': False, 'error': '此用户名已被注册'}), 200
     elif User.query.filter(User.email == email).count() != 0:

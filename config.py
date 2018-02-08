@@ -9,6 +9,7 @@ class Config:
     JSON_AS_ASCII = False
     SQLALCHEMY_ECHO = False
     DEFAULT_SEARCH_RESULT_PER_PAGE = 10
+    ADMIN_USERNAME = 'admin'
 
 
 class DevelopmentConfig(Config):

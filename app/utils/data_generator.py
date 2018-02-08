@@ -3,7 +3,7 @@ import random
 from faker import Faker
 from faker.providers import BaseProvider
 
-from ..models import Author, Book, Classification, PublishHouse
+from ..models import Author, Book, Classification, PublishHouse, User
 
 
 class LibraryProvider(BaseProvider):
@@ -62,3 +62,11 @@ class MyDataGenerator:
                         fake.name() if self.book_name is None else fake.name() + self.book_name, 
                         fake.topic() if self.topic is None else self.topic,
                         fake.year() if self.year is None else self.year, fake.ssn())
+
+    def generate_user(self, n):
+        for i in range(n):
+            yield User(fake.name(), fake.password(), fake.email())
+
+    def generate_other(self, attr, n):
+        for i in range(n):
+            yield getattr(fake, attr)()
