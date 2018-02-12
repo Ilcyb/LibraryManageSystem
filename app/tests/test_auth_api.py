@@ -98,3 +98,37 @@ class TestAuthApi(unittest.TestCase):
                                     content_type='application/json')
             assert session['login'] == True and session['username'] == 'username1' \
                     and url_for('main.index').encode() in response.data
+
+    def test_is_login(self):
+        self.write_user_to_db(username='testuser', password='testpwd', email='test@test.com')
+        with TestAuthApi.app.test_client() as c:
+            response = c.get('/api/user/isLogin')
+            assert '"is_login": false'.encode() in response.data
+
+            c.post('/api/user/login',
+                            data=json.dumps({'username': 'testuser',
+                                            'password': 'testpwd'}),
+                            content_type='application/json')
+            response = c.get('/api/user/isLogin')
+            assert '"is_login": true'.encode() in response.data \
+            and '"username": "testuser"'.encode() in response.data
+
+            with c.session_transaction() as sess:
+                sess['username'] = None
+            response = c.get('/api/user/isLogin')
+            assert '"is_login": false'.encode() in response.data and response.status_code == 403
+
+    def test_logout(self):
+        self.write_user_to_db(username='testuser', password='testpwd', email='test@test.com')
+        with TestAuthApi.app.test_client() as c:
+            c.post('/api/user/login',
+                            data=json.dumps({'username': 'testuser',
+                                            'password': 'testpwd'}),
+                            content_type='application/json')
+            response = c.get('/api/user/isLogin')
+            assert '"is_login": true'.encode() in response.data \
+            and '"username": "testuser"'.encode() in response.data
+
+            c.get('/api/user/logout')
+            response = c.get('/api/user/isLogin')
+            assert '"is_login": false'.encode() in response.data
