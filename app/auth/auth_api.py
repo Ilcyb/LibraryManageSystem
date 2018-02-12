@@ -60,3 +60,23 @@ def register_api():
         session['id'] = new_user.user_id
         session['login'] = True
         return jsonify({'register_statu': True, 'page': request.referrer or url_for('main.index')}), 200
+
+
+@auth.route('/isLogin', methods=['GET'])
+def isLogin():
+    if session.get('login', None) == True:
+        if session.get('username', None) and session.get('id', None):
+            return jsonify({'is_login': True,
+                            'username': session['username'],
+                            'id': session['id']}), 200
+        else:
+            session.clear()  # session信息遭到破坏不完整，清除session信息
+            return jsonify({'is_login': False}), 403
+    else:
+        return jsonify({'is_login': False}), 200
+
+@auth.route('/logout', methods=['GET'])
+def logout():
+    session.clear()
+    return jsonify({'page': request.referrer or url_for('main.index')}), 200
+
