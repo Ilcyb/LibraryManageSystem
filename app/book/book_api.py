@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 from . import book
 from .. import db
-from ..models import Author, Book, Classification, PublishHouse, book_author
+from ..models import Author, Book, Classification, PublishHouse, book_author, BookCollection
 from ..utils.bookSortEnum import bookSortEnum
 
 
@@ -480,3 +480,22 @@ def create_new_classification():
         session.close()
 
     return jsonify(returned_dict), 200
+
+@book.route('/create_new_book_collection/<int:book_id>', methods=['POST'])
+def create_new_book_collection(book_id):
+    book = db.session.query(Book).filter_by(book_id=book_id).first()
+    if book == None:
+        return jsonify({'created': False}), 404
+    request_json = request.get_json()    
+    collection_address = request_json.get('collection_address', None)
+    campus = request_json.get('campus', None)
+    new_book_collection = BookCollection(book_id, collection_address, campus)
+    db.session.add(new_book_collection)
+    book.book_collections.add(new_book_collection)
+    db.session.commit()
+    return jsonify({'created': True,
+                    'book_id': book.book_id,
+                    'book_collection': {
+                        'collection_address': collection_address,
+                        'campus': campus
+                    }})
