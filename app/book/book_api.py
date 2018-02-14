@@ -499,3 +499,21 @@ def create_new_book_collection(book_id):
                         'collection_address': collection_address,
                         'campus': campus
                     }})
+                    
+@book.route('/book_collections/<int:book_id>', methods=['GET'])
+def get_book_collections(book_id):
+    book = db.session.query(Book).filter_by(book_id=book_id).first()
+    if book == None:
+        return jsonify({}), 404
+    book_collections = book.book_collections
+    return_json = {'length': len(book_collections)}
+    collection_json = []
+    for i in range(len(book_collections)):
+        collection_json.append({
+            'book_collection_id': book_collections[i].book_collection_id,
+            'collection_address': book_collections[i].collection_address,
+            'campus': book_collections[i].campus,
+            'statu': book_collections[i].statu
+        })
+    return_json['book_collections'] = collection_json
+    return jsonify(return_json), 200
