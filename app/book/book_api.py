@@ -484,6 +484,18 @@ def create_new_classification():
 
 @book.route('/create_new_book_collection/<int:book_id>', methods=['POST'])
 def create_new_book_collection(book_id):
+    """
+    创建新的图书藏本接口
+    :url /api/book/create_new_book_collection/:book_id 
+    :method post
+    :param book_id 要创建藏本的书籍的id
+    :return {'created', 'book_id', 'book_collection':{'collection_address', 'campus'}}
+    created 是否创建成功
+    book_id 创建的藏本的图书的id
+    book_collection 创建的藏本的信息
+    collection_address 馆藏地址
+    campus 校区
+    """
     book = db.session.query(Book).filter_by(book_id=book_id).first()
     if book == None:
         return jsonify({'created': False}), 404
@@ -503,6 +515,21 @@ def create_new_book_collection(book_id):
                     
 @book.route('/book_collections/<int:book_id>', methods=['GET'])
 def get_book_collections(book_id):
+    """
+    获取某本图书的所有藏本信息接口
+    :url /api/book/book_collections/:book_id
+    :method get
+    :param book_id 图书id
+    :return {'length', 'book_collections':{
+        'book_collection_id', 'collection_address', 'campus', 'statu'
+    }}
+    length 藏本的数量
+    book_collections 藏本集合
+    book_collection_id 藏本id
+    collection_address 馆藏地址
+    campus 校区
+    statu 藏本状态
+    """
     book = db.session.query(Book).filter_by(book_id=book_id).first()
     if book == None:
         return jsonify({}), 404
@@ -521,6 +548,21 @@ def get_book_collections(book_id):
 
 @book.route('/lendinfo/<int:book_collection_id>', methods=['GET'])
 def get_lendinfo(book_collection_id):
+    """
+    获取某藏本的借阅记录信息接口
+    :url /api/book/lendinfo/:book_collection_id 
+    :method get
+    :param book_collection_id 要获取借阅记录的藏本的id
+    :return {'length', 'lendinfos':{
+        'user', 'lend_time', 'expected_return_time', 'returned'
+    }}
+    length 借阅记录的数量
+    lendinfos 借阅记录集
+    user 借阅人姓名
+    lend_time 借阅时间
+    expected_return_time 预计归还时间
+    returned 是否归还
+    """
     lendinfos = db.session.query(LendingInfo).\
     filter_by(book_collection_id=book_collection_id).\
     order_by(LendingInfo.lend_time).limit(current_app.config['BOOK_LENDINFO_NUMS']).all()
