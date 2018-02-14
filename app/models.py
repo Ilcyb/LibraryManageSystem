@@ -1,6 +1,6 @@
 from . import db
 from datetime import datetime
-from werkzeug.security import generate_password_hash,check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import current_app
 
 book_author = db.Table('book_author',
@@ -29,9 +29,9 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User' : (Permission.COMMENT | Permission.BORROWING_NOTICE, True),
-            'Moderator' : (Permission.COMMENT | Permission.BAN_COMMENT | Permission.BOOK_MODIFY, False), 
-            'Administrator ' : (0x1111011, False)
+            'User': (Permission.COMMENT | Permission.BORROWING_NOTICE, True),
+            'Moderator': (Permission.COMMENT | Permission.BAN_COMMENT | Permission.BOOK_MODIFY, False),
+            'Administrator ': (0x1111011, False)
         }
         for r in roles:
             role = Role.query.filter_by(name=r).first()
@@ -63,8 +63,8 @@ class Book(db.Model):
     image = db.Column(db.String(160), nullable=False)
     call_number = db.Column(db.String(30), nullable=False)
 
-    def __init__(self, isbn, language, name, topic, 
-                publish_date, call_number, image='/static/images/BookImages/icon_book.png'):
+    def __init__(self, isbn, language, name, topic,
+                 publish_date, call_number, image='/static/images/BookImages/icon_book.png'):
         self.isbn = isbn
         self.language = language
         self.name = name
@@ -95,7 +95,7 @@ class BookCollection(db.Model):
     book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'), nullable=False)
     collection_address = db.Column(db.String(50), nullable=False)
     campus = db.Column(db.String(50), nullable=False)
-    statu = db.Column(db.Boolean, default=True, nullable=False) #True在藏 False借出
+    statu = db.Column(db.Boolean, default=True, nullable=False)  # True在藏 False借出
     lending_infos = db.relationship('LendingInfo', backref='book_collection', lazy=True)
 
     def __init__(self, book, collection_address, campus):
@@ -114,9 +114,9 @@ class User(db.Model):
     password_hash = db.Column(db.String(256), nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     name = db.Column(db.String(10), nullable=True)
-    sex = db.Column(db.Boolean, nullable=True) #True man False female
-    institution = db.Column(db.String(30), nullable=True)
-    level = db.Column(db.Integer, db.ForeignKey('level_t.level_id'), nullable=True)
+    sex = db.Column(db.Boolean, nullable=True)  # True man False female
+    insitution = db.Column(db.String(30), nullable=True)
+    level_id = db.Column(db.Integer, db.ForeignKey('level_t.level_id'), nullable=True)
     lended_nums = db.Column(db.Integer, nullable=True)
     lending_infos = db.relationship('LendingInfo', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
@@ -143,6 +143,8 @@ class User(db.Model):
                 self.role = db.session.query(Role).filter_by(name='Administrator').first()
             else:
                 self.role = db.session.query(Role).filter_by(default=True).first()
+        if self.level is None:
+            self.level = db.session.query(Level).filter_by(default=True).first()
 
     def __repr__(self):
         return '<User:{}({})>'.format(self.username, self.user_id)
@@ -157,7 +159,7 @@ class LendingInfo(db.Model):
     return_time = db.Column(db.DateTime, nullable=True)
     expected_return_time = db.Column(db.DateTime, nullable=False)
     returned = db.Column(db.Boolean, default=False, nullable=False)
-    timeout = db.Column(db.Boolean, default=False, nullable=False) # 是否超时
+    timeout = db.Column(db.Boolean, default=False, nullable=False)  # 是否超时
 
     def __init__(self, user, book_collection, expected_return_time):
         self.user_id = user
@@ -172,12 +174,31 @@ class Level(db.Model):
     __tablename__ = 'level_t'
     level_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), nullable=False)
+    can_lended_nums = db.Column(db.Integer, nullable=False)
+    default = db.Column(db.Boolean, nullable=False)
+    users = db.relationship('User', backref='level', lazy=True)
 
-    def __init__(self, name):
+    def __init__(self, name, can_lended_nums, default):
         self.name = name
+        self.can_lended_nums = can_lended_nums
+        self.default = default
 
     def __repr__(self):
         return '<Level:{}>'.format(self.name)
+
+    @staticmethod
+    def insert_levels():
+        level_dict = {
+            '本科生': (7, True),
+            '研究生': (10, False),
+            '博士生': (15, False),
+            '教师': (20, False)
+        }
+        for level_key in level_dict:
+            if Level.query.filter_by(name=level_key).first() is None:
+                level = Level(level_key, level_dict[level_key][0], level_dict[level_key][1])
+                db.session.add(level)
+        db.session.commit()
 
 
 class PublishHouse(db.Model):
