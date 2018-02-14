@@ -1,6 +1,6 @@
 from . import auth
 from .. import db
-from ..models import User
+from ..models import User, Level
 from flask import request, g, session, jsonify, url_for, abort
 
 
@@ -20,12 +20,16 @@ def login_api():
     password = request_json.get('password', None)
     if not (username_or_email and password):
         abort(403, '用户名或密码不能为空')
-    user = User.query.filter((User.username == username_or_email) | (User.email == username_or_email)).first()
+    user = User.query.filter((User.username == username_or_email)
+                             | (User.email == username_or_email)).first()
     if user and user.check_password(password):
         session['username'] = user.username
         session['id'] = user.user_id
         session['login'] = True
-        return jsonify({'login_statu': True, 'page': request.referrer or url_for('main.index')}), 200
+        return jsonify({
+            'login_statu': True,
+            'page': request.referrer or url_for('main.index')
+        }), 200
     else:
         return jsonify({'login_statu': False, 'error': '用户名或密码错误'}), 401
 
@@ -59,24 +63,48 @@ def register_api():
         session['username'] = new_user.username
         session['id'] = new_user.user_id
         session['login'] = True
-        return jsonify({'register_statu': True, 'page': request.referrer or url_for('main.index')}), 200
+        return jsonify({
+            'register_statu': True,
+            'page': request.referrer or url_for('main.index')
+        }), 200
 
 
 @auth.route('/isLogin', methods=['GET'])
 def isLogin():
     if session.get('login', None) == True:
         if session.get('username', None) and session.get('id', None):
-            return jsonify({'is_login': True,
-                            'username': session['username'],
-                            'id': session['id']}), 200
+            return jsonify({
+                'is_login': True,
+                'username': session['username'],
+                'id': session['id']
+            }), 200
         else:
             session.clear()  # session信息遭到破坏不完整，清除session信息
             return jsonify({'is_login': False}), 403
     else:
         return jsonify({'is_login': False}), 200
 
+
 @auth.route('/logout', methods=['GET'])
 def logout():
     session.clear()
     return jsonify({'page': request.referrer or url_for('main.index')}), 200
 
+
+@auth.route('/personalInfo', methods=['GET'])
+def personal_info():
+    user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
+    if user is None:
+        abort(404, '用户不存在')
+    level = db.session.query(Level).filter_by(level_id=user.user_id).first()
+    user_json = {
+        'username': user.username,
+        'email': user.email,
+        'name': user.name,
+        'sex': user.sex,
+        'insitution': user.insitution,
+        'level': level.name,
+        'can_lended_nums': level.can_lended_nums,
+        'lended_nums': user.lended_nums
+    }
+    return jsonify(user_json), 200

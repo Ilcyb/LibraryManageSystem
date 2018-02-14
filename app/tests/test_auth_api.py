@@ -4,7 +4,7 @@ import unittest
 from flask import current_app, session, url_for
 
 from .. import create_app, db
-from ..models import User, Role, Permission
+from ..models import User, Role, Permission, Level
 from ..utils.data_generator import MyDataGenerator
 
 
@@ -29,6 +29,7 @@ class TestAuthApi(unittest.TestCase):
         db.drop_all()
 
     def write_user_to_db(self, data_size=None, username=None, password=None, email=None):
+        Level.insert_levels()
         Role.insert_roles()
         mdg = MyDataGenerator()
 
@@ -132,3 +133,21 @@ class TestAuthApi(unittest.TestCase):
             c.get('/api/user/logout')
             response = c.get('/api/user/isLogin')
             assert '"is_login": false'.encode() in response.data
+
+    def test_personal_info(self):
+        self.write_user_to_db(username='testuser', password='testpwd', email='test@test.com')
+        with TestAuthApi.app.test_client() as c:
+            response = c.get('/api/user/personalInfo')
+            assert response.status_code == 404
+
+            c.post('/api/user/login',
+                            data=json.dumps({'username': 'testuser',
+                                            'password': 'testpwd'}),
+                            content_type='application/json')
+            response = c.get('/api/user/personalInfo')
+            info = json.loads(response.data.decode())
+            assert info.get('username', None) == 'testuser'
+
+            c.get('/api/user/logout')
+            response = c.get('/api/user/personalInfo')
+            assert response.status_code == 404
