@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 
 from . import book
 from .. import db
-from ..models import Author, Book, Classification, PublishHouse, book_author, BookCollection
+from ..models import Author, Book, Classification, PublishHouse, \
+                    book_author, BookCollection, LendingInfo, User
 from ..utils.bookSortEnum import bookSortEnum
 
 
@@ -517,3 +518,20 @@ def get_book_collections(book_id):
         })
     return_json['book_collections'] = collection_json
     return jsonify(return_json), 200
+
+@book.route('/lendinfo/<int:book_collection_id>', methods=['GET'])
+def get_lendinfo(book_collection_id):
+    lendinfos = db.session.query(LendingInfo).\
+    filter_by(book_collection_id=book_collection_id).\
+    order_by(LendingInfo.lend_time).limit(current_app.config['BOOK_LENDINFO_NUMS']).all()
+    returned_json = {'length': len(lendinfos)}
+    lendinfos_json = []
+    for i in range(len(lendinfos)):
+        lendinfos_json.append({
+            'user': db.session.query(User.name).filter_by(user_id=lendinfos[i].user_id).first(),
+            'lend_time': lendinfos[i].lend_time,
+            'expected_return_time': lendinfos[i].expected_return_time,
+            'returned': lendinfos[i].returned
+        })
+    returned_json['lendinfos'] = lendinfos_json
+    return jsonify(returned_json), 200
