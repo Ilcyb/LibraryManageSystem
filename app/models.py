@@ -93,6 +93,7 @@ class BookCollection(db.Model):
     __tablename__ = 'book_collection'
     book_collection_id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.book_id'), nullable=False)
+    book_name = db.Column(db.String(50), nullable=False)
     collection_address = db.Column(db.String(50), nullable=False)
     campus = db.Column(db.String(50), nullable=False)
     statu = db.Column(db.Boolean, default=True, nullable=False)  # True在藏 False借出
@@ -102,6 +103,7 @@ class BookCollection(db.Model):
         self.book_id = book
         self.collection_address = collection_address
         self.campus = campus
+        self.book_name = db.session.query(Book.name).filter_by(book_id=book_id).first()
 
     def __repr__(self):
         return '<BookCollection:{}({})>'.format(self.book, self.book_collection_id)
@@ -154,7 +156,8 @@ class LendingInfo(db.Model):
     __tablename__ = 'lending_info'
     lending_info_id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user_t.user_id'), nullable=False)
-    book_collection_id = db.Column(db.Integer, db.ForeignKey('book_collection.book_collection_id'), nullable=False)
+    book_collection_id = db.Column(db.Integer, db.ForeignKey('book_collection.book_collection_id'), 
+                                    nullable=False, index=True)
     lend_time = db.Column(db.DateTime, default=datetime.now, nullable=False)
     return_time = db.Column(db.DateTime, nullable=True)
     expected_return_time = db.Column(db.DateTime, nullable=False)

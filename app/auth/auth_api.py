@@ -1,7 +1,7 @@
 from . import auth
 from .. import db
-from ..models import User, Level
-from flask import request, g, session, jsonify, url_for, abort
+from ..models import User, Level, LendingInfo, Book, BookCollection
+from flask import request, g, session, jsonify, url_for, abort, current_app
 
 
 @auth.route('/login', methods=['POST'])
@@ -108,3 +108,30 @@ def personal_info():
         'lended_nums': user.lended_nums
     }
     return jsonify(user_json), 200
+
+
+@auth.route('/lending_history', methods=['GET'])
+def lending_history():
+    user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
+    if user is None:
+        abort(404, '用户不存在')
+    page = request.args.get('page', 1)
+    lending_infos = db.session.query(LendingInfo).filter_by(user_id=user.user_id)\
+                        .order_by(LendingInfo.lend_time)\
+                        .limit(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE'])\
+                        .offset((page - 1) * current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).all()
+    returned_json = {'length': len(lending_infos)}
+    lendinfo_list = []
+    for i in range(lending_infos):
+        lendinfo_json = {}
+        lendinfo_json['book_name'] = db.session.query(BookCollection.book_name)\
+                        .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()
+        lendinfo_json['lend_time'] = lending_infos[i].lend_time
+        lendinfo_json['returned'] = lending_infos[i].returned
+        if lendinfo_json['returned']:
+            lendinfo_json['return_time'] = lending_infos[i].return_time
+        else:
+            lendinfo_json['expected_return_time'] = lending_infos[i].expected_return_time
+        lendinfo_list.append(lendinfo_json)
+    returned_json['lend_info'] = lendinfo_list
+    return jsonify(returned_json), 200

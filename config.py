@@ -10,6 +10,7 @@ class Config:
     SQLALCHEMY_ECHO = False
     DEFAULT_SEARCH_RESULT_PER_PAGE = 10
     ADMIN_USERNAME = 'admin'
+    BOOK_LENDINFO_NUMS = 5
 
 
 class DevelopmentConfig(Config):
