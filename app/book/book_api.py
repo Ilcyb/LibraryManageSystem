@@ -489,6 +489,8 @@ def create_new_book_collection(book_id):
     :url /api/book/create_new_book_collection/:book_id 
     :method post
     :param book_id 要创建藏本的书籍的id
+    :param collection_address 馆藏地址
+    :param campus 校区
     :return {'created', 'book_id', 'book_collection':{'collection_address', 'campus'}}
     created 是否创建成功
     book_id 创建的藏本的图书的id
