@@ -1,11 +1,11 @@
-from flask import abort, current_app, jsonify, request
+from flask import abort, current_app, jsonify, request, session
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
 
 from . import book
 from .. import db
 from ..models import Author, Book, Classification, PublishHouse, \
-                    book_author, BookCollection, LendingInfo, User
+                    book_author, BookCollection, LendingInfo, User, Notice
 from ..utils.bookSortEnum import bookSortEnum
 
 
@@ -579,3 +579,9 @@ def get_lendinfo(book_collection_id):
         })
     returned_json['lendinfos'] = lendinfos_json
     return jsonify(returned_json), 200
+
+@book.route('/notice/<int:book_id>', methods=['GET'])
+def add_notice(book_id):
+    new_notice = Notice(session['id'], book_id)
+    db.session.add(new_notice)
+    db.session.commit()
