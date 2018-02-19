@@ -247,3 +247,17 @@ class Comment(db.Model):
 
     def __repr__(self):
         return '<Comment:({}:{})>'.format(self.user, self.book)
+
+
+class Notice(db.Model):
+    __tablename__ = 'notice'
+    user_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    book_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    is_noticed = db.Column(db.Boolean, nullable=False, default=False)
+
+    def __init__(self, user_id, book_id):
+        self.user_id = user_id
+        self.book_id = book_id
+
+    def __repr__(self):
+        return '<Notice:({}:{})>'.format(self.user_id, self.book_id)
