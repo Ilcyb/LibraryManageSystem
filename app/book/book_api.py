@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from . import book
 from .. import db
 from ..models import Author, Book, Classification, PublishHouse, \
-                    book_author, BookCollection, LendingInfo, User, Notice
+                    book_author, BookCollection, LendingInfo, User, Notice, Comment
 from ..utils.bookSortEnum import bookSortEnum
 
 
@@ -585,3 +585,18 @@ def add_notice(book_id):
     new_notice = Notice(session['id'], book_id)
     db.session.add(new_notice)
     db.session.commit()
+
+@book.route('/comments/<int:book_id>', methods=['GET'])
+def get_comments(book_id):
+    comments = db.session.query(Comment).filter_by(book_id=book_id).order_by(Comment.comment_time).all()
+    returned_json = {'length': len(comments)}
+    comment_infos = []
+    for i in len(comments):
+        comment_info = {}
+        comment_info['user_id'] = comments[i].user_id
+        comment_info['username'] = db.session.query(User.username).filter_by(user_id=comments[i].user_id).first() 
+        comment_info['content'] = comments[i].content
+        comment_info['comment_time'] = comments[i].comment_time
+        comment_infos.append(comment_info)
+    returned_json['comment_infos'] = comment_infos
+    return jsonify(returned_json), 200
