@@ -1,7 +1,8 @@
 from . import auth
 from .. import db
-from ..models import User, Level, LendingInfo, Book, BookCollection
+from ..models import User, Level, LendingInfo, Book, BookCollection, Comment
 from flask import request, g, session, jsonify, url_for, abort, current_app
+import datetime
 
 
 @auth.route('/login', methods=['POST'])
@@ -124,6 +125,7 @@ def lending_history():
     lendinfo_list = []
     for i in range(lending_infos):
         lendinfo_json = {}
+        lendinfo_json['lending_info_id'] = lending_infos[i].lending_info_id
         lendinfo_json['book_name'] = db.session.query(BookCollection.book_name)\
                         .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()
         lendinfo_json['lend_time'] = lending_infos[i].lend_time
@@ -134,4 +136,48 @@ def lending_history():
             lendinfo_json['expected_return_time'] = lending_infos[i].expected_return_time
         lendinfo_list.append(lendinfo_json)
     returned_json['lend_info'] = lendinfo_list
+    return jsonify(returned_json), 200
+
+
+@auth.route('/renew/<int:lending_info_id>', methods=['GET'])
+def renew_borrow(lending_info_id):
+    lending_info = db.session.query(LendingInfo).filter_by(lending_info_id=lending_info_id).first()
+    if lending_info == None:
+        return jsonify({'reason': '此借阅记录不存在，续借失败'}), 404
+    if lending_info.user_id != session['id']:
+        return jsonify({'reason': '此借阅记录不是当前用户的借阅记录，续借失败'}), 403
+    lending_info.expected_return_time += datetime.timedelta(days=current_app.config['DEFAULT_BOOK_BORROW_TIME'])
+    db.session.commit()
+    return '续借成功', 200
+
+
+@auth.route('/new_comment', methods=['POST'])
+def create_new_comment():
+    request_data = request.get_json()
+    book_id = request_data.get('book_id')
+    content = request_data.get('comment_content')
+    new_comment = Comment(session['id'], book_id, content)
+    db.session.add(new_comment)
+    return '评论成功', 200
+
+
+@auth.route('/comment_history', methods=['GET'])
+def get_history_comments():
+    user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
+    if user is None:
+        abort(404, '用户不存在')
+    page = request.args.get('page', 1)
+    comments = db.session.query(Comment).filter_by(user_id=user.user_id)\
+                        .order_by(Comment.comment_time)\
+                        .limit(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE'])\
+                        .offset((page - 1) * current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).all()
+    returned_json = {'length': len(comments)}
+    comments_list = []
+    for i in range(comments):
+        comment_json = {}
+        comment_json['book_id'] = comments[i].book_id
+        comment_json['content'] = comments[i].content
+        comment_json['comment_time'] = comments[i].comment_time
+        comments_list.append(comment_json)
+    returned_json['comments'] = comments_list
     return jsonify(returned_json), 200
