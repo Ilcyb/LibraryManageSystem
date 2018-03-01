@@ -14,11 +14,11 @@
     </div>
     <!-- form -->
     <form method="post">
-        <input type="text" name="username" placeholder="用户名"/><br>
-        <input type="email" name="email" placeholder="邮箱地址"/><br>
-        <input type="password" name="password" placeholder="密码"/><br>
-        <input type="password" name="once_password" placeholder="重复密码"/><br>
-        <button>注册</button>
+        <input type="text" id="username" name="username" placeholder="用户名"/><br>
+        <input type="email" id="email" name="email" placeholder="邮箱地址"/><br>
+        <input type="password" id="password" name="password" placeholder="密码"/><br>
+        <input type="password" id="once_password" name="once_password" placeholder="重复密码"/><br>
+        <button type="button" onclick="register_req()">注册</button>
     </form>
     <!-- footer -->
     <footer class="footer">
@@ -26,5 +26,6 @@
         <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
         <p>Mail:<a href="mailto:joe@example.com?subject=feedback" "email me">email me</a></p>
     </footer>
+    <script src="{{url_for('static', filename='js/register.js')}}"></script>
 </body>
 </html>

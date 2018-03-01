@@ -20,5 +20,18 @@ def re_create_db():
     db.create_all()
 
 
+@manager.command
+def deploy():
+    from app.models import Role, Level
+    from flask_migrate import upgrade
+
+    upgrade()
+
+    Role.insert_roles()
+
+    Level.insert_levels()
+
+
+
 if __name__ == '__main__':
     manager.run()

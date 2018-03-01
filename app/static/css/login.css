@@ -12,12 +12,16 @@ input {
     height: 40px;
     outline: none;
     text-indent: 8px;
-    font-size: 16px;
+    font-size: 14px;
     display: block;
     text-decoration: none;
     border: 1px solid #333;
     border-radius: 4px;
     cursor: pointer;
+}
+
+input.formInvalid::-webkit-input-placeholder {
+    color: red;
 }
 
 #psw {

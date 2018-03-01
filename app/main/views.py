@@ -13,3 +13,7 @@ def login():
 @main.route('/register')
 def register():
     return render_template('register.html')
+
+@main.route('/searchResult')
+def search_result():
+    return render_template('searchResult.html')

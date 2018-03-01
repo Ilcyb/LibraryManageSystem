@@ -19,6 +19,10 @@ input {
     position: absolute;
 }
 
+input.formInvalid::-webkit-input-placeholder {
+    color: red;
+}
+
 input:nth-of-type(2) {
     top: 18%;
 }
