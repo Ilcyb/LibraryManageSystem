@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登陆</title>
+    <title>登录</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
     <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}"/>
 </head>
@@ -16,7 +16,7 @@
     <form method="post" id="form1">
         <input type="text" id="txt" name="username" placeholder="用户名/邮箱"><br>
         <input type="password" id="psw" password="password" placeholder="密码"><br>
-        <button id="login">登录</button><br>
+        <button id="login" type="button" onclick="login_req()">登录</button><br>
         <span><a href="#">忘记密码</a></span><span class="register"><a href="{{url_for('main.register')}}">未注册？</a></span>
     </form>
     <!-- footer -->
