@@ -11,6 +11,7 @@ class Config:
     DEFAULT_SEARCH_RESULT_PER_PAGE = 10
     ADMIN_USERNAME = 'admin'
     BOOK_LENDINFO_NUMS = 5
+    DEFAULT_BOOK_BORROW_TIME = 30
 
 
 class DevelopmentConfig(Config):
