@@ -1,30 +1,36 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-body{
+
+body {
     background: #fff;
-    font-family:arial,verdana,sans-serif, '新宋体';
+    font-family: arial, verdana, sans-serif, '新宋体';
     width: 90%;
     margin: 0 auto;
 }
+
 /* ....header.... */
-.logo{
+
+.logo {
     width: 100%;
     height: 146px;
     border-bottom: 1px solid #eee;
 }
-.header{
+
+.header {
     width: 90%;
     height: 146px;
     margin: 0 auto;
     /*background: #f9f9f9;*/
 }
-.header .left{
+
+.header .left {
     width: 60%;
     height: 146px;
 }
-.header .left h2{
+
+.header .left h2 {
     font-size: 38px;
     font-weight: normal;
     letter-spacing: 4px;
@@ -32,21 +38,24 @@ body{
     padding-top: 5%;
     cursor: pointer;
 }
-.header .left p{
+
+.header .left p {
     font-size: 24px;
     letter-spacing: 1px;
     margin-left: 8%;
     padding-top: 1%;
     cursor: pointer;
 }
-.header .right{
+
+.header .right {
     width: 40%;
     height: 146px;
     margin: 0 auto;
     margin-right: 0px;
     margin-top: -13.2%;
 }
-.header .right a{
+
+.header .right a {
     display: inline-block;
     color: #000;
     letter-spacing: 2px;
@@ -55,19 +64,226 @@ body{
     padding-top: 22%;
     text-decoration: none;
 }
+
+.header .right a:nth-of-type(2) {
+    margin-left: 6%;
+}
+
 /*...content...*/
-.content{
+
+.content {
     width: 90%;
     height: 200px;
     border: 1px solid lightseagreen;
     border-radius: 4px;
     margin: 1% auto;
 }
-.caption{width: 300px;height: 100px;margin: 56px auto;}
-.text-center{text-align: center;}
-h1.text-center{font-weight: normal;font-size: 48px;}
-p.text-center{font-weight: normal;font-size: 21px;margin-top: 10px;}
+
+.content .nav {
+    width: 100%;
+    height: 54px;
+}
+
+.content .nav ul {
+    width: 98%;
+    height: 54px;
+    background: rgb(167, 191, 241);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 1% auto;
+}
+
+.content .nav ul li {
+    list-style: none;
+    width: 20%;
+    height: 45px;
+    float: left;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: 0.8%;
+    margin-left: 2%;
+    background: rgb(167, 191, 241);
+}
+
+.content .nav ul .active {
+    width: 20%;
+    height: 45px;
+    background: #fff url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li:nth-of-type(2) {
+    background: url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    line-height: 44px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: rgb(56, 27, 27);
+}
+
+.content .nav ul li:nth-of-type(1) a:hover {
+    color: #fff;
+    background: rgb(192, 109, 109) url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li:nth-of-type(2) a:hover {
+    color: #fff;
+    background: rgb(192, 109, 109) url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
+    background-size: 20px 20px;
+}
+
+.content .pane {
+    width: 98%;
+    height: 100px;
+    margin: 2% auto;
+    position: relative;
+}
+
+.content .pane form #inp {
+    width: 400px;
+    height: 40px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(167, 191, 241);
+    cursor: pointer;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    position: absolute;
+    top: 32%;
+    left: 18%;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-indent: 8px;
+}
+
+.content .pane form #sel {
+    width: 100px;
+    height: 42px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(167, 191, 241);
+    cursor: pointer;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    position: absolute;
+    top: 32%;
+    left: 55%;
+    font-size: 18px;
+    letter-spacing: 6px;
+    text-align: center;
+    text-indent: 8px;
+}
+
+.content .pane form #search {
+    width: 100px;
+    height: 42px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(167, 191, 241);
+    cursor: pointer;
+    border-radius: 2px;
+    position: absolute;
+    top: 32%;
+    left: 69%;
+    font-size: 18px;
+    letter-spacing: 8px;
+    text-align: center;
+}
+
+/* notice */
+
+.notice {
+    width: 90%;
+    height: 220px;
+    border: 1px solid lightseagreen;
+    border-radius: 4px;
+    margin: 1% auto;
+    position: relative;
+}
+
+.notice .notice_list h4 {
+    font-size: 24px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    font-weight: normal;
+    letter-spacing: 6%;
+}
+
+.notice .notice_list ul {
+    width: 98%;
+    height: 54px;
+    /* background: rgb(167, 191, 241); */
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin: 6.5% auto;
+}
+
+.notice .notice_list ul li {
+    width: 89%;
+    height: 25px;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.notice .notice_list ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(80, 65, 50);
+}
+
+.notice .notice_list ul li a:hover {
+    text-decoration: underline;
+    color: rgb(68, 59, 199);
+}
+
+/* login register */
+
+.caption {
+    width: 300px;
+    height: 100px;
+    margin: 56px auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+h1.text-center {
+    font-weight: normal;
+    font-size: 48px;
+}
+
+p.text-center {
+    font-weight: normal;
+    font-size: 21px;
+    margin-top: 10px;
+}
+
 /* ...footer... */
-footer.footer{text-align: center;margin-bottom: 30px;}
-footer.footer hr{width: 80%;margin: 1% auto;border-bottom:1px solid #000;}
-footer.footer p{padding: 1%;}
+
+footer.footer {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 30px;
+    margin: 2% auto;
+}
+
+footer.footer hr {
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid rgb(243, 237, 237);
+}
+
+footer.footer p {
+    padding: 0.6%;
+}
