@@ -1,0 +1,7 @@
+form{width: 22.5%;height:280px;margin: 0.6% auto;position: relative;}
+input{width: 100%;height: 14%;outline: none;text-indent: 8px;font-size: 16px;display: block;text-decoration: none;border:1px solid #333;border-radius: 4px;cursor: pointer;position: absolute;}
+input:nth-of-type(2){top: 18%;}
+input:nth-of-type(3){top: 36%;}
+input:nth-of-type(4){top: 54%;}
+button{width: 100%;height: 14%;background: rgb(51,122,183);outline: none;text-align: center;color: #fff;font-size:20px;border-radius: 4px;display: block;border:1px #eee;position: absolute;top: 72%;cursor: pointer;}
+button:hover{background: rgb(40,96,144);}

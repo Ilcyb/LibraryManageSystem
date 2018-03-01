@@ -1,0 +1,73 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #fff;
+    font-family:arial,verdana,sans-serif, '新宋体';
+    width: 90%;
+    margin: 0 auto;
+}
+/* ....header.... */
+.logo{
+    width: 100%;
+    height: 146px;
+    border-bottom: 1px solid #eee;
+}
+.header{
+    width: 90%;
+    height: 146px;
+    margin: 0 auto;
+    /*background: #f9f9f9;*/
+}
+.header .left{
+    width: 60%;
+    height: 146px;
+}
+.header .left h2{
+    font-size: 38px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    margin-left: 8%;
+    padding-top: 5%;
+    cursor: pointer;
+}
+.header .left p{
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-left: 8%;
+    padding-top: 1%;
+    cursor: pointer;
+}
+.header .right{
+    width: 40%;
+    height: 146px;
+    margin: 0 auto;
+    margin-right: 0px;
+    margin-top: -13.2%;
+}
+.header .right a{
+    display: inline-block;
+    color: #000;
+    letter-spacing: 2px;
+    font-size: 16px;
+    margin-left: 28%;
+    padding-top: 22%;
+    text-decoration: none;
+}
+/*...content...*/
+.content{
+    width: 90%;
+    height: 200px;
+    border: 1px solid lightseagreen;
+    border-radius: 4px;
+    margin: 1% auto;
+}
+.caption{width: 300px;height: 100px;margin: 56px auto;}
+.text-center{text-align: center;}
+h1.text-center{font-weight: normal;font-size: 48px;}
+p.text-center{font-weight: normal;font-size: 21px;margin-top: 10px;}
+/* ...footer... */
+footer.footer{text-align: center;margin-bottom: 30px;}
+footer.footer hr{width: 80%;margin: 1% auto;border-bottom:1px solid #000;}
+footer.footer p{padding: 1%;}

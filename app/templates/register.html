@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}"/>
+</head>
+<body>
+    <!-- caption -->
+    <div class="caption">
+        <h1 class="text-center">图书馆</h1>
+        <p class="text-center">与志同道合的人分享读书的快乐</p>
+    </div>
+    <!-- form -->
+    <form method="post">
+        <input type="text" name="username" placeholder="用户名"/><br>
+        <input type="email" name="email" placeholder="邮箱地址"/><br>
+        <input type="password" name="password" placeholder="密码"/><br>
+        <input type="password" name="once_password" placeholder="重复密码"/><br>
+        <button>注册</button>
+    </form>
+    <!-- footer -->
+    <footer class="footer">
+        <hr>
+        <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
+        <p>Mail:<a href="mailto:joe@example.com?subject=feedback" "email me">email me</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}"/>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}"/>
+</head>
+<body>
+    <!-- caption -->
+    <div class="caption">
+        <h1 class="text-center">图书馆</h1>
+        <p class="text-center">与志同道合的人分享读书的快乐</p>
+    </div>
+    <!-- form -->
+    <form method="post" id="form1">
+        <input type="text" id="txt" name="username" placeholder="用户名/邮箱"><br>
+        <input type="password" id="psw" password="password" placeholder="密码"><br>
+        <button id="login">登录</button><br>
+        <span><a href="#">忘记密码</a></span><span class="register"><a href="{{url_for('main.register')}}">未注册？</a></span>
+    </form>
+    <!-- footer -->
+    <footer class="footer">
+        <hr>
+        <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
+        <p>Mail:<a href="mailto:joe@example.com?subject=feedback" "email me">email me</a></p>
+    </footer>
+    <script src="{{url_for('static', filename='js/jq/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/login.js')}}"></script>
+</body>
+</html>
