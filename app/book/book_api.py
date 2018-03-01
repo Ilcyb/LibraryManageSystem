@@ -7,6 +7,7 @@ from .. import db
 from ..models import Author, Book, Classification, PublishHouse, \
                     book_author, BookCollection, LendingInfo, User, Notice, Comment
 from ..utils.bookSortEnum import bookSortEnum
+import datetime
 
 
 def fill_book_info_to_dict(book, book_dict):
@@ -600,3 +601,26 @@ def get_comments(book_id):
         comment_infos.append(comment_info)
     returned_json['comment_infos'] = comment_infos
     return jsonify(returned_json), 200
+
+@book.route('/borrow', methods=['POST'])
+def borrow_book():
+    request_data = request.get_json()
+    user_id = request_data.get('user_id')
+    book_collection_id = request_data.get('book_collection_id')
+    book_collection = db.session.query(BookCollection).filter_by(book_collection_id=book_collection_id).first()
+    if book_collection == None:
+        return jsonify({'reason': '该藏本不存在，借阅失败'}), 404
+    if book_collection.statu == False:
+        return jsonify({'reason': '该藏本已被借出，不可重复借阅'}), 403
+    user = db.session.query(User).filter_by(user_id=user_id).first()
+    if user == None:
+        return jsonify({'reason': '该用户不存在，借阅失败'}), 404
+    if user.lended_nums >= user.level.can_lended_nums:
+        return jsonify({'reason': '该用户可借阅书籍数量已达上限，借阅失败'}), 403
+    new_lend_info = LendingInfo(user_id, book_collection_id, 
+                datetime.datetime.now() + datetime.timedelta(days=current_app.config['DEFAULT_BOOK_BORROW_TIME']))
+    db.session.add(new_lend_info)
+    user.lending_infos.append(new_lend_info)
+    book_collection.lending_infos.append(new_lend_info)
+    db.session.commit()
+    return jsonify({'reason': '借阅成功'}), 200
