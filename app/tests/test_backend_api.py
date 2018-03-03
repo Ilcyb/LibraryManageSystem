@@ -140,7 +140,7 @@ class TestBackendApi(unittest.TestCase):
         assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
 
         response = self.app.get('/api/book/searchByBookName/测试?perpage=15')
-        assert '"length": 15'.encode() in response.data
+        assert '"length": 20'.encode() in response.data
 
         response = self.app.get('/api/book/searchByBookName/测试?perpage=10&page=2')
         assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
@@ -156,7 +156,7 @@ class TestBackendApi(unittest.TestCase):
         assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
 
         response = self.app.get('/api/book/searchByAuthor/测试?perpage=15')
-        assert '"length": 15'.encode() in response.data
+        assert '"length": 20'.encode() in response.data
 
         response = self.app.get('/api/book/searchByAuthor/测试?perpage=10&page=2')
         assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
@@ -172,7 +172,7 @@ class TestBackendApi(unittest.TestCase):
         assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
 
         response = self.app.get('/api/book/searchByPublishHouse/测试?perpage=6')
-        assert '"length": 6'.encode() in response.data
+        assert '"length": 30'.encode() in response.data
 
         response = self.app.get('/api/book/searchByPublishHouse/测试?perpage=7&page=3')
         assert '"id": 15'.encode() in response.data and '"id": 14'.encode() not in response.data
@@ -188,7 +188,7 @@ class TestBackendApi(unittest.TestCase):
         assert str(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).encode() in response.data
 
         response = self.app.get('/api/book/searchByTopic/测试?perpage=15')
-        assert '"length": 15'.encode() in response.data
+        assert '"length": 20'.encode() in response.data
 
         response = self.app.get('/api/book/searchByTopic/测试?perpage=10&page=2')
         assert '"id": 11'.encode() in response.data and '"id": 10'.encode() not in response.data
@@ -209,7 +209,7 @@ class TestBackendApi(unittest.TestCase):
         self.write_data_to_db(data_size=1, topic='测试主题')
 
         response = self.app.get('/api/book/searchAllField/测试书?perpage=2&page=4')
-        assert '"length": 2'.encode() in response.data \
+        assert '"length": 10'.encode() in response.data \
         and '"id": 8'.encode() in response.data \
         and '"id": 7'.encode() not in response.data
 
