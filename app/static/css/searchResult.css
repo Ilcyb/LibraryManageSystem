@@ -1,0 +1,329 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    font-family: arial, verdana, sans-serif, '新宋体';
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* ....header.... */
+
+.logo {
+    width: 100%;
+    height: 146px;
+    border-bottom: 1px solid #eee;
+}
+
+.header {
+    width: 90%;
+    height: 146px;
+    margin: 0 auto;
+    /*background: #f9f9f9;*/
+}
+
+.header .left {
+    width: 60%;
+    height: 146px;
+}
+
+.header .left h2 {
+    font-size: 38px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    margin-left: 8%;
+    padding-top: 5%;
+    cursor: pointer;
+}
+
+.header .left p {
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-left: 8%;
+    padding-top: 1%;
+    cursor: pointer;
+}
+
+.header .right {
+    width: 40%;
+    height: 146px;
+    margin: 0 auto;
+    margin-right: 0px;
+    margin-top: -13.2%;
+}
+
+.header .right a {
+    display: inline-block;
+    color: #000;
+    letter-spacing: 2px;
+    font-size: 16px;
+    margin-left: 28%;
+    padding-top: 22%;
+    text-decoration: none;
+}
+
+.header .right a:nth-of-type(2) {
+    margin-left: 6%;
+}
+
+/* content */
+.content_top{
+    width: 90%;
+    height: 130px;
+    border: 1px solid lightseagreen;
+    border-radius: 4px;
+    margin: 1% auto;
+}
+.content_top .top{
+    width: 80%;
+    height: 110px;
+    margin: 1% auto;
+}
+.content_top .top p{
+    width: 80%;
+    text-align: center;
+    font-size: 18px;
+    margin: 1% auto;
+    color: rgb(65, 75, 74);
+}
+.content_top .top #top{
+    width: 80%;
+    height: 70px;
+    margin: 1% auto;
+    position: relative;
+}
+.content_top .top #top #input_top{
+    cursor: text;
+    width: 40%;
+    height: 38px;
+    outline: none;
+    font-size: 18px;
+    position: absolute;
+    top: 22%;
+    left: 10%;
+    border: 1px solid rgb(167, 191, 241);
+    text-decoration: none;
+    letter-spacing: 4px;
+    text-indent: 8px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+}
+.content_top .top #top #sel_top{
+    width: 15%;
+    height: 40px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(167, 191, 241);
+    cursor: pointer;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    font-size: 18px;
+    letter-spacing: 6px;
+    text-align: center;
+    text-indent: 8px;
+}
+.content_top .top #top #search{
+    width: 12%;
+    height: 40px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(167, 191, 241);
+    cursor: pointer;
+    border-radius: 2px;
+    position: absolute;
+    top: 22%;
+    left: 70%;
+    font-size: 18px;
+    letter-spacing: 8px;
+    text-align: center;
+}
+
+/* banner */
+.banner{
+    border-bottom: 1px solid rgb(236, 230, 230);
+    border-bottom-width: 90%;
+    margin: 2% auto;
+}
+.banner .banner_list{
+    width: 90%;
+    height: 30px;
+    margin: 0% auto;
+}
+.banner .banner_list ul{
+    list-style-type: none;
+    margin-left: 40.1%;
+    margin-top: 1%;
+    font-size: 16px;
+}
+.banner .banner_list ul li{
+    list-style: none;
+    width: 24.6%;
+    height: 30px;
+    float: left;
+    text-align: center;
+    line-height: 30px;
+    cursor: text;
+    color: rgb(105, 104, 102);
+}
+.banner .banner_list ul li a{
+    text-decoration: none;
+    color: red;
+    cursor: text;
+    font-size: 14px;
+    line-height: 30px;
+}
+.banner .banner_list ul li #show_news{
+    width: 47%;
+    height: 24px;
+    font-size: 13px;
+    outline: none;
+    border: 1px solid rgb(202, 196, 196);
+}
+.banner .banner_list ul li #banner_sort{
+    width: 47%;
+    height: 24px;
+    font-size: 13px;
+    outline: none;
+    border: 1px solid rgb(202, 196, 196);
+}
+
+/* search_result */
+.search_result{
+    width: 100%;
+    background: rgb(238, 238, 243);
+}
+.search_result .search_result_list{
+    width: 90%;
+    background: #fff;
+    border-bottom: 1px solid rgb(202, 215, 241);
+    margin: 0% auto;
+    border: 8px solid rgb(238, 238, 243);
+    border-radius: 4px;
+    position: relative;
+}
+.search_result .search_result_list #search_total_list{
+    width: 100%;
+    margin: 0 auto;
+}
+.search_result .search_result_list #search_total_list .search_total_list_li{
+    width: 100%;
+    list-style: none;
+    text-decoration: none;
+    margin: 0 auto;
+    border-bottom: 1px solid blue;
+}
+.search_result .search_result_list #search_total_list li div{
+    width: 96%;
+    margin: 0% auto;
+}
+.search_result .search_result_list #search_total_list li ul{
+    list-style: none;
+    margin-bottom: 1%;
+}
+.search_result .search_result_list #search_total_list li ul li{
+    width: 100%;
+    font-size: 14px;
+    margin-top: 0.6%;
+}
+.search_result .search_result_list #search_total_list li ul .li_book_name a{
+    font-size: 20px;
+    color: red;
+    text-decoration: none;
+}
+.search_result .search_result_list #search_total_list li ul .li_book_name a:hover{
+    text-decoration: underline;
+}
+.search_result .search_result_list #search_total_list li ul .li_book_author{
+    color: rgb(98, 58, 245);
+    /* text-indent: 8%; */
+}
+.search_result .search_result_list #search_total_list li ul .li_book_show a{
+    color: rgb(65, 16, 240);
+    text-decoration: none;
+}
+.search_result .search_result_list #search_total_list li ul .li_book_show a:hover{
+    text-decoration: underline;
+    color: red;
+}
+.search_result .search_result_list #search_total_list li ul li table{
+    width: 100%;
+    border:1px solid rgb(247, 162, 35);
+    text-align: center;
+    color: rgb(97, 65, 17);
+    border-collapse: collapse;
+    /* display: none; */
+}
+.search_result .search_result_list #search_total_list li ul li table th{
+    background: rgb(248, 213, 180);
+    border:1px solid rgb(247, 162, 35);
+    height: 30px;
+}
+.search_result .search_result_list #search_total_list li ul li table tr{
+    background: rgb(248, 224, 228);
+    height: 30px;
+}
+.search_result .search_result_list #search_total_list li ul li table tr td{
+    border:1px solid rgb(247, 162, 35);
+}
+
+/* book_img */
+.search_result .search_result_list #search_total_list li .book_img{
+    width: 10%;
+    height: 150px;
+    /* border: 1px solid red; */
+    position: absolute;
+    top: 5%;
+    right: 2.3%;
+}
+
+/* page */
+.search_result .page{
+    width: 90%;
+    height: 40px;
+    background: rgb(239, 239, 245);
+    margin: 0 auto;
+    border: 1px solid rgb(207, 207, 240);
+}
+.search_result .page .page_list{
+    text-align: center;
+    margin: 0.6% auto;
+}
+.search_result .page a{
+    text-decoration: none;
+    border: 1px solid #f0ebd6;
+    padding: 8px 8px;
+    color: #5a5a56;
+    margin-top: 1%;
+    font-size: 18px;
+    background: rgb(245, 246, 247);
+}
+.search_result .page a:hover{
+    color: #fff;
+    background: rgb(90, 197, 90);
+}
+
+/* ...footer... */
+
+footer.footer {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 30px;
+    margin: 2% auto;
+}
+
+footer.footer hr {
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid rgb(243, 237, 237);
+}
+
+footer.footer p {
+    padding: 0.6%;
+}
