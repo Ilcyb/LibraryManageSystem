@@ -1,8 +1,9 @@
 from . import auth
 from .. import db
-from ..models import User, Level, LendingInfo, Book, BookCollection, Comment
+from ..models import User, Level, LendingInfo, Book, BookCollection, Comment, Announcement
 from flask import request, g, session, jsonify, url_for, abort, current_app
 import datetime
+from sqlalchemy import desc
 
 
 @auth.route('/login', methods=['POST'])
@@ -27,9 +28,13 @@ def login_api():
         session['username'] = user.username
         session['id'] = user.user_id
         session['login'] = True
+        # 避免跳转回登录页面
+        referrer = request.referrer
+        if referrer is not None and 'login' in referrer:
+            referrer = url_for('main.index')
         return jsonify({
             'login_statu': True,
-            'page': request.referrer or url_for('main.index')
+            'page': referrer or url_for('main.index')
         }), 200
     else:
         return jsonify({'login_statu': False, 'error': '用户名或密码错误'}), 401
@@ -64,9 +69,13 @@ def register_api():
         session['username'] = new_user.username
         session['id'] = new_user.user_id
         session['login'] = True
+        # 避免跳转回注册页面
+        referrer = request.referrer
+        if referrer is not None and 'register' in referrer:
+            referrer = url_for('main.index')
         return jsonify({
             'register_statu': True,
-            'page': request.referrer or url_for('main.index')
+            'page': referrer or url_for('main.index')
         }), 200
 
 
@@ -77,7 +86,8 @@ def isLogin():
             return jsonify({
                 'is_login': True,
                 'username': session['username'],
-                'id': session['id']
+                'url': url_for('main.my_library'),
+                'logout_url': url_for('auth.logout')
             }), 200
         else:
             session.clear()  # session信息遭到破坏不完整，清除session信息
@@ -123,7 +133,7 @@ def lending_history():
                         .offset((page - 1) * current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).all()
     returned_json = {'length': len(lending_infos)}
     lendinfo_list = []
-    for i in range(lending_infos):
+    for i in range(len(lending_infos)):
         lendinfo_json = {}
         lendinfo_json['lending_info_id'] = lending_infos[i].lending_info_id
         lendinfo_json['book_name'] = db.session.query(BookCollection.book_name)\
@@ -173,11 +183,41 @@ def get_history_comments():
                         .offset((page - 1) * current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).all()
     returned_json = {'length': len(comments)}
     comments_list = []
-    for i in range(comments):
+    for i in range(len(comments)):
         comment_json = {}
         comment_json['book_id'] = comments[i].book_id
         comment_json['content'] = comments[i].content
         comment_json['comment_time'] = comments[i].comment_time
         comments_list.append(comment_json)
     returned_json['comments'] = comments_list
+    return jsonify(returned_json), 200
+
+
+@auth.route('/addAnnouncement', methods=['POST'])
+def add_announcement():
+    try:
+        request_data = request.get_json()
+        title = request_data.get('title')
+        content = request_data.get('content')
+        new_announcement = Announcement(title, content)
+        db.session.add(new_announcement)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'created': False, 'error': '服务器错误，添加失败'}), 403
+    return jsonify({'created': True, 'announcement': 
+            {'title': new_announcement.title, 'content':new_announcement.content}}), 201
+
+
+@auth.route('/getAnnouncement', methods=['GET'])
+def get_announcement():
+    announcements = db.session.query(Announcement).order_by(desc(Announcement.time)).limit(5).all()
+    returned_json = {'length': len(announcements)}
+    announcements_list = []
+    for i in range(len(announcements)):
+        announcement_dcit = {}
+        announcement_dcit['title'] = announcements[i].title
+        announcement_dcit['url'] = url_for('main.get_announcement', ann_id=announcements[i].announcement_id)
+        announcements_list.append(announcement_dcit)
+    returned_json['announcements'] = announcements_list
     return jsonify(returned_json), 200

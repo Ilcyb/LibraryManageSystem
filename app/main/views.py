@@ -17,3 +17,12 @@ def register():
 @main.route('/searchResult')
 def search_result():
     return render_template('searchResult.html')
+
+@main.route('/myLibrary')
+def my_library():
+    return render_template('myLibrary.html')
+
+@main.route('/announcement/<int:ann_id>')
+def get_announcement(ann_id):
+    return render_template('announcement.html')
+
