@@ -153,7 +153,7 @@ body {
     outline: none;
     text-decoration: none;
     border: 1px solid rgb(167, 191, 241);
-    cursor: pointer;
+    cursor: text;
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
     position: absolute;

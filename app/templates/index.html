@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <title>图书馆图书借阅管理系统</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+    <script>
+        window.onload = function(){
+            isLogin();
+            getAnnouncements();
+        }
+    </script>
 </head>
 
 <body>
@@ -48,7 +54,7 @@
                         <option value="ISBN">ISBN</option>
                         <option value="主题">主题</option>
                     </select>
-                    <button type="submit" id="search">搜索</button>
+                    <button type="button" id="search" onclick="book_search()">搜索</button>
                 </form>
             </div>
 
@@ -60,21 +66,6 @@
         <div class="notice_list">
             <h4>公&nbsp;&nbsp;&nbsp;&nbsp;告</h4>
             <ul>
-                <li>
-                    <a href="">今天星期几？要做什么？</a>
-                </li>
-                <li>
-                    <a href="">今天星期几？要做什么？</a>
-                </li>
-                <li>
-                    <a href="">今天星期几？要做什么？3</a>
-                </li>
-                <li>
-                    <a href="">今天星期几？要做什么？</a>
-                </li>
-                <li>
-                    <a href="">今天星期几？要做什么？</a>
-                </li>
             </ul>
         </div>
     </div>
@@ -87,6 +78,7 @@
             <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
         </p>
     </footer>
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
 </body>
 
 </html>
