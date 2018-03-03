@@ -110,8 +110,9 @@ def get_books_by_name(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        books = Book.query.filter(Book.name.ilike('%' + name + '%')) \
-            .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
+        q = Book.query.filter(Book.name.ilike('%' + name + '%')) 
+        length = len(q.all())
+        books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
     except ValueError:
         abort(403)
@@ -125,7 +126,7 @@ def get_books_by_name(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = len(books)
+    returned_json['length'] = length
     returned_json['keyword'] = name
     return jsonify(returned_json), 200
 
@@ -155,10 +156,9 @@ def get_books_by_author(name):
         sort_field = request.args.get('sortfield', 'book_id')
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
-
-        books = Book.query.join(Author, Book.authors) \
-            .filter(Author.name.ilike('%' + name + '%')) \
-            .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
+        q = Book.query.join(Author, Book.authors).filter(Author.name.ilike('%' + name + '%'))  
+        length = len(q.all())
+        books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .all()[offset:offset + per_page]
     except ValueError:
         abort(403)
@@ -172,7 +172,7 @@ def get_books_by_author(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = len(books)
+    returned_json['length'] = length
     returned_json['keyword'] = name
     return jsonify(returned_json), 200
 
@@ -203,9 +203,9 @@ def get_books_by_publish_house(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        books = Book.query.join(PublishHouse, Book.publish_house) \
-            .filter(PublishHouse.name.ilike('%' + name + '%')) \
-            .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
+        q = Book.query.join(PublishHouse, Book.publish_house).filter(PublishHouse.name.ilike('%' + name + '%'))  
+        length = len(q.all())
+        books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
     except ValueError:
         abort(403)
@@ -219,13 +219,13 @@ def get_books_by_publish_house(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = len(books)
+    returned_json['length'] = length
     returned_json['keyword'] = name
     return jsonify(returned_json), 200
 
 
 @book.route('/searchByTopic/<string:name>', methods=['GET'])
-def get_boos_by_topic(name):
+def get_books_by_topic(name):
     """
     根据主题查找书籍
     :url /api/book/searchByTopic/:name
@@ -250,8 +250,9 @@ def get_boos_by_topic(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        books = Book.query.filter(Book.topic == name) \
-            .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
+        q = Book.query.filter(Book.topic == name) 
+        length = len(q.all())
+        books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
     except ValueError:
         abort(403)
@@ -265,7 +266,7 @@ def get_boos_by_topic(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = len(books)
+    returned_json['length'] = length
     returned_json['keyword'] = name
     return jsonify(returned_json), 200
 
@@ -296,13 +297,14 @@ def get_books_by_all_field(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        books = Book.query.join(Author, Book.authors).join(PublishHouse, Book.publish_house) \
+        q = Book.query.join(Author, Book.authors).join(PublishHouse, Book.publish_house) \
             .filter(or_(Book.name.ilike('%' + name + '%'),
                         Author.name.ilike('%' + name + '%'),
                         PublishHouse.name.ilike('%' + name + '%'),
                         Book.isbn == name,
-                        Book.topic == name)) \
-            .order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
+                        Book.topic == name))
+        length = len(q.all())
+        books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .all()[offset:offset+per_page]
     except ValueError:
         abort(403)
@@ -316,7 +318,7 @@ def get_books_by_all_field(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = len(books)
+    returned_json['length'] = length
     returned_json['keyword'] = name
     return jsonify(returned_json), 200
 
@@ -529,6 +531,7 @@ def get_book_collections(book_id):
     length 藏本的数量
     book_collections 藏本集合
     book_collection_id 藏本id
+    call_number 索书号
     collection_address 馆藏地址
     campus 校区
     statu 藏本状态
@@ -542,6 +545,7 @@ def get_book_collections(book_id):
     for i in range(len(book_collections)):
         collection_json.append({
             'book_collection_id': book_collections[i].book_collection_id,
+            'call_number': book.call_number,
             'collection_address': book_collections[i].collection_address,
             'campus': book_collections[i].campus,
             'statu': book_collections[i].statu

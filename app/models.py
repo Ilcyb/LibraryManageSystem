@@ -261,3 +261,18 @@ class Notice(db.Model):
 
     def __repr__(self):
         return '<Notice:({}:{})>'.format(self.user_id, self.book_id)
+
+
+class Announcement(db.Model):
+    __tablename__ = 'announcement'
+    announcement_id = db.Column(db.Integer, nullable=False, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    time = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    def __init__(self, title, content):
+        self.title = title
+        self.content = content
+
+    def __repr__(self):
+        return '<Announcement:{}>'.format(self.announcement_id)

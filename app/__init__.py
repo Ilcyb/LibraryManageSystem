@@ -20,6 +20,9 @@ def create_app(config_name):
     from .book import book
     app.register_blueprint(book, url_prefix='/api/book')
 
+    from .admin import admin
+    app.register_blueprint(admin, url_prefix='/admin')
+
     if config_name == 'testing':
         return app, db
 
