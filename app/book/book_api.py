@@ -1,6 +1,7 @@
 from flask import abort, current_app, jsonify, request, session
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql import text
 
 from . import book
 from .. import db
@@ -507,10 +508,9 @@ def create_new_book_collection(book_id):
     request_json = request.get_json()    
     collection_address = request_json.get('collection_address', None)
     campus = request_json.get('campus', None)
-    new_book_collection = BookCollection(book_id, collection_address, campus)
-    db.session.add(new_book_collection)
-    book.book_collections.add(new_book_collection)
-    db.session.commit()
+    sql_text = 'insert into book_collection(book_id,collection_address,campus,statu,book_name)' \
+               ' values(:b_id, :ca, :cp, :sta, :bn)'
+    db.engine.execute(text(sql_text), b_id=book_id, ca=collection_address, cp=campus, sta=1, bn=book.name)
     return jsonify({'created': True,
                     'book_id': book.book_id,
                     'book_collection': {

@@ -96,14 +96,15 @@ class BookCollection(db.Model):
     book_name = db.Column(db.String(50), nullable=False)
     collection_address = db.Column(db.String(50), nullable=False)
     campus = db.Column(db.String(50), nullable=False)
-    statu = db.Column(db.Boolean, default=True, nullable=False)  # True在藏 False借出
+    statu = db.Column(db.Boolean, nullable=False)  # True在藏 False借出
     lending_infos = db.relationship('LendingInfo', backref='book_collection', lazy=True)
 
-    def __init__(self, book, collection_address, campus):
+    def __init__(self, book, book_name, collection_address, campus):
         self.book_id = book
         self.collection_address = collection_address
         self.campus = campus
-        self.book_name = db.session.query(Book.name).filter_by(book_id=book_id).first()
+        self.book_name = book_name
+        self.statu = True
 
     def __repr__(self):
         return '<BookCollection:{}({})>'.format(self.book, self.book_collection_id)
