@@ -1,0 +1,190 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100%;
+    background: black;
+}
+/* header */
+.header{
+    width: 90%;
+    height: 80px;
+    background: #5dcec6;
+    margin: 0 auto;
+}
+.header .header_left{
+    width: 50%;
+    height: 80px;
+    background: url("/static/images/BookImages/icon_book.png")no-repeat 4% center;
+    background-size: 40px 50px;
+    float: left;
+    position: relative;
+}
+.header .header_left h2{
+    width: 60%;
+    height: 30px;
+    font-size: 24px;
+    color: #fff;
+    margin: 3% 12%;
+    line-height: 30px;
+    color: #64686a;
+}
+.header .header_left span{
+    width: 60%;
+    height: 20px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    color: #64686a;
+    line-height: 20px;
+    position: absolute;
+    left: 18%;
+    top: 61%;
+}
+.header .header_right{
+    width: 50%;
+    height: 80px;
+    background: url("/static/images/icons/user_icon.png")no-repeat 66% center;
+    background-size: 18px 18px;
+    float: left;
+    position: relative;
+}
+.header .header_right span{
+    font-size: 13px;
+    color: #64686a;
+    width: 50%;
+    height: 20px;
+    position: absolute;
+    top: 40%;
+    left: 70%;
+}
+.header .header_right span a{
+    text-decoration: none;
+}
+/* content */
+.content{
+    width: 90%;
+    height: 580px;
+    background: #ecf0f3;
+    margin: 0 auto;
+    position: relative;
+}
+/* content nav */
+.content .nav_left{
+    width: 15%;
+    height: 550px;
+    background: #2d3e4f;
+    position: absolute;
+    top: 4%;
+    border-top-right-radius: 8px;
+}
+.content .nav_left nav{
+    width: 100%;
+    height: 400px;
+    border-radius: 8px;
+}
+.content .nav_left nav ul{
+    list-style: none;
+    width: 100%;
+    height: 400px;
+}
+.content .nav_left nav ul li{
+    width: 100%;
+    height: 58px;
+    border-bottom: 1px solid #435362;
+    line-height: 58px;
+    color: #afb4b9;
+    font-size: 16px;
+    text-decoration: none;
+    text-indent: 30%;
+}
+.content .nav_left nav ul li:nth-of-type(1){
+    background:  url("/static/images/icons/list_icon1.png") no-repeat 12% center;
+    background-size: 20px 20px;
+}
+.content .nav_left nav ul li a{
+    width: 100%;
+    height: 58px;
+    line-height: 58px;
+    color: #afb4b9;
+    font-size: 16px;
+    text-decoration: none;
+    text-indent: 30%;
+}
+.content .nav_left nav ul li:hover{
+    background: #425261;
+}
+
+/* content_right */
+.content .content_right{
+    width: 80%;
+    height: 550px;
+    background: #fff;
+    position: absolute;
+    top: 4%;
+    left: 17%;
+    border-radius: 8px;
+}
+.content .content_right .book_add{
+    width: 92%;
+    height: 530px;
+    margin: 2% auto;
+}
+.content .content_right .book_add p{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(240, 235, 235);
+    text-align: center;
+    margin: 1% auto;
+    letter-spacing: 6px;
+    color: #7c7d7d;
+}
+.content .content_right .book_add form{
+    width: 90%;
+    height: 480px;
+    margin: 0 auto;
+    font-size: 15px;
+    color: #7c7d7d;
+}
+.content .content_right .book_add form input{
+    width: 200px;
+    height: 20px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(163, 203, 241);
+    border-radius: 2px;
+    text-indent: 4px;
+}
+.content .content_right .book_add form span{
+    width: 25px;
+    height: 25px;
+    color: rgb(66, 231, 204);
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 24px;
+}
+.content .content_right .book_add form select{
+    width: 100px;
+    height: 25px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(163, 203, 241);
+    border-radius: 4px;
+    margin-left: -0.9%;
+    text-indent: 4px;
+    color: #7c7d7d;
+}
+.content .content_right .book_add form #save_form,#cancel_form{
+    width: 70px;
+    height: 30px;
+    font-size: 16px;
+    margin-left: 8%;
+}
+#cancel_form:hover,#save_form:hover{
+    font-size: 18px;
+    background: rgb(66, 231, 204);
+    color: rgb(240, 235, 235);
+}

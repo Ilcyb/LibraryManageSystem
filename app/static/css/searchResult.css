@@ -70,37 +70,57 @@ body {
 }
 
 /* content */
+<<<<<<< HEAD
 
 .content_top {
+=======
+.content_top{
+>>>>>>> ym/master
     width: 90%;
     height: 130px;
     border: 1px solid lightseagreen;
     border-radius: 4px;
     margin: 1% auto;
 }
+<<<<<<< HEAD
 
 .content_top .top {
+=======
+.content_top .top{
+>>>>>>> ym/master
     width: 80%;
     height: 110px;
     margin: 1% auto;
 }
+<<<<<<< HEAD
 
 .content_top .top p {
+=======
+.content_top .top p{
+>>>>>>> ym/master
     width: 80%;
     text-align: center;
     font-size: 18px;
     margin: 1% auto;
     color: rgb(65, 75, 74);
 }
+<<<<<<< HEAD
 
 .content_top .top #top {
+=======
+.content_top .top #top{
+>>>>>>> ym/master
     width: 80%;
     height: 70px;
     margin: 1% auto;
     position: relative;
 }
+<<<<<<< HEAD
 
 .content_top .top #top #input_top {
+=======
+.content_top .top #top #input_top{
+>>>>>>> ym/master
     cursor: text;
     width: 40%;
     height: 38px;
@@ -116,8 +136,12 @@ body {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
 }
+<<<<<<< HEAD
 
 .content_top .top #top #sel_top {
+=======
+.content_top .top #top #sel_top{
+>>>>>>> ym/master
     width: 15%;
     height: 40px;
     outline: none;
@@ -134,8 +158,12 @@ body {
     text-align: center;
     text-indent: 8px;
 }
+<<<<<<< HEAD
 
 .content_top .top #top #search {
+=======
+.content_top .top #top #search{
+>>>>>>> ym/master
     width: 12%;
     height: 40px;
     outline: none;
@@ -152,27 +180,23 @@ body {
 }
 
 /* banner */
-
-.banner {
+.banner{
     border-bottom: 1px solid rgb(236, 230, 230);
     border-bottom-width: 90%;
     margin: 2% auto;
 }
-
-.banner .banner_list {
+.banner .banner_list{
     width: 90%;
     height: 30px;
     margin: 0% auto;
 }
-
-.banner .banner_list ul {
+.banner .banner_list ul{
     list-style-type: none;
     margin-left: 40.1%;
     margin-top: 1%;
     font-size: 16px;
 }
-
-.banner .banner_list ul li {
+.banner .banner_list ul li{
     list-style: none;
     width: 24.6%;
     height: 30px;
@@ -182,24 +206,21 @@ body {
     cursor: text;
     color: rgb(105, 104, 102);
 }
-
-.banner .banner_list ul li a {
+.banner .banner_list ul li a{
     text-decoration: none;
     color: red;
     cursor: text;
     font-size: 14px;
     line-height: 30px;
 }
-
-.banner .banner_list ul li #show_news {
+.banner .banner_list ul li #show_news{
     width: 47%;
     height: 24px;
     font-size: 13px;
     outline: none;
     border: 1px solid rgb(202, 196, 196);
 }
-
-.banner .banner_list ul li #banner_sort {
+.banner .banner_list ul li #banner_sort{
     width: 47%;
     height: 24px;
     font-size: 13px;
@@ -208,13 +229,11 @@ body {
 }
 
 /* search_result */
-
-.search_result {
+.search_result{
     width: 100%;
     background: rgb(238, 238, 243);
 }
-
-.search_result .search_result_list {
+.search_result .search_result_list{
     width: 90%;
     background: #fff;
     border-bottom: 1px solid rgb(202, 215, 241);
@@ -223,64 +242,53 @@ body {
     border-radius: 4px;
     position: relative;
 }
-
-.search_result .search_result_list #search_total_list {
+.search_result .search_result_list #search_total_list{
     width: 100%;
     margin: 0 auto;
 }
-
-.search_result .search_result_list #search_total_list .search_total_list_li {
+.search_result .search_result_list #search_total_list .search_total_list_li{
     width: 100%;
     list-style: none;
     text-decoration: none;
     margin: 0 auto;
     border-bottom: 1px solid blue;
 }
-
-.search_result .search_result_list #search_total_list li div {
+.search_result .search_result_list #search_total_list li div{
     width: 96%;
     margin: 0% auto;
 }
-
-.search_result .search_result_list #search_total_list li ul {
+.search_result .search_result_list #search_total_list li ul{
     list-style: none;
     margin-bottom: 1%;
 }
-
-.search_result .search_result_list #search_total_list li ul li {
+.search_result .search_result_list #search_total_list li ul li{
     width: 100%;
     font-size: 14px;
     margin-top: 0.6%;
 }
-
-.search_result .search_result_list #search_total_list li ul .li_book_name a {
+.search_result .search_result_list #search_total_list li ul .li_book_name a{
     font-size: 20px;
     color: red;
     text-decoration: none;
 }
-
-.search_result .search_result_list #search_total_list li ul .li_book_name a:hover {
+.search_result .search_result_list #search_total_list li ul .li_book_name a:hover{
     text-decoration: underline;
 }
-
-.search_result .search_result_list #search_total_list li ul .li_book_author {
+.search_result .search_result_list #search_total_list li ul .li_book_author{
     color: rgb(98, 58, 245);
     /* text-indent: 8%; */
 }
-
-.search_result .search_result_list #search_total_list li ul .li_book_show a {
+.search_result .search_result_list #search_total_list li ul .li_book_show a{
     color: rgb(65, 16, 240);
     text-decoration: none;
 }
-
-.search_result .search_result_list #search_total_list li ul .li_book_show a:hover {
+.search_result .search_result_list #search_total_list li ul .li_book_show a:hover{
     text-decoration: underline;
     color: red;
 }
-
-.search_result .search_result_list #search_total_list li ul li table {
+.search_result .search_result_list #search_total_list li ul li table{
     width: 100%;
-    border: 1px solid rgb(247, 162, 35);
+    border:1px solid rgb(247, 162, 35);
     text-align: center;
     color: rgb(97, 65, 17);
     border-collapse: collapse;
@@ -327,13 +335,11 @@ body {
     margin: 0 auto;
     border: 1px solid rgb(207, 207, 240);
 }
-
-.search_result .page .page_list {
+.search_result .page .page_list{
     text-align: center;
     margin: 0.6% auto;
 }
-
-.search_result .page a {
+.search_result .page a{
     text-decoration: none;
     border: 1px solid #f0ebd6;
     padding: 8px 8px;
@@ -342,8 +348,7 @@ body {
     font-size: 18px;
     background: rgb(245, 246, 247);
 }
-
-.search_result .page a:hover {
+.search_result .page a:hover{
     color: #fff;
     background: rgb(90, 197, 90);
 }
