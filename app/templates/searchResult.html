@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书检索结果</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/searchResult.css')}}">
+    <script>
+        window.onload = function(){
+            isLogin();
+            search_req();
+        }
+    </script>
+</head>
+
+<body>
+    <!--header-->
+    <div class="logo">
+        <div class="header">
+
+            <div class="left">
+                <h2>图书馆图书借阅管理系统</h2>
+                <p>与志同道合的人分享读书的快乐</p>
+            </div>
+
+            <div class="right">
+                <a href="{{url_for('main.login')}}">[ 登录 ]</a>
+                <a href="{{url_for('main.register')}}">[ 注册 ]</a>
+            </div>
+
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content_top">
+        <div class="top">
+            <p>检&nbsp;&nbsp;&nbsp;&nbsp;索</p>
+            <form action="" method="POST" target="_blank" id="top">
+                <input type="text" id="input_top">
+                <select name="全面" id="sel_top">
+                    <option value="全面">全字段</option>
+                    <option value="书名">书名</option>
+                    <option value="作者">作者</option>
+                    <option value="出版社">出版社</option>
+                    <option value="ISBN">ISBN</option>
+                    <option value="主题">主题</option>
+                </select>
+                <button type="button" id="search" onclick="book_search()">搜索</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- banner -->
+    <div class="banner">
+        <div class="banner_list">
+            <ul>
+                <li>搜索
+                    <a href="" id="a_search_keyword">&nbsp;&nbsp;&nbsp;&nbsp;</a>的资源</li>
+                <li>共有
+                    <a href="" id="a_search_length">&nbsp;&nbsp;&nbsp;&nbsp;</a>结果</li>
+                <li>每页显示：
+                    <select name="show_news" id="show_news" onchange="change_perpage()">
+                        <option value="10">显示条数</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </li>
+                <li>排序方式：
+                    <select name="banner_sort" id="banner_sort" onchange="change_sortfield()">
+                        <option value="book_id">默认排序</option>
+                        <option value="name">书籍名</option>
+                        <option value="publish_date">出版时间</option>
+                        <option value="classification">分类</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- search_result -->
+    <div class="search_result">
+        <div class="search_result_list">
+            <ul id="search_total_list">
+                <!-- 检索结果列表 -->
+                <!-- <li class="search_total_list_li"> -->
+                    <!-- book_img -->
+                    <!-- <div class="book_img">
+                        <img src="" alt="">
+                    </div> -->
+                    <!-- book_news -->
+                    <!-- <div class="result_list_banner">
+                        <ul id="result_list_small">
+                            <li class="li_book_name"><a href="">AJAX</a></li>
+                            <li class="li_book_author">___BY SOPHOCLES</li>
+                            <li class="li_book_num">索书号： TP393.09/22</li>
+                            <li class="li_book_isbn">标准编码：7-115-14717-5</li>
+                            <li class="li_book_publish">出版信息：人民邮电出版社 2006.4 北京</li>
+                            <li class="collects_num">馆藏数量：1</li>
+                            <li class="borrow_num">可外借数量：1</li>
+                            <li class="li_book_show">
+                                <a id="a_show" href="">馆藏预览</a>
+                                <table class="collects_show">
+                                    <tr>
+                                        <th>索书号</th>
+                                        <th>所属校区</th>
+                                        <th>馆藏地址</th>
+                                        <th>书刊状态</th>
+                                    </tr>
+                                    <tr>
+                                        <td>TP393.09/22</td>
+                                        <td>云南农业大学</td>
+                                        <td>A馆</td>
+                                        <td>在架</td>
+                                    </tr>
+                                    <tr>
+                                        <td>TP393.09/22</td>
+                                        <td>云南农业大学</td>
+                                        <td>B馆</td>
+                                        <td>在架</td>
+                                    </tr>
+                                </table>
+                            </li>
+                        </ul>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <div class="page">
+            <div class="page_list">
+                <a href="">首页</a>
+                <a href="">上一页</a>
+                <a href="">下一页</a>
+                <a href="">尾页</a>
+            </div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="footer">
+        <hr>
+        <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
+        <p>Mail:
+            <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
+        </p>
+    </footer>
+    <script src="{{url_for('static', filename='js/searchResult.js')}}"></script>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 from . import main
+from ..models import Book
 from flask import render_template
 
 
@@ -26,3 +27,12 @@ def my_library():
 def get_announcement(ann_id):
     return render_template('announcement.html')
 
+@main.route('/book/<int:book_id>')
+def get_book(book_id):
+    Book.query.filter_by(book_id=book_id).first_or_404()
+    return render_template('detailBook.html')
+
+@main.route('/book/isbn/<string:isbn>')
+def get_book_by_isbn(isbn):
+    Book.query.filter_by(isbn=isbn).first_or_404()
+    return render_template('detailBook.html')
