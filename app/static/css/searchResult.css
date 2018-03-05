@@ -274,12 +274,11 @@ body {
 
 /* book_img */
 .search_result .search_result_list #search_total_list li .book_img{
-    width: 10%;
-    height: 150px;
-    /* border: 1px solid red; */
-    position: absolute;
-    top: 5%;
-    right: 2.3%;
+    width: 8%;
+    height: 100px;
+    float: right;
+    padding: 20px 20px;
+    margin: 24px 24px;
 }
 
 /* page */
