@@ -1,4 +1,4 @@
-from flask import abort, current_app, jsonify, request, session
+from flask import abort, current_app, jsonify, request, session, url_for
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
@@ -6,7 +6,7 @@ from sqlalchemy.sql import text
 from . import book
 from .. import db
 from ..models import Author, Book, Classification, PublishHouse, \
-                    book_author, BookCollection, LendingInfo, User, Notice, Comment
+    book_author, BookCollection, LendingInfo, User, Notice, Comment
 from ..utils.bookSortEnum import bookSortEnum
 import datetime
 
@@ -111,7 +111,7 @@ def get_books_by_name(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        q = Book.query.filter(Book.name.ilike('%' + name + '%')) 
+        q = Book.query.filter(Book.name.ilike('%' + name + '%'))
         length = len(q.all())
         books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
@@ -157,10 +157,10 @@ def get_books_by_author(name):
         sort_field = request.args.get('sortfield', 'book_id')
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
-        q = Book.query.join(Author, Book.authors).filter(Author.name.ilike('%' + name + '%'))  
+        q = Book.query.join(Author, Book.authors).filter(Author.name.ilike('%' + name + '%'))
         length = len(q.all())
         books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
-            .all()[offset:offset + per_page]
+                    .all()[offset:offset + per_page]
     except ValueError:
         abort(403)
     except Exception as e:
@@ -204,7 +204,7 @@ def get_books_by_publish_house(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        q = Book.query.join(PublishHouse, Book.publish_house).filter(PublishHouse.name.ilike('%' + name + '%'))  
+        q = Book.query.join(PublishHouse, Book.publish_house).filter(PublishHouse.name.ilike('%' + name + '%'))
         length = len(q.all())
         books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
@@ -251,7 +251,7 @@ def get_books_by_topic(name):
         # 排序是否倒序
         isdesc = request.args.get('isdesc', False)
 
-        q = Book.query.filter(Book.topic == name) 
+        q = Book.query.filter(Book.topic == name)
         length = len(q.all())
         books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
             .limit(per_page).offset(offset).all()
@@ -306,7 +306,7 @@ def get_books_by_all_field(name):
                         Book.topic == name))
         length = len(q.all())
         books = q.order_by(bookSortEnum[sort_field] if not isdesc else desc(bookSortEnum[sort_field])) \
-            .all()[offset:offset+per_page]
+                    .all()[offset:offset + per_page]
     except ValueError:
         abort(403)
     except Exception as e:
@@ -341,19 +341,20 @@ def create_new_book():
     :param call_number 索书号
     :param image 图书图片地址(可选)
     :return json {'created':True,
-                  'created_book':{书籍常规格式}} 创建成功
+                  'created_book':{书籍常规格式},
+                  'url': 跳转页面} 创建成功
     :return json {'created':False,'reason':reason} 创建失败，reason为失败原因
     """
-    request_json = request.get_json()
-    isbn = request_json.get('isbn')
-    language = request_json.get('language')
-    name = request_json.get('name')
-    authors = request_json.get('authors')
-    topic = request_json.get('topic')
-    publish_house_name = request_json.get('publish_house')
-    classification_name = request_json.get('classification')
-    publish_date = request_json.get('publish_date')
-    call_number = request_json.get('call_number')
+    request_json = request.get_json() or {}
+    isbn = request_json.get('isbn', None)
+    language = request_json.get('language', None)
+    name = request_json.get('name', None)
+    authors = request_json.get('authors', None)
+    topic = request_json.get('topic', None)
+    publish_house_name = request_json.get('publish_house', None)
+    classification_name = request_json.get('classification', None)
+    publish_date = request_json.get('publish_date', None)
+    call_number = request_json.get('call_number', None)
     image = request_json.get('image', None)
 
     if not (isbn and language and name and authors and topic and publish_house_name and \
@@ -426,7 +427,7 @@ def create_new_book():
     finally:
         session.close()
 
-    return jsonify({'created': True, 'created_book': returned_book}), 201
+    return jsonify({'created': True, 'created_book': returned_book, 'url': url_for('admin.manage_book')}), 201
 
 
 @book.route('/classification', methods=['POST'])
@@ -486,6 +487,7 @@ def create_new_classification():
 
     return jsonify(returned_dict), 200
 
+
 @book.route('/create_new_book_collection/<int:book_id>', methods=['POST'])
 def create_new_book_collection(book_id):
     """
@@ -505,7 +507,7 @@ def create_new_book_collection(book_id):
     book = db.session.query(Book).filter_by(book_id=book_id).first()
     if book == None:
         return jsonify({'created': False}), 404
-    request_json = request.get_json()    
+    request_json = request.get_json()
     collection_address = request_json.get('collection_address', None)
     campus = request_json.get('campus', None)
     sql_text = 'insert into book_collection(book_id,collection_address,campus,statu,book_name)' \
@@ -517,7 +519,8 @@ def create_new_book_collection(book_id):
                         'collection_address': collection_address,
                         'campus': campus
                     }})
-                    
+
+
 @book.route('/book_collections/<int:book_id>', methods=['GET'])
 def get_book_collections(book_id):
     """
@@ -553,6 +556,7 @@ def get_book_collections(book_id):
     return_json['book_collections'] = collection_json
     return jsonify(return_json), 200
 
+
 @book.route('/lendinfo/<int:book_collection_id>', methods=['GET'])
 def get_lendinfo(book_collection_id):
     """
@@ -570,9 +574,9 @@ def get_lendinfo(book_collection_id):
     expected_return_time 预计归还时间
     returned 是否归还
     """
-    lendinfos = db.session.query(LendingInfo).\
-    filter_by(book_collection_id=book_collection_id).\
-    order_by(LendingInfo.lend_time).limit(current_app.config['BOOK_LENDINFO_NUMS']).all()
+    lendinfos = db.session.query(LendingInfo). \
+        filter_by(book_collection_id=book_collection_id). \
+        order_by(LendingInfo.lend_time).limit(current_app.config['BOOK_LENDINFO_NUMS']).all()
     returned_json = {'length': len(lendinfos)}
     lendinfos_json = []
     for i in range(len(lendinfos)):
@@ -585,11 +589,13 @@ def get_lendinfo(book_collection_id):
     returned_json['lendinfos'] = lendinfos_json
     return jsonify(returned_json), 200
 
+
 @book.route('/notice/<int:book_id>', methods=['GET'])
 def add_notice(book_id):
     new_notice = Notice(session['id'], book_id)
     db.session.add(new_notice)
     db.session.commit()
+
 
 @book.route('/comments/<int:book_id>', methods=['GET'])
 def get_comments(book_id):
@@ -599,12 +605,13 @@ def get_comments(book_id):
     for i in len(comments):
         comment_info = {}
         comment_info['user_id'] = comments[i].user_id
-        comment_info['username'] = db.session.query(User.username).filter_by(user_id=comments[i].user_id).first() 
+        comment_info['username'] = db.session.query(User.username).filter_by(user_id=comments[i].user_id).first()
         comment_info['content'] = comments[i].content
         comment_info['comment_time'] = comments[i].comment_time
         comment_infos.append(comment_info)
     returned_json['comment_infos'] = comment_infos
     return jsonify(returned_json), 200
+
 
 @book.route('/borrow', methods=['POST'])
 def borrow_book():
@@ -621,10 +628,39 @@ def borrow_book():
         return jsonify({'reason': '该用户不存在，借阅失败'}), 404
     if user.lended_nums >= user.level.can_lended_nums:
         return jsonify({'reason': '该用户可借阅书籍数量已达上限，借阅失败'}), 403
-    new_lend_info = LendingInfo(user_id, book_collection_id, 
-                datetime.datetime.now() + datetime.timedelta(days=current_app.config['DEFAULT_BOOK_BORROW_TIME']))
+    new_lend_info = LendingInfo(user_id, book_collection_id,
+                                datetime.datetime.now() + datetime.timedelta(
+                                    days=current_app.config['DEFAULT_BOOK_BORROW_TIME']))
     db.session.add(new_lend_info)
     user.lending_infos.append(new_lend_info)
     book_collection.lending_infos.append(new_lend_info)
     db.session.commit()
     return jsonify({'reason': '借阅成功'}), 200
+
+
+@book.route('/getClassifications', methods=['GET'])
+def get_classifications():
+    classifications = db.session.query(Classification).filter_by(upper_layer_id=None).all()
+    returned_json = {'length': len(classifications)}
+    classifications_list = []
+    for i in classifications:
+        classifications_dict = {}
+        classifications_dict['classification_id'] = i.classification_id
+        classifications_dict['name'] = i.name
+        classifications_list.append(classifications_dict)
+    returned_json['classifications'] = classifications_list
+    return jsonify(returned_json), 200
+
+
+@book.route('/getClassifications/<int:upper_id>', methods=['GET'])
+def get_classifications_by_id(upper_id):
+    classifications = db.session.query(Classification).filter_by(upper_layer_id=upper_id).all()
+    returned_json = {'length': len(classifications), 'is_finaly': True if len(classifications) == 0 else False}
+    classifications_list = []
+    for i in classifications:
+        classifications_dict = {}
+        classifications_dict['classification_id'] = i.classification_id
+        classifications_dict['name'] = i.name
+        classifications_list.append(classifications_dict)
+    returned_json['classifications'] = classifications_list
+    return jsonify(returned_json), 200
