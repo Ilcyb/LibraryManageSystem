@@ -1,5 +1,5 @@
 from . import admin
-from flask import render_template
+from flask import render_template, redirect, url_for
 
 @admin.route('/login')
 def admin_login():
@@ -11,6 +11,10 @@ def create_new_book():
 
 @admin.route('/manageBook')
 def manage_book():
+    return redirect(url_for('admin.manage_book_page', page=1))
+
+@admin.route('/manageBook/<int:page>')
+def manage_book_page(page):
     return render_template('manageBook.html')
 
 @admin.route('/createNewBookCollection')
