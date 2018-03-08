@@ -31,8 +31,8 @@
                         <li>目录</li>
                         <li><a href="{{url_for('admin.create_new_book')}}">图书添加</a></li>
                         <li><a href="{{url_for('admin.manage_book')}}">图书管理</a></li>
-                        <li><a href="">公告添加</a></li>
-                        <li><a href="">公告管理</a></li>
+                        <li><a href="{{url_for('admin.create_new_announcement')}}">公告添加</a></li>
+                        <li><a href="{{url_for('admin.manage_announcement')}}">公告管理</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,8 +40,8 @@
             <div class="content_right">
                 <div class="book_add">
                     <p>图书管理</p>
-                    <table class="book_table">
-                        <tr>
+                     <table class="book_table">
+                       <tr>
                             <th>编号</th>
                             <th>书名</th>
                             <th>标准编码</th>
@@ -52,80 +52,113 @@
                             <td>1</td>
                             <td>1Ajax</td>
                             <td>12345678978945612</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete"><a href="{{url_for('admin.create_new_book_collection')}}">管理</a></span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>Ajax1</td>
                             <td>lidhwerhur</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>数据库</td>
                             <td>谢蜜</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>数据库</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>的万伏特个人有图有</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>12133214352</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>12341fewt</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>13e2453654756554tg</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>1erewrtrefgjyt</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>1</td>
                             <td>1rewte4t</td>
                             <td>Ajax</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                         <tr>
                             <td>3</td>
                             <td>gfhrtyr1</td>
                             <td>Ajaxrwteryfdhtrtrjtfrhdf</td>
-                            <td><span class="collection_edit">编辑</span><span class="collection_delete">管理</span></td>
+                            <td><span class="collection_edit">添加</span><span class="collection_delete">管理</span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
                         </tr>
                     </table>
+                    <!-- 点击图书藏本中的添加按钮显示藏本添加 -->
+                    <div class="hidden">
+                        <p>图书藏本添加</p>
+                        <form action="" class="hidden_form" method="POST">
+                            馆藏地址：<input id="addr" type="text" required="required"><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：<input id="campus" type="text" required="required"><br>
+                            <span id="submit_hidden">提交</span><span id="cancel_hidden">取消</span>
+                        </form>
+                    </div>
+                    <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
+                        <div class="book_edit">
+                            <p>图书编辑</p>
+                            <form action="" method="POST">
+                                图书名称：<input class="name" type="text" required="required"><br><br>
+                                图书作者：<input class="authors" type="text"  required="required">&nbsp;<input class="add_author" type="text">&nbsp;<span>+</span><br><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：
+                                <select name="classification" id="classification">
+                                    <option value="">1</option>
+                                    <option value="">2</option>
+                                    <option value="">3</option>
+                                </select><br><br>
+                                &nbsp;&nbsp;ISBN号：<input class="isbn" type="text"  required="required"><br><br>
+                                图书语种：<input class="language" type="text"  required="required"><br><br>
+                                图书主题：<input class="topic" type="text"  required="required"><br><br>
+                                &nbsp;&nbsp;&nbsp;出版社：<input class="publish_house" type="text"  required="required"><br><br>
+                                &nbsp;&nbsp;&nbsp;索书号：<input class="call_number" type="text"  required="required"><br><br>
+                                出版年份：<input class="publish_date" type="text"  required="required"><br><br>
+                                图书图片：<input class="image" type="text"  required="required"><br><br>
+                                <input id="save_form" type="submit" value="保存">
+                                <input id="cancel_form" type="submit" value="取消">
+                            </form>
+                        </div>
+                    <!-- 右下角翻页 -->
                     <div class="paged">
                         <div class="page_content">
                             <span class="left"></span>

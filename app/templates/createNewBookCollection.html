@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书藏本管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/createNewBookCollection.css')}}">
+</head>
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="header_left">
+            <h2>图书馆图书借阅后台管理系统</h2>
+            <span>LibraryManageSystem</span>
+        </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a href="">admin</a>
+                &nbsp;&nbsp;
+                <a href="">退出</a>
+            </span>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li><a href="{{url_for('admin.create_new_book')}}">图书添加</a></li>
+                    <li><a href="{{url_for('admin.manage_book')}}">图书管理</a></li>
+                    <li><a href="{{url_for('admin.create_new_announcement')}}">公告添加</a></li>
+                    <li><a href="{{url_for('admin.manage_announcement')}}">公告管理</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_add">
+                <p>图书藏本管理</p>
+                 <table class="book_table">
+                   <tr>
+                        <th>馆藏地址</th>
+                        <th>所在地址</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>12345678978945612</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>lidhwerhur</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>谢蜜</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ajax</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>的万伏特个人有图有</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>13e2453654756554tg</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                    <tr>
+                        <td>gfhrtyr1</td>
+                        <td>云南农业大学新校区</td>
+                        <td><span class="edit">编辑</span><span class="delete">删除</span></td>
+                    </tr>
+                </table>
+                <!-- 点击图书藏本中的添加按钮显示藏本添加 -->
+                <div class="hidden">
+                    <p>图书藏本添加</p>
+                    <form action="" class="hidden_form" method="POST">
+                        馆藏地址：<input id="addr" type="text" required="required"><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：<input id="campus" type="text" required="required"><br>
+                        <span id="submit_hidden">提交</span><span id="cancel_hidden">取消</span>
+                    </form>
+                </div>
+                <div class="paged">
+                    <div class="page_content">
+                        <span class="left"></span>
+                        <span id="left_num">1</span>&nbsp;/&nbsp;
+                        <span id="right_num">2</span>
+                        <span class="right"></span>
+                        <input id="jump_text" type="text">
+                        <input id="jump" type="button" value="跳转">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
