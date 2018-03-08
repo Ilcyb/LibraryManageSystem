@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>图书添加-后台管理</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/createNewBook.css')}}">
+    <title>公告添加-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/createNewAnnouncement.css')}}">
 </head>
-
 <body>
     <!-- header -->
     <div class="header">
@@ -41,23 +39,19 @@
         <!-- content_right -->
         <div class="content_right">
             <div class="book_add">
-                <p>图书添加</p>
+                <p>公告添加</p>
                 <form action="" method="POST">
-                    图书名称：<input class="name" type="text" required="required"><br><br>
-                    图书作者：<input class="authors" type="text"  required="required">&nbsp;<input class="add_author" type="text">&nbsp;<span>+</span><br><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：
+                    公告标题：<input class="name" type="text" required="required"><br><br>
+                    &nbsp;&nbsp;&nbsp;发布人：<input class="authors" type="text"  required="required"><br><br>
+                    公告分类：
                     <select name="classification" id="classification">
                         <option value="">1</option>
                         <option value="">2</option>
                         <option value="">3</option>
                     </select><br><br>
-                    &nbsp;&nbsp;ISBN号：<input class="isbn" type="text"  required="required"><br><br>
-                    图书语种：<input class="language" type="text"  required="required"><br><br>
-                    图书主题：<input class="topic" type="text"  required="required"><br><br>
-                    &nbsp;&nbsp;&nbsp;出版社：<input class="publish_house" type="text"  required="required"><br><br>
-                    &nbsp;&nbsp;&nbsp;索书号：<input class="call_number" type="text"  required="required"><br><br>
-                    出版年份：<input class="publish_date" type="text"  required="required"><br><br>
-                    图书图片：<input class="image" type="text"  required="required"><br><br>
+                    公告主题：<input class="topic" type="text"  required="required"><br><br>
+                    公告内容：<textarea name="text_content" id="text_content" cols="30" rows="10"></textarea><br><br>
+                    公告日期：<input class="publish_date" type="text"  required="required"><br><br>
                     <input id="save_form" type="submit" value="保存">
                     <input id="cancel_form" type="submit" value="取消">
                 </form>
@@ -65,5 +59,4 @@
         </div>
     </div>
 </body>
-
 </html>

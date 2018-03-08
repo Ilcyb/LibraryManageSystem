@@ -105,12 +105,14 @@ body{
 .content .nav_left nav ul li a{
     width: 100%;
     height: 58px;
-    border-bottom: 1px solid #435362;
     line-height: 58px;
     color: #afb4b9;
     font-size: 16px;
     text-decoration: none;
     text-indent: 30%;
+}
+.content .nav_left nav ul li:hover{
+    background: #425261;
 }
 
 /* content_right */
@@ -153,6 +155,7 @@ body{
     text-decoration: none;
     border: 1px solid rgb(163, 203, 241);
     border-radius: 2px;
+    text-indent: 4px;
 }
 .content .content_right .book_add form span{
     width: 25px;
