@@ -98,6 +98,9 @@ body{
     text-decoration: none;
     text-indent: 30%;
 }
+.content .nav_left nav ul li:hover{
+    background: #425261;
+}
 .content .nav_left nav ul li:nth-of-type(1){
     background:  url("/static/images/icons/list_icon1.png") no-repeat 12% center;
     background-size: 20px 20px;
@@ -110,9 +113,6 @@ body{
     font-size: 16px;
     text-decoration: none;
     text-indent: 30%;
-}
-.content .nav_left nav ul li:hover{
-    background: #425261;
 }
 
 /* content_right */
@@ -141,14 +141,96 @@ body{
     letter-spacing: 6px;
     color: #7c7d7d;
 }
-.content .content_right .book_add form{
+/* table */
+.content .content_right .book_add table{
+    width: 100%;
+    margin: 0 auto;
+    font-size: 10px;
+    color: #9e9f9f;
+    border-collapse: collapse;
+}
+.content .content_right .book_add table tr{
+    width: 100%;
+    height: 30px;
+    border: 1px solid #f5f7f9;
+}
+.content .content_right .book_add table tr th{
+    height: 30px;
+    border: 1px solid #f5f7f9;
+    text-align: center;
+}
+.content .content_right .book_add table tr td{
+    height: 30px;
+    border: 1px solid #f5f7f9;
+    text-align: center;
+}
+.content .content_right .book_add table tr:nth-child(2n+1){
+    background: #ebeff2;
+}
+table tr th:nth-of-type(1),table tr td:nth-of-type(1){
+    width: 6%;
+}
+table tr th:nth-of-type(2),table tr td:nth-of-type(2){
+    width: 18%;
+}
+table tr th:nth-of-type(3),table tr td:nth-of-type(3){
+    width: 18%;
+}
+table tr th:nth-of-type(4),table tr td:nth-of-type(4){
+    width: 28%;
+}
+table tr td span{
+    padding: 10px 28px;
+    margin: 10px 28px;
+    cursor: pointer;
+}
+table tr td span a{
+    text-decoration: none;
+    color: #9e9f9f;
+}
+table tr td .collection_edit{
+    background: url("/static/images/icons/add_icon.png") no-repeat 10% center;
+    background-size: 20px 20px;
+}
+table tr td .collection_delete{
+    background: url("/static/images/icons/manage_icon.png") no-repeat 10% center;
+    background-size: 20px 20px;
+}
+table tr td .edit{
+    background: url("/static/images/icons/edit_icon.png") no-repeat 10% center;
+    background-size: 20px 20px;
+}
+table tr td .delete{
+    background: url("/static/images/icons/delete_icon.png") no-repeat 10% center;
+    background-size: 20px 20px;
+}
+
+/* 操作中点击编辑按钮显示图书编辑弹窗 */
+.content .content_right .book_edit{
+    width: 92%;
+    height: 530px;
+    margin: 0% auto;
+    display: none; /* 隐藏编辑页面 */
+}
+.content .content_right .book_edit p{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(240, 235, 235);
+    text-align: center;
+    margin: 1% auto;
+    letter-spacing: 6px;
+    color: #7c7d7d;
+}
+.content .content_right .book_edit form{
     width: 90%;
     height: 480px;
     margin: 0 auto;
     font-size: 15px;
     color: #7c7d7d;
 }
-.content .content_right .book_add form input{
+.content .content_right .book_edit form input{
     width: 200px;
     height: 20px;
     outline: none;
@@ -157,12 +239,7 @@ body{
     border-radius: 2px;
     text-indent: 4px;
 }
-
-.content .content_right .book_add .authors_div{
-    float: left;
-}
-
-.content .content_right .book_add form span{
+.content .content_right .book_edit form span{
     width: 25px;
     height: 25px;
     color: rgb(66, 231, 204);
@@ -170,10 +247,8 @@ body{
     font-weight: bold;
     text-align: center;
     line-height: 24px;
-    cursor: pointer;
-    float: left;
 }
-.content .content_right .book_add form select{
+.content .content_right .book_edit form select{
     width: 100px;
     height: 25px;
     outline: none;
@@ -184,14 +259,56 @@ body{
     text-indent: 4px;
     color: #7c7d7d;
 }
-.content .content_right .book_add form #save_form{
+.content .content_right .book_edit form #save_form,#cancel_form{
     width: 70px;
     height: 30px;
     font-size: 16px;
     margin-left: 8%;
 }
-#save_form:hover{
+#cancel_form:hover,#save_form:hover{
     font-size: 18px;
     background: rgb(66, 231, 204);
     color: rgb(240, 235, 235);
+}
+
+/* paged */
+.content .content_right .book_add .paged{
+    width: 100%;
+    height: 35px;
+    margin: 3% 0;
+}
+.content .content_right .book_add .paged .page_content{
+    width: 50%;
+    height: 35px;
+    margin: 0 70%;
+    color: #9e9f9f;
+    font-size: 14px;
+}
+.content .content_right .book_add .paged .left{
+    background: url("/static/images/icons/left_icon.png")no-repeat 10% center;
+    background-size: 20px 20px;
+    border: 1px solid #9e9f9f;
+    margin: 0px 10px;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+.content .content_right .book_add .paged .right{
+    background: url("/static/images/icons/right_icon.png")no-repeat 0 center;
+    background-size: 20px 20px;
+    border: 1px solid #9e9f9f;
+    margin: 0px 10px;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+.content .content_right .book_add .paged input{
+    border: 1px solid #9e9f9f;
+    width: 50px;
+    height: 24px;
+    margin: 0px 5px;
+    padding: 0px 10px;
+    text-align: center;
+    line-height: 24px;
+}
+#jump{
+    cursor: pointer;
 }

@@ -70,57 +70,37 @@ body {
 }
 
 /* content */
-<<<<<<< HEAD
 
 .content_top {
-=======
-.content_top{
->>>>>>> ym/master
     width: 90%;
     height: 130px;
     border: 1px solid lightseagreen;
     border-radius: 4px;
     margin: 1% auto;
 }
-<<<<<<< HEAD
 
 .content_top .top {
-=======
-.content_top .top{
->>>>>>> ym/master
     width: 80%;
     height: 110px;
     margin: 1% auto;
 }
-<<<<<<< HEAD
 
 .content_top .top p {
-=======
-.content_top .top p{
->>>>>>> ym/master
     width: 80%;
     text-align: center;
     font-size: 18px;
     margin: 1% auto;
     color: rgb(65, 75, 74);
 }
-<<<<<<< HEAD
 
 .content_top .top #top {
-=======
-.content_top .top #top{
->>>>>>> ym/master
     width: 80%;
     height: 70px;
     margin: 1% auto;
     position: relative;
 }
-<<<<<<< HEAD
 
 .content_top .top #top #input_top {
-=======
-.content_top .top #top #input_top{
->>>>>>> ym/master
     cursor: text;
     width: 40%;
     height: 38px;
@@ -136,12 +116,8 @@ body {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
 }
-<<<<<<< HEAD
 
 .content_top .top #top #sel_top {
-=======
-.content_top .top #top #sel_top{
->>>>>>> ym/master
     width: 15%;
     height: 40px;
     outline: none;
@@ -158,12 +134,8 @@ body {
     text-align: center;
     text-indent: 8px;
 }
-<<<<<<< HEAD
 
 .content_top .top #top #search {
-=======
-.content_top .top #top #search{
->>>>>>> ym/master
     width: 12%;
     height: 40px;
     outline: none;
