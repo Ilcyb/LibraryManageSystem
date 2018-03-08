@@ -157,33 +157,18 @@ body{
     border-radius: 2px;
     text-indent: 4px;
 }
-.content .content_right .book_add form span{
-    width: 25px;
-    height: 25px;
-    color: rgb(66, 231, 204);
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 24px;
-}
-.content .content_right .book_add form select{
-    width: 100px;
-    height: 25px;
-    outline: none;
-    text-decoration: none;
+.content .content_right .book_add form textarea{
     border: 1px solid rgb(163, 203, 241);
-    border-radius: 4px;
-    margin-left: -0.9%;
-    text-indent: 4px;
-    color: #7c7d7d;
+    text-indent: 8px;
+    font-size: 14px;
 }
-.content .content_right .book_add form #save_form,#cancel_form{
+.content .content_right .book_add form #save_form{
     width: 70px;
     height: 30px;
     font-size: 16px;
-    margin-left: 8%;
+    margin-left: 10%;
 }
-#cancel_form:hover,#save_form:hover{
+#save_form:hover{
     font-size: 18px;
     background: rgb(66, 231, 204);
     color: rgb(240, 235, 235);
