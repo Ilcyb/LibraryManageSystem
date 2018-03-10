@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>登录-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/adminLogin.css')}}">
+</head>
+<body>
+    <div class="login">
+        <h4>图书馆图书借阅后台管理系统</h4>
+        <p>Library Manage System</p>
+        <form action="" method="POST">
+            <div class="ad_user">
+                <label>用户名：</label><input id="ad_user" type="text">
+            </div><br>
+            <div class="ad_pwd">
+                <label>密&nbsp;&nbsp;&nbsp;码：</label><input id="ad_pwd" type="text">
+            </div>
+            <span id="miss_pwd">忘记密码？</span><br><br>
+            <input id="submit" type="button" value="登录">
+        </form>
+    </div>
+</body>
+</html>

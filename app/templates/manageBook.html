@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>图书管理-后台管理</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageBook.css')}}">
+    <script>
+        window.onload = function(){
+            load_books();
+        }
+    </script>
 </head>
 <body>
     <!-- header -->
@@ -48,22 +53,24 @@
                             <th>图书藏本</th>
                             <th>操作</th>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>1</td>
                             <td>1Ajax</td>
                             <td>12345678978945612</td>
                             <td><span class="collection_edit">添加</span><span class="collection_delete"><a href="{{url_for('admin.create_new_book_collection')}}">管理</a></span></td>
                             <td><span class="edit">编辑</span><span class="delete">删除</span></td>
-                        </tr>
+                        </tr> -->
                     </table>
                     <!-- 点击图书藏本中的添加按钮显示藏本添加 -->
+                    <div class="mask">
                     <div class="hidden">
                         <p>图书藏本添加</p>
                         <form action="" class="hidden_form" method="POST">
                             馆藏地址：<input id="addr" type="text" required="required"><br>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：<input id="campus" type="text" required="required"><br>
-                            <span id="submit_hidden">提交</span><span id="cancel_hidden">取消</span>
+                            <span id="submit_hidden">提交</span><span id="cancel_hidden" onclick="hidden_hidden_div()">取消</span>
                         </form>
+                    </div>
                     </div>
                     <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
                         <div class="book_edit">
@@ -91,16 +98,17 @@
                     <!-- 右下角翻页 -->
                     <div class="paged">
                         <div class="page_content">
-                            <span class="left"></span>
-                            <span id="left_num">1</span>&nbsp;/&nbsp;
-                            <span id="right_num">2</span>
-                            <span class="right"></span>
-                            <input id="jump_text" type="text">
-                            <input id="jump" type="button" value="跳转">
+                            <a id="left_page" href="#"><span class="left"></span></a>
+                            <span id="left_num"></span>&nbsp;/&nbsp;
+                            <span id="right_num"></span>
+                            <a id="right_page" href="#"><span class="right"></span></a>
+                            <input id="jump_text" type="number">
+                            <input id="jump" type="button" onclick="jump_page()" value="跳转">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
 </body>
 </html>

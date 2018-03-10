@@ -1,4 +1,4 @@
-from flask import abort, current_app, jsonify, request, session, url_for
+from flask import abort, current_app, jsonify, request, session, url_for, redirect
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
@@ -40,6 +40,30 @@ def fill_book_info_to_dict(book, book_dict):
         len([collection for collection in book.book_collections if collection.statu == True])
     book_dict['call_number'] = book.call_number
     book_dict['image'] = book.image
+
+
+@book.route('/getBooks/<int:page>', methods=['GET'])
+def get_books(page):
+    per_page = current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']
+    offset = (page - 1) * per_page
+    q = db.session.query(Book)
+    length = len(q.all())
+    books = q.order_by(Book.book_id).offset(offset).limit(per_page)
+    returned_json = {'length': length}
+    books_list = []
+    for i in books:
+        book_dict = {}
+        book_dict['book_id'] = i.book_id
+        book_dict['name'] = i.name
+        book_dict['isbn'] = i.isbn
+        books_list.append(book_dict)
+    returned_json['books'] = books_list
+    return jsonify(returned_json), 200
+
+
+@book.route('/getBooks', methods=['GET'])
+def get_first_page_books():
+    return redirect(url_for('book.get_books', page=1))
 
 
 @book.route('/<int:book_id>', methods=['GET'])
@@ -518,7 +542,7 @@ def create_new_book_collection(book_id):
                     'book_collection': {
                         'collection_address': collection_address,
                         'campus': campus
-                    }})
+                    }}), 201
 
 
 @book.route('/book_collections/<int:book_id>', methods=['GET'])
