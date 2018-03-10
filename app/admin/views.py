@@ -21,8 +21,8 @@ def manage_book_page(page):
 def create_new_book_collection():
     return render_template('createNewBookCollection.html')
 
-@admin.route('/manageBookCollection')
-def manage_book_collection():
+@admin.route('/manageBookCollection/<int:book_id>')
+def manage_book_collection(book_id):
     return render_template('manageBookCollection.html')
 
 @admin.route('/createNewAnnouncement')

@@ -16,11 +16,12 @@
                 <label>用户名：</label><input id="ad_user" type="text">
             </div><br>
             <div class="ad_pwd">
-                <label>密&nbsp;&nbsp;&nbsp;码：</label><input id="ad_pwd" type="text">
+                <label>密&nbsp;&nbsp;&nbsp;码：</label><input id="ad_pwd" type="password">
             </div>
             <span id="miss_pwd">忘记密码？</span><br><br>
-            <input id="submit" type="button" value="登录">
+            <input id="submit" type="button" value="登录" onclick="login_req()">
         </form>
     </div>
 </body>
+<script src="{{url_for('static', filename='js/adminLogin.js')}}"></script>
 </html>

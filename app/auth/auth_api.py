@@ -119,6 +119,14 @@ def admin_login():
         return jsonify({'login_statu': True, 'url': url_for('admin.manage_book')}), 200
 
 
+@auth.route('/adminInfo', methods=['GET'])
+def get_admin_info():
+    if session['isAdmin'] == True:
+        return jsonify({'adminName':session['username']}), 200
+    else:
+        return jsonify({'reason':'Not admin'}), 403
+
+
 @auth.route('/personalInfo', methods=['GET'])
 def personal_info():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()

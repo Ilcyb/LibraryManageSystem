@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageBook.css')}}">
     <script>
         window.onload = function(){
+            load_admin_username();
             load_books();
         }
     </script>
@@ -21,9 +22,9 @@
             </div>
             <div class="header_right">
                 <span>您好，&nbsp;
-                    <a href="">admin</a>
+                    <a href="" id="admin_username"></a>
                     &nbsp;&nbsp;
-                    <a href="">退出</a>
+                    <a href="" onclick="logout()">退出</a>
                 </span>
             </div>
         </div>

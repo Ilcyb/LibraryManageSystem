@@ -68,3 +68,7 @@ body{
     letter-spacing: 6px;
     cursor: pointer;
 }
+
+input.formInvalid::-webkit-input-placeholder {
+    color: red;
+}

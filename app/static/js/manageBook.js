@@ -1,3 +1,32 @@
+function load_admin_username() {
+    var au_xhr = new XMLHttpRequest();
+    au_xhr.open('GET','/api/user/adminInfo');
+    au_xhr.send();
+    au_xhr.onreadystatechange = function(){
+        if(au_xhr.readyState === 4){
+            if(au_xhr.status === 200){
+                document.getElementById('admin_username').innerText = JSON.parse(au_xhr.responseText)['adminName'];
+            }
+        }
+    }
+}
+
+function logout() {
+    var logout_xhr = new XMLHttpRequest();
+    logout_xhr.open('GET', '/api/user/logout');
+    logout_xhr.send();
+    logout_xhr.onreadystatechange = function () {
+        if (logout_xhr.readyState == 4) {
+            if (logout_xhr.status == 200) {
+                if (logout_xhr.getResponseHeader('Content-Type') === 'application/json') {
+                    result = JSON.parse(logout_xhr.responseText);
+                    window.location.href = result.page;
+                }
+            }
+        }
+    }
+}
+
 function load_books() {
     var b_xhr = new XMLHttpRequest();
     var page = window.location.href.split('/')[window.location.href.split('/').length - 1];
@@ -26,13 +55,14 @@ function load_books() {
                         bc_ed_td.innerHTML =
                             "<span class=\"collection_edit\" onclick=add_book_collection()>添加</span>" +
                             "<span class=\"collection_delete\">" +
-                            "<a href=\"{{url_for('admin.create_new_book_collection')}}\">" +
+                            "<a class=\"e_c_m\" onclick=\"edit_book_collection()\">" +
                             "管理</a></span>";
                         var b_ed_td = document.createElement('td');
                         b_ed_td.innerHTML = "<span class=\"edit\">编辑</span><span class=\"delete\">删除</span>";
                         b_tr.appendChild(bc_ed_td);
                         b_tr.appendChild(b_ed_td);
                         table_body.appendChild(b_tr);
+                        document.getElementsByClassName('e_c_m')[i].href = '/admin/manageBookCollection/' + result['books'][i]['book_id'];
                     }
                     add_change_page_href(page, result['length']);
                 }
@@ -115,4 +145,8 @@ function hidden_hidden_div() {
     document.getElementsByClassName('hidden')[0].style.display = 'None';
     document.getElementById('addr').value = '';
     document.getElementById('campus').value = '';
+}
+
+function edit_book_collection(){
+
 }
