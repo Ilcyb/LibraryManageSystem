@@ -3,7 +3,7 @@ from .. import db
 from ..models import User, Level, LendingInfo, Book, BookCollection, Comment, Announcement
 from flask import request, g, session, jsonify, url_for, abort, current_app
 import datetime
-from sqlalchemy import desc
+from sqlalchemy import desc, and_, or_
 
 
 @auth.route('/login', methods=['POST'])
@@ -100,6 +100,23 @@ def isLogin():
 def logout():
     session.clear()
     return jsonify({'page': request.referrer or url_for('main.index')}), 200
+
+
+@auth.route('/adminLogin', methods=['POST'])
+def admin_login():
+    request_data = request.get_json()
+    username = request_data.get('username')
+    password = request_data.get('password')
+    the_user = db.session.query(User).filter(or_(User.username==username,
+                                    User.email==username)).first()
+    if the_user == None:
+        return jsonify({'login_statu': False, 'reason':'用户名或密码错误'}), 401
+    if the_user.check_password(password) and the_user.role.name != 'User':
+        session['username'] = username
+        session['id'] = the_user.user_id
+        session['login'] = True
+        session['isAdmin'] = True
+        return jsonify({'login_statu': True, 'url': url_for('admin.manage_book')}), 200
 
 
 @auth.route('/personalInfo', methods=['GET'])
