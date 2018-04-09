@@ -205,10 +205,20 @@ table tr td .delete{
     background-size: 20px 20px;
 }
 
+.mask{
+    background-color:rgb(245, 237, 238);
+    opacity:1;
+    filter: alpha(opacity=50); 
+    position:absolute; 
+    left:30%;
+    top:5%;
+    z-index:1;
+}
+
 /* 操作中点击编辑按钮显示图书编辑弹窗 */
 .content .content_right .book_edit{
     width: 92%;
-    height: 530px;
+    height: 430px;
     margin: 0% auto;
     display: none; /* 隐藏编辑页面 */
 }

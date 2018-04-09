@@ -1,5 +1,10 @@
 from . import admin
+from ..utils.decorators import admin_required
 from flask import render_template, redirect, url_for
+
+@admin.route('/')
+def admin_index():
+    return redirect(url_for('admin.manage_book'))
 
 @admin.route('/login')
 def admin_login():

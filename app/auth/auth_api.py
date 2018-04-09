@@ -132,7 +132,7 @@ def personal_info():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
     if user is None:
         abort(404, '用户不存在')
-    level = db.session.query(Level).filter_by(level_id=user.user_id).first()
+    level = db.session.query(Level).filter_by(level_id=user.level_id).first()
     user_json = {
         'username': user.username,
         'email': user.email,
@@ -144,6 +144,39 @@ def personal_info():
         'lended_nums': user.lended_nums
     }
     return jsonify(user_json), 200
+
+
+@auth.route('/personalInfo', methods=['POST'])
+def edit_personal_info():
+    user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
+    if user is None:
+        return jsonify({'edit_statu':False, 'reason':'请登录后再查看个人信息'}), 400
+    request_data = request.get_json()
+    try:
+        name = request_data.get('name')
+        sex = request_data.get('sex')
+        insitution = request_data.get('insitution')
+        level_id = request_data.get('level_id')
+    except KeyError:
+        return jsonify({'edit_statu':False, 'reason':'用户信息不完整，修改失败'}), 400
+
+    try:
+        levels = db.session.query(Level.level_id).all()
+        if level_id not in levels:
+            return jsonify({'edit_statu':False, 'reason':'该等级不存在，修改失败'}), 400
+        if sex not in [0, 1]:
+            return jsonify({'edit_statu':False, 'reason':'性别错误，修改失败'}), 400
+        sex = True if sex == 1 else False
+        user.name = name
+        user.sex = sex
+        user.insitution = insitution
+        user.level_id = level_id
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'edit_statu':False, 'reason':'服务器发生内部错误，请稍后重试'}), 500
+    else:
+        return jsonify({'edit_statu':True}), 200
 
 
 @auth.route('/lending_history', methods=['GET'])
@@ -163,6 +196,8 @@ def lending_history():
         lendinfo_json['lending_info_id'] = lending_infos[i].lending_info_id
         lendinfo_json['book_name'] = db.session.query(BookCollection.book_name)\
                         .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()
+        lendinfo_json['book_id'] = db.session.query(BookCollection.book_id)\
+                        .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()                        
         lendinfo_json['lend_time'] = lending_infos[i].lend_time
         lendinfo_json['returned'] = lending_infos[i].returned
         if lendinfo_json['returned']:
@@ -241,8 +276,70 @@ def get_announcement():
     announcements_list = []
     for i in range(len(announcements)):
         announcement_dcit = {}
+        announcement_dcit['id'] = announcements[i].announcement_id
         announcement_dcit['title'] = announcements[i].title
         announcement_dcit['url'] = url_for('main.get_announcement', ann_id=announcements[i].announcement_id)
         announcements_list.append(announcement_dcit)
     returned_json['announcements'] = announcements_list
     return jsonify(returned_json), 200
+
+
+@auth.route('/getAnnouncement/<int:ann_id>', methods=['GET'])
+def get_announcement_by_id(ann_id):
+    ann = db.session.query(Announcement).filter_by(announcement_id=ann_id).first()
+    if ann == None:
+        return jsonify({'query_statu': False, 'reason':'该公告不存在'}), 404
+    return jsonify({'query_statu': True, 'title':ann.title,
+                    'content': ann.content, 'time': ann.time}), 200
+
+
+@auth.route('/getAllAnnouncement', methods=['GET'])
+def get_all_announcement():
+    announcements = db.session.query(Announcement).order_by(desc(Announcement.time)).all()
+    returned_json = {'length': len(announcements)}
+    announcements_list = []
+    for i in range(len(announcements)):
+        announcement_dcit = {}
+        announcement_dcit['id'] = announcements[i].announcement_id
+        announcement_dcit['title'] = announcements[i].title
+        announcement_dcit['url'] = url_for('main.get_announcement', ann_id=announcements[i].announcement_id)
+        announcements_list.append(announcement_dcit)
+    returned_json['announcements'] = announcements_list
+    return jsonify(returned_json), 200
+
+
+@auth.route('/editAnnouncement', methods=['POST'])
+def edit_announcement():
+    try:
+        request_data = request.get_json()
+        ann_id = request_data.get('ann_id')
+        ann_title = request_data.get('title')
+        ann_content = request_data.get('content')
+    except KeyError:
+        return jsonify({'edit_statu': False, 'reason':'公告信息不完整，公告修改失败'}), 400
+    ann = db.session.query(Announcement).filter_by(announcement_id=ann_id).first()
+    if ann == None:
+        return jsonify({'edit_statu': False, 'reason':'该公告id不存在，公告修改失败'}), 404
+    try:
+        ann.title = ann_title
+        ann.content = ann_content
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'edit_statu': False, 'reason':'服务器发生错误，请稍后再试'}), 500
+    else:
+        return jsonify({'edit_statu': True}), 201        
+    
+
+@auth.route('/deleteAnnouncement/<int:ann_id>', methods=['GET'])
+def delete_announcement(ann_id):
+    ann = db.session.query(Announcement).filter_by(announcement_id=ann_id).first()
+    if ann == None:
+        return jsonify({'delete_statu': False, 'reason':'该公告id不存在，公告删除失败'}), 404
+    try:
+        db.session.delete(ann)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'delete_statu': False, 'reason':'服务器发生错误，请稍后再试'}), 500
+    return jsonify({'delete_statu': True}), 200

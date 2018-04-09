@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>公告管理-后台系统</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageAnnouncement.css')}}">
+    <script>
+        window.onload = function(){
+            load_announcement()
+        }
+    </script>
 </head>
 
 <body>
@@ -50,12 +55,12 @@
         <div class="content_right">
             <div class="book_add">
                 <p>公告管理</p>
-                <table class="book_table">
+                <table class="book_table" id="ann_table">
                     <tr>
                         <th>公告标题</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>1Ajax</td>
                         <td>
                             <span class="edit">编辑</span>
@@ -75,25 +80,27 @@
                             <span class="edit">编辑</span>
                             <span class="delete">删除</span>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
                 <!-- 操作中点击编辑按钮显示公告编辑弹窗 -->
-                <div class="book_edit">
+                <div class="mask">
+                <div class="book_edit" id="hidden_ann_window">
                     <p>公告编辑</p>
                     <form action="" method="POST">
                         公告标题：
-                        <input class="name" type="text" required="required">
+                        <input class="name" type="text" required="required" id="edit_title">
                         <br>
                         <br>
-                        公告内容：<textarea name="" id="" cols="30" rows="10"></textarea>
+                        公告内容：<textarea name="" id="edit_content" cols="30" rows="10"></textarea>
                         <br>
                         <br>
-                        <input id="save_form" type="submit" value="保存">
-                        <input id="cancel_form" type="submit" value="取消">
+                        <input id="save_form" type="button" value="保存">
+                        <input id="cancel_form" type="button" value="取消" onclick="hidden_edit_window()">
                     </form>
                 </div>
+            </div>
                 <!-- 右下角翻页 -->
-                <div class="paged">
+                <!-- <div class="paged">
                     <div class="page_content">
                         <span class="left"></span>
                         <span id="left_num">1</span>&nbsp;/&nbsp;
@@ -102,10 +109,11 @@
                         <input id="jump_text" type="text">
                         <input id="jump" type="button" value="跳转">
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
+    <script src="{{url_for('static', filename='js/manageAnnouncement.js')}}"></script>
 </body>
 
 </html>

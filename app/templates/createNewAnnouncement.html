@@ -58,11 +58,12 @@
                     <textarea name="text_content" id="text_content" cols="100" rows="23"></textarea>
                     <br>
                     <br>
-                    <input id="save_form" type="submit" value="保存">
+                    <input id="save_form" type="button" value="保存" onclick="addAnnouncement()">
                 </form>
             </div>
         </div>
     </div>
+    <script src="{{url_for('static', filename='js/createNewAnnouncement.js')}}"></script>
 </body>
 
 </html>
