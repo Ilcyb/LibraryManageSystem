@@ -73,7 +73,7 @@ body {
 
 .notice {
     width: 90%;
-    height: 400px;
+    /* height: 400px; */
     border: 1px solid lightseagreen;
     border-radius: 4px;
     margin: 1% auto;

@@ -132,6 +132,12 @@ function get_comments(){
 }
 
 function submit_comment(){
+    var comment_content = document.getElementById('write_comment').value;
+    if(comment_content.replace(/\s+/g,"").length == 0)
+        {
+            alert('评论不能为空')
+            return;
+        }
     var isLogin_xhr = new XMLHttpRequest();
     isLogin_xhr.open('GET', '/api/user/isLogin');
     isLogin_xhr.send();
@@ -142,7 +148,6 @@ function submit_comment(){
             if (isLogin_xhr.status === OK) {
                 if (isLogin_xhr.getResponseHeader('Content-Type') === 'application/json') {
                     if(JSON.parse(isLogin_xhr.responseText).is_login){
-                        var comment_content = document.getElementById('write_comment').value;
                         var comment_xhr = new XMLHttpRequest();
                         comment_xhr.open('POST', '/api/user/new_comment');
                         book_id = window.location.href.split('/').pop();
