@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书管理-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/manageBookCollection.css')}}">
+    <script>
+        // window.onload = function(){
+        //     load_admin_username();
+        //     load_books();
+        // }
+    </script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="header_left">
+            <h2>图书馆图书借阅后台管理系统</h2>
+            <span>LibraryManageSystem</span>
+        </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a href="" id="admin_username"></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_book')}}">图书添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_book')}}">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_announcement')}}">公告添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_collection_add">
+                <p>图书藏本管理</p>
+                <table class="book_table">
+                    <tr>
+                        <th>图书藏本</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>javascript Dom编程艺术</td>
+                        <td>
+                            <span class="collection_edit">编辑</span>
+                            <span class="collection_delete">删除</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>javascript Dom编程艺术</td>
+                        <td>
+                            <span class="collection_edit">编辑</span>
+                            <span class="collection_delete">删除</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- 右下角翻页 -->
+            <div class="paged">
+                <div class="page_content">
+                    <a id="left_page" href="#">
+                        <span class="left"></span>
+                    </a>
+                    <span id="left_num"></span>&nbsp;/&nbsp;
+                    <span id="right_num"></span>
+                    <a id="right_page" href="#">
+                        <span class="right"></span>
+                    </a>
+                    <input id="jump_text" type="number">
+                    <input id="jump" type="button" onclick="jump_page()" value="跳转">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
+    <div class="mask_collection">
+        <div class="book_collection_edit">
+            <p>图书藏本编辑</p>
+            <form action="" method="POST">
+                馆藏地址：
+                <input id="book_addr" class="book_addr" type="text" required="required">
+                <br>
+                <br> 馆藏校区：
+                <input id="book_campus" class="book_campus" type="text" required="required">
+                <br>
+                <br>
+                <input id="save_form" type="button" value="保存">
+                <input id="cancel_form" type="button" value="取消" onclick="hidden_book_edit()">
+            </form>
+        </div>
+    </div>
+    <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+</body>
+
+</html>

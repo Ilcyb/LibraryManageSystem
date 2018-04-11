@@ -8,7 +8,7 @@
     <title>图书管理-后台管理</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageBook.css')}}">
     <script>
-        window.onload = function(){
+        window.onload = function () {
             load_admin_username();
             load_books();
         }
@@ -18,19 +18,29 @@
 <body>
     <!-- header -->
     <div class="header">
-            <div class="header_left">
-                <h2>图书馆图书借阅后台管理系统</h2>
-                <span>LibraryManageSystem</span>
-            </div>
-            <div class="header_right">
-                <span>您好，&nbsp;
-                    <a href="" id="admin_username"></a>
-                    &nbsp;&nbsp;
-                    <a href="" onclick="logout()">退出</a>
-                </span>
-            </div>
+        <div class="header_left">
+            <h2>图书馆图书借阅后台管理系统</h2>
+            <span>LibraryManageSystem</span>
         </div>
+<<<<<<< HEAD
+=======
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a href="" id="admin_username"></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
+>>>>>>> ym/master
     </div>
+    <div class="header_right">
+        <span>您好，&nbsp;
+            <a href="">admin</a>
+            &nbsp;&nbsp;
+            <a href="">退出</a>
+        </span>
+    </div>
+   
     <!-- content -->
     <div class="content">
         <!-- nav -->
@@ -74,55 +84,73 @@
                         <form action="" class="hidden_form" method="POST">
                             馆藏地址：
                             <input id="addr" type="text" required="required">
-                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：
+                            <br>馆藏校区：
                             <input id="campus" type="text" required="required">
-                            <br>
+                            <br><br>
                             <span id="submit_hidden">提交</span>
                             <span id="cancel_hidden" onclick="hidden_hidden_div()">取消</span>
                         </form>
                     </div>
-                    </div>
-                    <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
-                        <div class="mask">
-                        <div class="book_edit">
-                            <p>图书编辑</p>
-                            <form action="" method="POST">
-                                图书名称：<input id="book_name" class="name" type="text" required="required">
-                                <div id='authors_div'>
-                                        图书作者：
-                                        <input id="book_authors" class="authors" type="text" required="required">&nbsp;
-                                    </div>
-                                    <span id="add_author" onclick="addAuthorInput()">+</span>
+                </div>
+                <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
+                <div class="mask">
+                    <div class="book_edit">
+                        <p>图书编辑</p>
+                        <form action="" method="POST">
+                            图书名称：
+                            <input id="book_name" class="name" type="text" required="required">
+                            <div id='authors_div'>
+                                图书作者：
+                                <input id="book_authors" class="authors" type="text" required="required">&nbsp;
+                            </div>
+                            <span id="add_author" onclick="addAuthorInput()">+</span><br>
 
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：
-                                <select name="classification" id="classification" onchange="getSubClassification()">
-                                </select><br>
-                                &nbsp;&nbsp;ISBN号：<input id="e_book_isbn" class="isbn" type="text"  required="required"><br><br>
-                                图书语种：<input id="e_lang" class="language" type="text"  required="required"><br><br>
-                                图书主题：<input id="e_topic" class="topic" type="text"  required="required"><br><br>
-                                &nbsp;&nbsp;&nbsp;出版社：<input id="e_ph" class="publish_house" type="text"  required="required"><br><br>
-                                &nbsp;&nbsp;&nbsp;索书号：<input id="e_cn" class="call_number" type="text"  required="required"><br><br>
-                                出版年份：<input id="e_pd" class="publish_date" type="text"  required="required"><br><br>
-                                图书图片：<input id="e_img" class="image" type="text"  required="required"><br><br>
-                                <input id="save_form" type="button" value="保存">
-                                <input id="cancel_form" type="button" value="取消" onclick="hidden_book_edit()">
-                            </form>
-                        </div>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;分类：
+                            <select name="classification" id="classification" onchange="getSubClassification()">
+                            </select><br>
+                            &nbsp;&nbsp;ISBN号：
+                            <input id="e_book_isbn" class="isbn" type="text" required="required"><br>
+                            图书语种：
+                            <input id="e_lang" class="language" type="text" required="required"><br>
+                            
+                            图书主题：
+                            <input id="e_topic" class="topic" type="text" required="required"><br>
+                            
+                            &nbsp;&nbsp;&nbsp;出版社：
+                            <input id="e_ph" class="publish_house" type="text" required="required"><br>
+                            
+                            &nbsp;&nbsp;&nbsp;索书号：
+                            <input id="e_cn" class="call_number" type="text" required="required"><br>
+                            
+                            出版年份：
+                            <input id="e_pd" class="publish_date" type="text" required="required"><br>
+                            
+                            图书图片：
+                            <input id="e_img" class="image" type="text"><br>
+                
+                            <input id="save_form" type="button" value="保存">
+                            <input id="cancel_form" type="button" value="取消" onclick="hidden_book_edit()">
+                        </form>
                     </div>
-                    <!-- 右下角翻页 -->
-                    <div class="paged">
-                        <div class="page_content">
-                            <a id="left_page" href="#"><span class="left"></span></a>
-                            <span id="left_num"></span>&nbsp;/&nbsp;
-                            <span id="right_num"></span>
-                            <a id="right_page" href="#"><span class="right"></span></a>
-                            <input id="jump_text" type="number">
-                            <input id="jump" type="button" onclick="jump_page()" value="跳转">
-                        </div>
+                </div>
+                <!-- 右下角翻页 -->
+                <div class="paged">
+                    <div class="page_content">
+                        <a id="left_page" href="#">
+                            <span class="left"></span>
+                        </a>
+                        <span id="left_num"></span>&nbsp;/&nbsp;
+                        <span id="right_num"></span>
+                        <a id="right_page" href="#">
+                            <span class="right"></span>
+                        </a>
+                        <input id="jump_text" type="number">
+                        <input id="jump" type="button" onclick="jump_page()" value="跳转">
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
 </body>
