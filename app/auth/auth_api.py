@@ -107,7 +107,7 @@ def personal_info():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
     if user is None:
         abort(404, '用户不存在')
-    level = db.session.query(Level).filter_by(level_id=user.user_id).first()
+    level = db.session.query(Level).filter_by(level_id=user.level_id).first()
     user_json = {
         'username': user.username,
         'email': user.email,

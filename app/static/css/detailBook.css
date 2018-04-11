@@ -1,0 +1,307 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #fff;
+    font-family: arial, verdana, sans-serif, '新宋体';
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* ....header.... */
+
+.logo {
+    width: 100%;
+    height: 146px;
+    border-bottom: 1px solid #eee;
+}
+
+.header {
+    width: 90%;
+    height: 146px;
+    margin: 0 auto;
+    /*background: #f9f9f9;*/
+}
+
+.header .left {
+    width: 60%;
+    height: 146px;
+}
+
+.header .left h2 {
+    font-size: 38px;
+    font-weight: normal;
+    letter-spacing: 4px;
+    margin-left: 8%;
+    padding-top: 5%;
+    cursor: pointer;
+}
+
+.header .left p {
+    font-size: 24px;
+    letter-spacing: 1px;
+    margin-left: 8%;
+    padding-top: 1%;
+    cursor: pointer;
+}
+
+.header .right {
+    width: 40%;
+    height: 146px;
+    margin: 0 auto;
+    margin-right: 0px;
+    margin-top: -13.2%;
+}
+
+.header .right a {
+    display: inline-block;
+    color: #000;
+    letter-spacing: 2px;
+    font-size: 16px;
+    margin-left: 28%;
+    padding-top: 22%;
+    text-decoration: none;
+}
+
+.header .right a:nth-of-type(2) {
+    margin-left: 6%;
+}
+
+/* detail_book */
+.detail_book{
+    width: 100%;
+    height: 100%;
+    margin: 1% auto;
+    background: rgb(238, 238, 243);
+    cursor: pointer;
+}
+.detail_book .detail_book_list{
+    width: 90%;
+    height: 100%;
+    background: #fff;
+    border-bottom: 1px solid rgb(202, 215, 241);
+    margin: 0% auto;
+    border: 8px solid rgb(238, 238, 243);
+    border-radius: 4px;
+}
+/* 左边 */
+.detail_book .detail_book_list .detail_book_list_left{
+    width: 40%;
+    height: 100%;
+    margin: 0 3.5%;
+    float: left;
+} 
+ .detail_book_list_left p{
+    font-size: 35px;
+    margin-top: 15px;
+    margin-left: 10px;
+    padding: 18px 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+.detail_book .detail_book_list_left a{
+    font-size: 16px;
+    text-decoration: none;
+    margin-left: 10px;
+    margin-top: 20px;
+    color: rgb(65, 16, 240);
+}
+.detail_book_list_left a:hover{
+    text-decoration: underline;
+    color: red;
+}
+.detail_book_list_left #borrow_new{
+    color: rgb(65, 16, 240);
+    display: block;
+}
+.detail_book_list_left #borrow_new:hover{
+    color: red;
+}
+
+/* 图书借阅信息 刚开始为隐藏，鼠标移上去则显示*/
+.detail_book_list_left table{
+    width: 90%;
+    border:1px solid rgb(247, 162, 35);
+    text-align: center;
+    margin-left: 8px;
+    color: rgb(97, 65, 17);
+    border-collapse: collapse;
+    display: none;
+}
+.detail_book_list_left table th {
+    background: rgb(248, 213, 180);
+    border: 1px solid rgb(247, 162, 35);
+    height: 28px;
+    font-size: 15px;
+}
+
+.detail_book_list_left table tr {
+    background: rgb(248, 224, 228);
+    height: 28px;
+}
+
+.detail_book_list_left table tr td {
+    border: 1px solid rgb(247, 162, 35);
+    font-size: 12px;
+}
+
+/* 评论 */
+.detail_book_list_left .book_comment h4{
+    font-weight: normal;
+    margin-top: 10px;
+    margin-left: 8px;
+    background: url("/static/images/icons/edit_icon.png")no-repeat 17%;
+    background-size: 20px 22px;
+    color: rgb(65, 16, 240);
+}
+.detail_book_list_left .book_comment p{
+    font-size: 14px;
+    text-indent: 16px;
+    margin-top: -8px;
+}
+
+/* 写评论 */
+.write textarea{
+    margin-left: 2%;
+    text-indent: 10px;
+    font-size: 14px;
+    border: 1px solid #dad1d1;
+}
+.write #submit,.write #cancel{
+    width: 55px;
+    height: 30px;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    background: rgb(21, 187, 146);
+    margin-bottom: 22px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+.write #submit{
+     margin-left: 70%;
+}
+
+/* 图片 */
+.book_img{
+    width: 100px;
+    height: 120px;
+    margin: 4% 30%;
+    border: 1px solid red;
+} 
+
+/* 清除浮动 */
+.clear{
+    clear: both;
+}
+
+/* 右边 */
+.detail_book .detail_book_list .detail_book_list_right{
+    width: 53%;
+    display: block;
+    float: left;
+}
+#book_right{
+    list-style: none;
+    margin: 35px 10%;
+}
+#book_right li p{
+    font-size: 22px;
+    display: inline;
+}
+#book_right li button{
+    width: 90px;
+    height: 30px;
+    background: rgb(207, 53, 125);
+    border: none;
+    font-size: 16px;
+    margin: 0% 6%;
+    cursor: pointer;
+    color: #fff;
+    border-radius: 4px;
+}
+#book_right li button:hover{
+    color: #fff;
+    background: rgb(21, 187, 146);
+}
+#book_right li{
+    font-size: 16px;
+    padding: 2px;
+}
+#book_right .li_book_intro p{
+    text-indent: 16px;
+    display: block;
+    font-size: 13px;
+    margin-left: 4%;
+}
+#book_right .li_book_name{
+    margin-top: 20px;
+}
+#book_right .li_book_author span{
+    color: rgb(65, 16, 240);
+}
+#book_right .li_book_name span{
+    color: red;
+}
+#book_right .detail{
+    font-weight: bold;
+}
+
+#book_right .li_book_show a{
+    color: rgb(65, 16, 240);
+    text-decoration: none;
+}
+#book_right .li_book_show a:hover{
+    text-decoration: underline;
+    color: red;
+} 
+
+/* table原本为隐藏 */
+#book_right li table{
+    width: 100%;
+    border:1px solid rgb(247, 162, 35);
+    text-align: center;
+    color: rgb(97, 65, 17);
+    border-collapse: collapse;
+    display: none;
+}
+
+#book_right li table th {
+    background: rgb(248, 213, 180);
+    border: 1px solid rgb(247, 162, 35);
+    height: 30px;
+    font-size: 15px;
+}
+
+#book_right li table tr {
+    background: rgb(248, 224, 228);
+    height: 30px;
+}
+
+#book_right li table tr td {
+    border: 1px solid rgb(247, 162, 35);
+    font-size: 13px;
+}
+
+/* ...footer... */
+
+footer.footer {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 30px;
+    margin: 2% auto;
+}
+
+footer.footer hr {
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid rgb(243, 237, 237);
+}
+
+footer.footer p {
+    padding: 0.6%;
+    cursor: pointer;
+}

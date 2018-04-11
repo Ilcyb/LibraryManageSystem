@@ -248,7 +248,7 @@ body {
 /* login register */
 
 .caption {
-    width: 300px;
+    width: 450px;
     height: 100px;
     margin: 56px auto;
 }
@@ -259,7 +259,7 @@ body {
 
 h1.text-center {
     font-weight: normal;
-    font-size: 48px;
+    font-size: 38px;
 }
 
 p.text-center {

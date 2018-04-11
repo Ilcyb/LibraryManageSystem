@@ -32,7 +32,7 @@ function logout() {
             if (logout_xhr.status == 200) {
                 if (logout_xhr.getResponseHeader('Content-Type') === 'application/json') {
                     result = JSON.parse(logout_xhr.responseText);
-                    window.location.href = result.page;
+                    window.location.href = result.page;//浏览器加载一个新页面
                 }
             }
         }

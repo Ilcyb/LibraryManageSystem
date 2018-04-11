@@ -177,7 +177,7 @@ table tr th:nth-of-type(3),table tr td:nth-of-type(3){
     width: 18%;
 }
 table tr th:nth-of-type(4),table tr td:nth-of-type(4){
-    width: 28%;
+    width: 25%;
 } 
 table tr td span{
     padding: 10px 28px;
@@ -210,7 +210,7 @@ table tr td .delete{
     width: 92%;
     height: 530px;
     margin: 0% auto;
-    display: none; /* 隐藏编辑页面 */
+    display: none;/*  隐藏编辑页面 */
 }
 .content .content_right .book_edit p{
     width: 100%;

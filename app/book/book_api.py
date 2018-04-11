@@ -514,6 +514,8 @@ def create_new_classification():
 
 @book.route('/create_new_book_collection/<int:book_id>', methods=['POST'])
 def create_new_book_collection(book_id):
+
+
     """
     创建新的图书藏本接口
     :url /api/book/create_new_book_collection/:book_id 
