@@ -2,6 +2,7 @@ from flask import abort, current_app, jsonify, request, session, url_for, redire
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
+from sqlalchemy.exc import IntegrityError
 import requests
 
 from . import book
@@ -454,6 +455,22 @@ def create_new_book():
         session.close()
 
     return jsonify({'created': True, 'created_book': returned_book, 'url': url_for('admin.manage_book')}), 201
+
+
+@book.route('/deleteBook/<int:book_id>', methods=['GET'])
+def delete_book(book_id):
+    book = db.session.query(Book).filter_by(book_id=book_id).first()
+    if book is None:
+        return jsonify({'deleted': False, 'reason': '找不到该书籍，删除失败'}), 404
+    try:
+        db.session.delete(book)
+        db.session.commit()
+    except IntegrityError:
+        return jsonify({'deleted': False, 'reason': '该书籍在存在借阅记录与馆藏记录，无法删除'}), 403
+    except Exception as e:
+        return jsonify({'deleted': False, 'reason': '服务器发生错误，删除失败'}), 500
+    else:
+        return jsonify({'deleted': True}), 200
 
 
 @book.route('/editBook', methods=['POST'])

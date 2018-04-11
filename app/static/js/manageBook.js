@@ -58,7 +58,7 @@ function load_books() {
                             "<a class=\"e_c_m\" onclick=\"edit_book_collection()\">" +
                             "管理</a></span>";
                         var b_ed_td = document.createElement('td');
-                        b_ed_td.innerHTML = "<span class=\"edit\" onclick=edit_book()>编辑</span><span class=\"delete\">删除</span>";
+                        b_ed_td.innerHTML = "<span class=\"edit\" onclick=edit_book()>编辑</span><span class=\"delete\" onclick=delete_book()>删除</span>";
                         b_tr.appendChild(bc_ed_td);
                         b_tr.appendChild(b_ed_td);
                         table_body.appendChild(b_tr);
@@ -145,6 +145,25 @@ function hidden_hidden_div() {
     document.getElementsByClassName('hidden')[0].style.display = 'None';
     document.getElementById('addr').value = '';
     document.getElementById('campus').value = '';
+}
+
+function delete_book(){
+    var event = window.event; //获取当前窗口事件 
+    var obj = event.srcElement ? event.srcElement : event.target;
+    var book_id = obj.parentNode.parentNode.firstChild.innerText;
+    var delete_xhr = new XMLHttpRequest();
+    delete_xhr.open('GET', '/api/book/deleteBook/' + book_id);
+    delete_xhr.send();
+    delete_xhr.onreadystatechange = function(){
+        if(delete_xhr.readyState === 4){
+            if(delete_xhr.status === 200){
+                alert('删除成功');
+                window.location.reload();
+            }else{
+                alert(JSON.parse(delete_xhr.responseText)['reason']);
+            }
+        }
+    }
 }
 
 function edit_book_collection(){
