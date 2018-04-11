@@ -2,6 +2,7 @@ from flask import abort, current_app, jsonify, request, session, url_for, redire
 from sqlalchemy import create_engine, desc, or_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
+import requests
 
 from . import book
 from .. import db
@@ -9,6 +10,7 @@ from ..models import Author, Book, Classification, PublishHouse, \
     book_author, BookCollection, LendingInfo, User, Notice, Comment
 from ..utils.bookSortEnum import bookSortEnum
 import datetime
+import json
 
 
 def fill_book_info_to_dict(book, book_dict):
@@ -704,7 +706,7 @@ def get_comments(book_id):
     comments = db.session.query(Comment).filter_by(book_id=book_id).order_by(Comment.comment_time).all()
     returned_json = {'length': len(comments)}
     comment_infos = []
-    for i in len(comments):
+    for i in range(len(comments)):
         comment_info = {}
         comment_info['user_id'] = comments[i].user_id
         comment_info['username'] = db.session.query(User.username).filter_by(user_id=comments[i].user_id).first()
@@ -766,3 +768,34 @@ def get_classifications_by_id(upper_id):
         classifications_list.append(classifications_dict)
     returned_json['classifications'] = classifications_list
     return jsonify(returned_json), 200
+
+
+@book.route('/getBookBorrowInfo/<int:book_id>', methods=['GET'])
+def get_book_borrow_info(book_id):
+    book_collections = db.session.query(Book).filter_by(book_id=book_id).first().book_collections
+    lendinfos = list()
+    for i in book_collections:
+        lendinfos += i.lending_infos
+    return_dict = dict()
+    return_list = list()
+    for i in lendinfos:
+        username = db.session.query(User.username).filter_by(user_id=i.user_id).first()
+        expected_return_time = i.expected_return_time
+        return_list.append({'username': username, 'expected_return_time':expected_return_time})
+    return_dict['length'] = len(lendinfos)
+    return_dict['lendinfos'] = return_list
+    return jsonify(return_dict), 200
+
+
+@book.route('/getBookDoubanInfo/<string:isbn>', methods=['GET'])
+def get_book_douban_info(isbn):
+    try:
+        response = requests.get('https://api.douban.com/v2/book/isbn/' + isbn)
+        response.raise_for_status()
+    except requests.exceptions.HTTPError:
+        return jsonify({'request':False}), 404
+    except Exception as e:
+        print(e)
+        return jsonify({'request':False}), 500
+    else:
+        return jsonify(json.loads(response.text)), 200

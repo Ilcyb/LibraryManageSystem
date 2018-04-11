@@ -228,6 +228,7 @@ def create_new_comment():
     content = request_data.get('comment_content')
     new_comment = Comment(session['id'], book_id, content)
     db.session.add(new_comment)
+    db.session.commit()
     return '评论成功', 200
 
 

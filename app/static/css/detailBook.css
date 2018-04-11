@@ -123,12 +123,11 @@ body {
 /* 图书借阅信息 刚开始为隐藏，鼠标移上去则显示*/
 .detail_book_list_left table{
     width: 90%;
-    border:1px solid rgb(247, 162, 35);
     text-align: center;
     margin-left: 8px;
     color: rgb(97, 65, 17);
     border-collapse: collapse;
-    display: none;
+    display: block;
 }
 .detail_book_list_left table th {
     background: rgb(248, 213, 180);
@@ -196,7 +195,6 @@ body {
     width: 100px;
     height: 120px;
     margin: 4% 30%;
-    border: 1px solid red;
 } 
 
 /* 清除浮动 */
@@ -268,11 +266,10 @@ body {
 /* table原本为隐藏 */
 #book_right li table{
     width: 100%;
-    border:1px solid rgb(247, 162, 35);
     text-align: center;
     color: rgb(97, 65, 17);
     border-collapse: collapse;
-    display: none;
+    display: block;
 }
 
 #book_right li table th {

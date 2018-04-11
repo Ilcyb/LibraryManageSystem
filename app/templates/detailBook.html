@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>图书详情页</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/detailBook.css')}}">
+    <script>
+        window.onload = function(){
+            isLogin();
+            get_book();
+        }
+    </script>
 </head>
 
 <body>
@@ -31,16 +37,16 @@
             <!-- detail_book_list_left -->
             <div class="detail_book_list_left">
                 <p>Item Details</p>
-                <a href="">查找该作者其它作品</a>
+                <a id="same_author" href="">查找<span id="s_book_author" style="color: red"></span>的其它作品</a>
                 <br>
-                <a id="a_two" href="">查找本主题其它作品</a>
+                <a id="same_topic" href="">查找<span id="s_book_topic" style="color: red"></span>主题的其它作品</a>
                 <a id="borrow_new" href="">图书借阅信息</a>
                 <table class="borrow_notice">
                     <tr>
                         <th>借阅者</th>
                         <th>应归还日期</th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>TP393.09/22</td>
                         <td>云南农业大学</td>
                     </tr>
@@ -59,18 +65,17 @@
                     <tr>
                         <td>TP393.09/22</td>
                         <td>云南农业大学</td>
-                    </tr>
+                    </tr> -->
                 </table>
 
                 <!-- book_comment -->
                 <div class="book_comment">
                     <h4>图书评论</h4>
-                    <h5 id="current_user">ym</h5><p id="current_comment">这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错，值得阅读。。。不</p>
                 </div>
                 <!-- 写评论 -->
                 <div class="write">
                     <textarea name="write_comment" id="write_comment" cols="56" rows="10" placeholder="评论..."></textarea>
-                    <button id="submit" type="submit">提交</button>
+                    <button id="submit" type="button" onclick="submit_comment()">提交</button>
                     <button id="cancel">取消</button>
                 </div>
             </div>
@@ -81,37 +86,25 @@
                         <p>馆藏详细信息</p><button>借阅提醒</button>
                     </li>
                     <li class="li_book_name">书名：
-                        <span>Ajax</span>
+                        <span id="book_name"></span>
                     </li>
                     <li class="li_book_author">作者：
-                        <span>SOPHOCLES</span>
+                        <span id="book_authors"></span>
                     </li>
-                    <li class="li_book_isbn">标准编码：7-115-14717-5</li>
+                    <li class="li_book_isbn" id="book_isbn">标准编码：7-115-14717-5</li>
                     <li class="li_book_intro">图书简介：
-                        <p>这本书不错值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错</p>
+                        <p id="book_summary"></p>
                     </li>
                     <li class="li_book_publish">出版社：人民邮电出版社 2006.04 北京</li>
                     <li class="detail">馆藏分布状况</li>
                     <li class="li_book_show">
                         <a id="a_show" href="">馆藏预览</a>
-                        <table class="collects_show">
+                        <table id="collections_table" class="collects_show">
                             <tr>
                                 <th>索书号</th>
                                 <th>所属校区</th>
                                 <th>馆藏地址</th>
                                 <th>书刊状态</th>
-                            </tr>
-                            <tr>
-                                <td>TP393.09/22</td>
-                                <td>云南农业大学</td>
-                                <td>A馆</td>
-                                <td>在架</td>
-                            </tr>
-                            <tr>
-                                <td>TP393.09/22</td>
-                                <td>云南农业大学</td>
-                                <td>B馆</td>
-                                <td>在架</td>
                             </tr>
                         </table>
                     </li>
@@ -121,7 +114,7 @@
             <!-- 图片、提醒 -->
             <!-- book_img -->
             <div class="book_img">
-                <img src="" alt="">
+                <img id="book_img" src="" alt="">
             </div>
 
             <!-- 清除浮动 -->
@@ -137,6 +130,7 @@
             <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
         </p>
     </footer>
+    <script src="{{url_for('static', filename='js/detailBook.js')}}"></script> 
 </body>
 
 </html>
