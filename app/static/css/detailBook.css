@@ -156,6 +156,12 @@ body {
     background-size: 20px 22px;
     color: rgb(65, 16, 240);
 }
+.detail_book_list_left .book_comment h5{
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    color: rgb(236, 141, 141);
+}
 .detail_book_list_left .book_comment p{
     font-size: 14px;
     text-indent: 16px;
@@ -179,6 +185,7 @@ body {
     margin-bottom: 22px;
     margin-top: 10px;
     border-radius: 4px;
+    cursor: pointer;
 }
 .write #submit{
      margin-left: 70%;
