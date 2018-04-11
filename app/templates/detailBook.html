@@ -1,27 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>图书详情页</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/detailBook.css')}}">
 </head>
+
 <body>
     <!--header-->
     <div class="logo">
-            <div class="header">
-    
-                <div class="left">
-                    <h2>图书馆图书借阅管理系统</h2>
-                    <p>与志同道合的人分享读书的快乐</p>
-                </div>
-    
-                <div class="right">
-                    <a href="{{url_for('main.login')}}">[ 登录 ]</a>
-                    <a href="{{url_for('main.register')}}">[ 注册 ]</a>
-                </div>
-    
+        <div class="header">
+            <div class="left">
+                <h2>图书馆图书借阅管理系统</h2>
+                <p>与志同道合的人分享读书的快乐</p>
+            </div>
+
+            <div class="right">
+                <a href="{{url_for('main.login')}}">[ 登录 ]</a>
+                <a href="{{url_for('main.register')}}">[ 注册 ]</a>
             </div>
         </div>
+    </div>
+
+    <!-- detail_book -->
+    <div class="detail_book">
+        <div class="detail_book_list">
+            <!-- detail_book_list_left -->
+            <div class="detail_book_list_left">
+                <p>Item Details</p>
+                <a href="">查找该作者其它作品</a>
+                <br>
+                <a id="a_two" href="">查找本主题其它作品</a>
+                <a id="borrow_new" href="">图书借阅信息</a>
+                <table class="borrow_notice">
+                    <tr>
+                        <th>借阅者</th>
+                        <th>应归还日期</th>
+                    </tr>
+                    <tr>
+                        <td>TP393.09/22</td>
+                        <td>云南农业大学</td>
+                    </tr>
+                    <tr>
+                        <td>TP393.09/22</td>
+                        <td>云南农业大学</td>
+                    </tr>
+                    <tr>
+                        <td>TP393.09/22</td>
+                        <td>云南农业大学</td>
+                    </tr>
+                    <tr>
+                        <td>TP393.09/22</td>
+                        <td>云南农业大学</td>
+                    </tr>
+                    <tr>
+                        <td>TP393.09/22</td>
+                        <td>云南农业大学</td>
+                    </tr>
+                </table>
+
+                <!-- book_comment -->
+                <div class="book_comment">
+                    <h4>图书评论</h4>
+                    <p>这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错，值得阅读。。。不</p>
+                </div>
+                <!-- 写评论 -->
+                <div class="write">
+                    <textarea name="write_comment" id="write_comment" cols="56" rows="10" placeholder="评论..."></textarea>
+                    <button id="submit" type="submit">提交</button>
+                    <button id="cancel">取消</button>
+                </div>
+            </div>
+            <!-- 右边内容 -->
+            <div class="detail_book_list_right">
+                <ul id="book_right">
+                    <li>
+                        <p>馆藏详细信息</p><button>借阅提醒</button>
+                    </li>
+                    <li class="li_book_name">书名：
+                        <span>Ajax</span>
+                    </li>
+                    <li class="li_book_author">作者：
+                        <span>SOPHOCLES</span>
+                    </li>
+                    <li class="li_book_isbn">标准编码：7-115-14717-5</li>
+                    <li class="li_book_intro">图书简介：
+                        <p>这本书不错值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错这本书不错，值得阅读不错这本书不错，值得阅读不错这本书不错</p>
+                    </li>
+                    <li class="li_book_publish">出版社：人民邮电出版社 2006.04 北京</li>
+                    <li class="detail">馆藏分布状况</li>
+                    <li class="li_book_show">
+                        <a id="a_show" href="">馆藏预览</a>
+                        <table class="collects_show">
+                            <tr>
+                                <th>索书号</th>
+                                <th>所属校区</th>
+                                <th>馆藏地址</th>
+                                <th>书刊状态</th>
+                            </tr>
+                            <tr>
+                                <td>TP393.09/22</td>
+                                <td>云南农业大学</td>
+                                <td>A馆</td>
+                                <td>在架</td>
+                            </tr>
+                            <tr>
+                                <td>TP393.09/22</td>
+                                <td>云南农业大学</td>
+                                <td>B馆</td>
+                                <td>在架</td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 图片、提醒 -->
+            <!-- book_img -->
+            <div class="book_img">
+                <img src="" alt="">
+            </div>
+
+            <!-- 清除浮动 -->
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="footer">
+        <hr>
+        <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
+        <p>Mail:
+            <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
+        </p>
+    </footer>
 </body>
+
 </html>

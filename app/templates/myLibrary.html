@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>图书馆图书借阅管理系统</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+    <script>
+        window.onload = function(){
+            isLogin();
+            getAnnouncements();
+        }
+    </script>
+</head>
+
+<body>
+    <!--header-->
+    <div class="logo">
+        <div class="header">
+
+            <div class="left">
+                <h2>图书馆图书借阅管理系统</h2>
+                <p>与志同道合的人分享读书的快乐</p>
+            </div>
+
+            <div class="right">
+                <a href="{{url_for('main.login')}}">[ 登录 ]</a>
+                <a href="{{url_for('main.register')}}">[ 注册 ]</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!--content-->
+    <div class="content">
+        <div class="nav">
+            <ul>
+                <li class="active">
+                    <a href="">本馆书刊检索</a>
+                </li>
+                <li>
+                    <a href="">我的图书馆</a>
+                </li>
+            </ul>
+
+            <div class="pane">
+                <form action="" method="POST" target="_blank" role="form">
+                    <input type="text" id="inp">
+                    <select name="全面" id="sel">
+                        <option value="全面">全字段</option>
+                        <option value="书名">书名</option>
+                        <option value="作者">作者</option>
+                        <option value="出版社">出版社</option>
+                        <option value="ISBN">ISBN</option>
+                        <option value="主题">主题</option>
+                    </select>
+                    <button type="button" id="search" onclick="book_search()">搜索</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!--footer-->
+    <footer class="footer">
+        <hr>
+        <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
+        <p>Mail:
+            <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
+        </p>
+    </footer>
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+</body>
+
+</html>

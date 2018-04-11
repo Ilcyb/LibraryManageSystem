@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@
         }
     </script>
 </head>
+
 <body>
     <!-- header -->
     <div class="header">
@@ -28,48 +30,80 @@
                 </span>
             </div>
         </div>
-        <!-- content -->
-        <div class="content">
-            <!-- nav -->
-            <div class="nav_left">
-                <nav>
-                    <ul>
-                        <li>目录</li>
-                        <li><a href="{{url_for('admin.create_new_book')}}">图书添加</a></li>
-                        <li><a href="{{url_for('admin.manage_book')}}">图书管理</a></li>
-                        <li><a href="{{url_for('admin.create_new_announcement')}}">公告添加</a></li>
-                        <li><a href="{{url_for('admin.manage_announcement')}}">公告管理</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- content_right -->
-            <div class="content_right">
-                <div class="book_add">
-                    <p>图书管理</p>
-                     <table class="book_table">
-                       <tr>
-                            <th>编号</th>
-                            <th>书名</th>
-                            <th>标准编码</th>
-                            <th>图书藏本</th>
-                            <th>操作</th>
-                        </tr>
-                        <!-- <tr>
-                            <td>1</td>
-                            <td>1Ajax</td>
-                            <td>12345678978945612</td>
-                            <td><span class="collection_edit">添加</span><span class="collection_delete"><a href="{{url_for('admin.create_new_book_collection')}}">管理</a></span></td>
-                            <td><span class="edit">编辑</span><span class="delete">删除</span></td>
-                        </tr> -->
-                    </table>
-                    <!-- 点击图书藏本中的添加按钮显示藏本添加 -->
-                    <div class="mask">
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a href="">admin</a>
+                &nbsp;&nbsp;
+                <a href="">退出</a>
+            </span>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_book')}}">图书添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_book')}}">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_announcement')}}">公告添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_add">
+                <p>图书管理</p>
+                <table class="book_table">
+                    <tr>
+                        <th>编号</th>
+                        <th>书名</th>
+                        <th>标准编码</th>
+                        <th>图书藏本</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1Ajax</td>
+                        <td>12-3-4567-89789-4</td>
+                        <td>
+                            <span class="collection_edit">添加</span>
+                            <!-- 点击图书藏本中的管理按钮跳转页面 -->
+                            <span class="collection_delete">
+                                <a href="{{url_for('admin.create_new_book_collection')}}">管理</a>
+                            </span>
+                        </td>
+                        <td>
+                            <!-- 操作中点击编辑按钮显示图书编辑弹窗 -->
+                            <span class="edit">
+                                <a href="">编辑</a>
+                            </span>
+                            <span class="delete">删除</span>
+                        </td>
+                    </tr>
+                </table>
+                <!-- 点击图书藏本中的添加按钮显示藏本添加 -->
+                <div class="mask">
                     <div class="hidden">
                         <p>图书藏本添加</p>
                         <form action="" class="hidden_form" method="POST">
-                            馆藏地址：<input id="addr" type="text" required="required"><br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：<input id="campus" type="text" required="required"><br>
-                            <span id="submit_hidden">提交</span><span id="cancel_hidden" onclick="hidden_hidden_div()">取消</span>
+                            馆藏地址：
+                            <input id="addr" type="text" required="required">
+                            <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校区：
+                            <input id="campus" type="text" required="required">
+                            <br>
+                            <span id="submit_hidden">提交</span>
+                            <span id="cancel_hidden" onclick="hidden_hidden_div()">取消</span>
                         </form>
                     </div>
                     </div>
@@ -114,6 +148,8 @@
                 </div>
             </div>
         </div>
-        <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+    </div>
+    <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
 </body>
+
 </html>
