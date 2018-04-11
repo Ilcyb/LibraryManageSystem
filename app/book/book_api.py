@@ -454,6 +454,82 @@ def create_new_book():
     return jsonify({'created': True, 'created_book': returned_book, 'url': url_for('admin.manage_book')}), 201
 
 
+@book.route('/editBook', methods=['POST'])
+def edit_book():
+    request_json = request.get_json() or {}
+    book_id = request_json.get('id')
+    book = db.session.query(Book).filter_by(book_id=book_id).first()
+    if book == None:
+        return jsonify({'created': False, 'reason': '不存在该书籍'}), 404
+
+    isbn = request_json.get('isbn', None)
+    language = request_json.get('language', None)
+    name = request_json.get('name', None)
+    authors = request_json.get('authors', None)
+    topic = request_json.get('topic', None)
+    publish_house_name = request_json.get('publish_house', None)
+    classification = request_json.get('classification', None)
+    publish_date = request_json.get('publish_date', None)
+    call_number = request_json.get('call_number', None)
+    image = request_json.get('image', None)
+
+    try:
+        engine = create_engine(current_app.config['SQLALCHEMY_DATABASE_URI'])
+        Session = sessionmaker(bind=engine, autoflush=False)
+        session = Session()
+    except Exception as e:
+        print(e)
+        return jsonify({'created': False, 'reason': '服务器发生错误'}), 500
+
+    try:
+        same_isbn = session.query(Book).filter_by(isbn=isbn).first()
+        if same_isbn is not None:
+            return jsonify({
+                'created': False,
+                'reason': 'ISBN号重复，书籍资料修改失败'
+            }), 403
+
+        publish_house = session.query(PublishHouse).filter_by(
+            name=publish_house_name).first()
+        if not publish_house:  # 如果数据库中没有这个出版社的话，则创建该出版社的信息
+            publish_house = PublishHouse(publish_house_name)
+            session.add(publish_house)
+
+        session.commit()
+
+        book.isbn = isbn
+        book.classification_id = classification
+        book.publish_house_id = publish_house.publish_house_id
+        # book.authors.clear()
+        # session.commit()
+        # for author_name in authors:
+        #     author = session.query(Author).filter_by(name=author_name).first()
+        #     if not author:
+        #         new_author = Author(author_name)
+        #         session.add(new_author)
+        #         book.authors.append(new_author)
+        #     else:
+        #         book.authors.append(author)
+
+        book.language = language
+        book.name = name
+        book.topic = topic
+        book.publish_date = publish_date
+        book.call_number = call_number
+        book.image = image
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        from traceback import print_exc
+        print_exc()
+        # print(e)
+        return jsonify({'created': False, 'reason': '服务器发生错误'}), 500
+    finally:
+        session.close()
+
+    return jsonify({'created': True}), 201
+
+
 @book.route('/classification', methods=['POST'])
 def create_new_classification():
     """
