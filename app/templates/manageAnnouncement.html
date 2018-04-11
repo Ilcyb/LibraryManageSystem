@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageAnnouncement.css')}}">
     <script>
         window.onload = function(){
+            // load_admin_username();
             load_announcement()
         }
     </script>
@@ -23,9 +24,9 @@
         </div>
         <div class="header_right">
             <span>您好，&nbsp;
-                <a href="">admin</a>
+                <a href="" id="admin_username"></a>
                 &nbsp;&nbsp;
-                <a href="">退出</a>
+                <a href="" onclick="logout()">退出</a>
             </span>
         </div>
     </div>
@@ -91,7 +92,7 @@
                         <input class="name" type="text" required="required" id="edit_title">
                         <br>
                         <br>
-                        公告内容：<textarea name="" id="edit_content" cols="30" rows="10"></textarea>
+                        公告内容：<textarea name="" id="edit_content" cols="60" rows="15"></textarea>
                         <br>
                         <br>
                         <input id="save_form" type="button" value="保存">
@@ -100,7 +101,7 @@
                 </div>
             </div>
                 <!-- 右下角翻页 -->
-                <!-- <div class="paged">
+                <div class="paged">
                     <div class="page_content">
                         <span class="left"></span>
                         <span id="left_num">1</span>&nbsp;/&nbsp;
@@ -109,7 +110,7 @@
                         <input id="jump_text" type="text">
                         <input id="jump" type="button" value="跳转">
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>

@@ -1,0 +1,172 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #e3e8e2;
+    font-family: arial, verdana, sans-serif, '新宋体';
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* ....header.... */
+
+.logo {
+    width: 100%;
+}
+
+.header {
+    width: 90%;
+    height: 60px;
+    margin: 0 auto;
+    background: #fff;
+    border-bottom: 5px solid #6aa289;
+}
+
+.header .left {
+    width: 60%;
+}
+
+.header .left h2 {
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-left: 8%;
+    padding-top: 1%;
+    cursor: pointer;
+    color: #6aa289;
+}
+
+.header .left p {
+    font-size: 18px;
+    letter-spacing: 0px;
+    margin-left: 8%;
+    padding-top: 0%;
+    cursor: pointer;
+    color: #6aa289;
+}
+
+.header .right {
+    width: 40%;
+    margin: 0 auto;
+    margin-right: -20px;
+    margin-top: -11.2%;
+}
+
+.header .right a {
+    display: inline-block;
+    color: #6aa289;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-left: 48%;
+    padding-top: 22%;
+    text-decoration: none;
+}
+
+.header .right a:nth-of-type(2) {
+    margin-left: 6%;
+} 
+.header .right a:hover{
+    text-decoration: underline;
+}
+.logo .img{
+    width: 100%;
+    height: 180px;
+    background: url("/static/images/icons/11.jpg")no-repeat center center;
+}
+
+/*...content...*/
+
+.content {
+    width: 90%;
+    /* height: 400px; */
+    /* border: 1px solid lightseagreen; */
+    border-radius: 4px;
+    margin: 0% auto;
+}
+
+.content .nav {
+    width: 100%;
+    height: 54px;
+}
+
+.content .nav ul {
+    width: 99%;
+    height: 50px;
+    background: #fff;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin: 0% auto;
+}
+
+.content .nav ul li {
+    list-style: none;
+    width: 18%;
+    height: 41px;
+    float: left;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    margin-top: 0.8%;
+    margin-left: 1%;
+    border: 1px solid #e3e6ed;
+}
+
+.content .nav ul li:nth-of-type(1) {
+    width: 18%;
+    height: 41px;
+    background: url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li:nth-of-type(2) {
+    background: #609980 url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    text-align: center;
+    display: block;
+    line-height: 41px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: rgb(56, 27, 27);
+}
+
+.content .nav ul li .a_two{
+    color: #fff;
+}
+
+.content .nav ul li:nth-of-type(1) a:hover {
+    color: #fff;
+    background: rgb(192, 109, 109) url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
+    background-size: 20px 20px;
+}
+
+.content .nav ul li:nth-of-type(2) a:hover {
+    color: #fff;
+    background: rgb(192, 109, 109) url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
+    background-size: 20px 20px;
+}
+
+
+/* ...footer... */
+
+footer.footer {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+    height: 30px;
+    margin: 2% auto;
+}
+
+footer.footer hr {
+    width: 100%;
+    margin: 0 auto;
+    border-bottom: 1px solid rgb(243, 237, 237);
+}
+
+footer.footer p {
+    padding: 0.6%;
+}

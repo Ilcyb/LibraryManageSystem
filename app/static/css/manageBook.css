@@ -206,9 +206,18 @@ table tr td .delete{
 } 
 
 /* 操作中点击编辑按钮显示图书编辑弹窗 */
+.mask{
+    background-color:rgb(245, 212, 216);
+    opacity:1;
+    filter: alpha(opacity=50); 
+    position:absolute; 
+    left:18%;
+    top:16%;
+    z-index:1;
+    
+}
 .content .content_right .book_edit{
-    width: 92%;
-    height: 530px;
+    width: 600px;
     margin: 0% auto;
     display: none;/*  隐藏编辑页面 */
 }
@@ -223,10 +232,13 @@ table tr td .delete{
     letter-spacing: 6px;
     color: #7c7d7d;
 }
+#add_author{
+    cursor: pointer;
+}
 .content .content_right .book_edit form{
-    width: 90%;
-    height: 480px;
-    margin: 0 auto;
+    width: 78%;
+    margin-left: 22%;
+    margin-top: 2%;
     font-size: 15px;
     color: #7c7d7d;
 }
@@ -238,6 +250,7 @@ table tr td .delete{
     border: 1px solid rgb(163, 203, 241);
     border-radius: 2px;
     text-indent: 4px;
+    margin-top: 1%;
 }
 .content .content_right .book_edit form span{
     width: 25px;
@@ -263,80 +276,68 @@ table tr td .delete{
     width: 70px;
     height: 30px;
     font-size: 16px;
-    margin-left: 8%;
+    margin-left: 17%;
+    margin-bottom: 1%;
+}
+#cancel_form{
+    margin-left: 6%;
 }
 #cancel_form:hover,#save_form:hover{
-    font-size: 18px;
     background: rgb(66, 231, 204);
     color: rgb(240, 235, 235);
 }
 
-.mask{
-    background-color:rgb(245, 237, 238);
-    opacity:1;
-    filter: alpha(opacity=50); 
-    position:absolute; 
-    left:0;
-    top:0;
-    z-index:1;
-}
-
 /* 点击图书藏本中的添加按钮显示藏本添加 */
 .hidden{
-    width: 700px;
+    width: 600px;
     height: 400px;
-    border: 1px solid lightseagreen;
     color: #9e9f9f;
-   display: none; 
-   position: relative;
+    display: none; 
+    position: relative;
     margin: 1% auto;
 }
 
 .content .content_right .book_add .hidden p{
-    font-size: 16px;
-    margin: 5% auto;
-    border: none;
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(240, 235, 235);
+    text-align: center;
+    margin: 2% auto;
+    letter-spacing: 6px;
+    color: #7c7d7d;
 }
 .hidden form{
-    width: 40%;
-    height: 200px;
+    width: 60%;
     border-radius: 4px;
-    margin: 1% auto;
-    position: relative;
+    margin: 6% auto;
+    color: #7c7d7d;
 }
 .hidden form input{
     width: 200px;
-    height: 10px;
+    height: 30px;
     outline: none;
     text-decoration: none;
-    border: 1px solid rgb(167, 191, 241);
-    cursor: text;
-    font-size: 16px;
-    letter-spacing: 4px;
+    border: 1px solid rgb(163, 203, 241);
+    border-radius: 2px;
     text-indent: 4px;
-    padding: 10px 10px;
-    margin: 10px 10px;
+    margin-top: 4%;
 }
 .content .content_right .book_add .hidden form span{
-    width: 40px;
-    height: 20px;
-    line-height: 20px;
-    color: rgb(71, 69, 69);
-    font-size: 16px;
+    width: 35px;
+    height: 25px;
+    margin: 8px 10px;
+    padding: 4px 8px;
     text-align: center;
-    margin: 5px 10px;
-    padding: 5px 10px;
-    border: 1px solid rgb(167, 191, 241);
-    position: absolute;
+    line-height: 25px;
     cursor: pointer;
+    border: 1px solid rgb(163, 203, 241);
+    margin-left: 24%;
+    background: #e0dedb;
 }
-.content .content_right .book_add .hidden form #submit_hidden{
-    top: 70%;
-    left: 30%;
-}
-.content .content_right .book_add .hidden form #cancel_hidden{
-    top: 70%;
-    left: 55%;
+#cancel_hidden{
+    margin-left: 8%;
 }
 #submit_hidden:hover,#cancel_hidden:hover{
     background: rgb(66, 231, 204);
