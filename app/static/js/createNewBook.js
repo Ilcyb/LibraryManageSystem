@@ -5,7 +5,7 @@ function createNewBook() {
     for (var i = 0; i < authors_input.length; i++) {
         authors.push(authors_input[i].value);
     }
-    var classification_id = document.getElementById('classification')[document.getElementById('classification').selectedIndex].text;
+    var classification = document.getElementById('classification')[document.getElementById('classification').selectedIndex].text;
     var isbn = document.getElementById('isbn').value;
     var publish_house = document.getElementById('publish_house').value;
     var language = document.getElementById('language').value;
