@@ -79,10 +79,9 @@ body {
 
 .content {
     width: 90%;
-    /* height: 400px; */
-    /* border: 1px solid lightseagreen; */
     border-radius: 4px;
     margin: 0% auto;
+    position: relative;
 }
 
 .content .nav {
@@ -115,12 +114,12 @@ body {
     width: 18%;
     height: 41px;
     background: url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
-    background-size: 20px 20px;
+    background-size: 18px 18px;
 }
 
 .content .nav ul li:nth-of-type(2) {
-    background: #609980 url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
-    background-size: 20px 20px;
+    background: #609980 url("/static/images/icons/user1_icon.png") no-repeat 20% 40%;
+    background-size: 18px 18px;
 }
 
 .content .nav ul li a {
@@ -140,33 +139,224 @@ body {
 
 .content .nav ul li:nth-of-type(1) a:hover {
     color: #fff;
-    background: rgb(192, 109, 109) url("/static/images/icons/search_icon.png") no-repeat 16% 45%;
-    background-size: 20px 20px;
+    background: rgb(192, 109, 109) url("/static/images/icons/search1_icon.png") no-repeat 16% 45%;
+    background-size: 18px 18px;
 }
 
 .content .nav ul li:nth-of-type(2) a:hover {
     color: #fff;
-    background: rgb(192, 109, 109) url("/static/images/icons/user_icon.png") no-repeat 20% 40%;
-    background-size: 20px 20px;
+    background: rgb(192, 109, 109) url("/static/images/icons/user1_icon.png") no-repeat 20% 40%;
+    background-size: 18px 18px;
 }
 
+/* 个人资料 */
+.content .personal{
+    width: 25%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: #fff;
+    margin-left: 0.4%;
+    float: left;
+}
+.content .personal h4{
+    text-align: center;
+    color: #6aa289;
+    margin-top: 1%;
+    padding: 3% 2%;
+    border-bottom: 3px solid #609980;
+}
+.content .personal .per_img{
+    width: 100px;
+    height: 120px;
+    background: #fff url("/static/images/BookImages/007.gif")no-repeat;
+}
+.content .personal ul{
+    margin-left: 54%;
+    margin-top: -38%;
+    padding-bottom: 1%;
+}
+.content .personal li{
+    text-decoration: none;
+    color: #6aa289;
+    list-style-type: square;
+    font-size: 15px;
+    padding-bottom: 0.1%;
+}
+.content .personal .per_edit{
+    list-style: none;
+    padding-bottom: 2%;
+}
+.content .personal button{
+    border: none;
+    background: #e3e6ed;
+    padding: 3% 6%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.content .personal button:hover{
+    color: #fff;
+    background: #609980;
+}
+
+/* 点击修改个人资料按钮出现弹窗 */
+.content .personal_edit{
+    width: 60%;
+    background: #fff;
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    display: none;
+}
+.content .personal_edit h4{
+    text-align: center;
+    color: #6aa289;
+    margin-top: 1%;
+    padding: 1.5% 1.5%;
+    border-bottom: 3px solid #609980;
+}
+.content .personal_edit ul{
+    margin: 1% auto;
+    list-style: none;
+    width: 60%;
+    margin-right: 34%;
+    letter-spacing: 0.11em;
+    color: #609980;
+    text-align: right;
+}
+.content .personal_edit ul li input{
+    border: 1px solid #e3e6ed;
+}
+.content .personal_edit ul li button{
+    width: 60px;
+    height: 28px;
+    background: #e3e6ed;
+    cursor: pointer;
+    border: none;
+    margin-top: 2%;
+    margin-right: 5%;
+    border-radius: 4px;
+    color: #609980;
+}
+.content .personal_edit ul li button:hover{
+    background: #609980;
+    color: #fff;
+}
+.content .personal_edit ul li .cansel{
+    margin-left: 2%;
+}
+
+
+/* 我的借阅历史 */
+.content .borrow_content{
+    width: 73%;
+    margin-right: 0.5%;
+    border-top-right-radius: 4px;
+    background: #fff;
+    float: right;
+}
+.content .borrow_content h4{
+    text-align: center;
+    color: #6aa289;
+    margin-top: 1%;
+    padding: 0.75% 1%;
+    border-bottom: 3px solid #609980;
+}
+.content .borrow_content table{
+    width: 100%;
+    text-align: center;
+    color: rgb(97, 65, 17);
+    border-collapse: collapse;
+    /* display: block; */
+}
+.content .borrow_content table tr{
+    height: 30px;
+    border: 1px solid #f7f1d9;
+}
+.content .borrow_content table th{
+    border: 1px solid #f7f1d9;
+    height: 30px;
+    font-size: 15px;
+}
+.content .borrow_content table td{
+    font-size: 12px;
+    border: 1px solid #f7f1d9;
+}
+.content .borrow_content table td a{
+    text-decoration: none;
+}
+.content .borrow_content table td a:hover{
+    text-decoration: underline;
+    color: red;
+}
+.content .borrow_content table td button{
+    border: 1px solid #e3e6ed;
+    padding: 2% 8%;
+    outline: none;
+    cursor: pointer;
+}
+.content .borrow_content table td button:hover{
+    color: #fff;
+    background: #6aa289;
+}
+/* 我的评论 */
+.content .my_comment{
+    clear: both;
+    width: 99.5%;
+    margin: 0 auto;
+    background: #fff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-top: 5px solid #e3e6ed;
+}
+.content .my_comment h4{
+    text-align: center;
+    color: #6aa289;
+    margin-top: 1%;
+    padding: 0.5% 1%;
+    border-bottom: 3px solid #609980;
+}
+.content .my_comment h5{
+    margin-left: 2%;
+    padding: 1.5% 1%;
+    font-size: 18px;
+    font-weight: normal;
+    color: #609980;
+    display: inline;
+}
+.content .my_comment .comment_time{
+    color: #609980;
+    font-size: 13px;
+    margin-left: 2%;
+}
+.content .my_comment p{
+    font-size: 14px;
+    text-indent: 2em;
+    color: #609980;
+    padding-bottom: 1%;
+    margin-left: 0.5%;
+    border-bottom: 2px solid #f7f1d9;
+}
 
 /* ...footer... */
 
 footer.footer {
     text-align: center;
     margin-bottom: 30px;
-    width: 100%;
-    height: 30px;
-    margin: 2% auto;
-}
-
-footer.footer hr {
-    width: 100%;
-    margin: 0 auto;
-    border-bottom: 1px solid rgb(243, 237, 237);
+    width: 89.5%;
+    margin: 0.5% auto;
+    background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: 1px solid #6aa289;
 }
 
 footer.footer p {
-    padding: 0.6%;
+    padding-top: 1%;
+    color: #609980;
+    font-weight: bold; 
+}
+.footer p:nth-of-type(2){
+    margin-bottom: 1%;
 }
