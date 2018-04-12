@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>公告添加-后台管理</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/createNewAnnouncement.css')}}">
+    <script>
+        window.onload = function(){
+            load_admin_username();            
+        }
+    </script>
 </head>
 
 <body>
@@ -18,9 +23,9 @@
         </div>
         <div class="header_right">
             <span>您好，&nbsp;
-                <a href="">admin</a>
-                &nbsp;&nbsp;
-                <a href="">退出</a>
+                        <a id="admin_username" href=""></a>
+                        &nbsp;&nbsp;
+                        <a href="" onclick="logout()">退出</a>
             </span>
         </div>
     </div>
@@ -64,6 +69,7 @@
         </div>
     </div>
     <script src="{{url_for('static', filename='js/createNewAnnouncement.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
 </body>
 
 </html>

@@ -117,6 +117,8 @@ def admin_login():
         session['login'] = True
         session['isAdmin'] = True
         return jsonify({'login_statu': True, 'url': url_for('admin.manage_book')}), 200
+    else:
+        return jsonify({'login_statu': False, 'reason':'用户名或密码错误'}), 401        
 
 
 @auth.route('/adminInfo', methods=['GET'])

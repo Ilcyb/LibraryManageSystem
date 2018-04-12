@@ -11,7 +11,7 @@ def login_required(func):
     return handle_args
 
 def admin_required(func):
-    @wraps
+    @wraps(func)
     def handle_args(*args, **kwargs):
         if session.get('isAdmin', None) == True:
             return func(*args, **kwargs)

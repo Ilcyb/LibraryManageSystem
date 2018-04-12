@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageAnnouncement.css')}}">
     <script>
         window.onload = function(){
-            // load_admin_username();
+            load_admin_username();
             load_announcement()
         }
     </script>
@@ -23,11 +23,11 @@
             <span>LibraryManageSystem</span>
         </div>
         <div class="header_right">
-            <span>您好，&nbsp;
-                <a href="" id="admin_username"></a>
-                &nbsp;&nbsp;
-                <a href="" onclick="logout()">退出</a>
-            </span>
+                <span>您好，&nbsp;
+                        <a id="admin_username" href=""></a>
+                        &nbsp;&nbsp;
+                        <a href="" onclick="logout()">退出</a>
+                    </span>
         </div>
     </div>
     <!-- content -->
@@ -115,6 +115,7 @@
         </div>
     </div>
     <script src="{{url_for('static', filename='js/manageAnnouncement.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>        
 </body>
 
 </html>

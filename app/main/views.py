@@ -1,6 +1,7 @@
 from . import main
 from ..models import Book
 from flask import render_template
+from ..utils.decorators import login_required
 
 
 @main.route('/')
@@ -20,6 +21,7 @@ def search_result():
     return render_template('searchResult.html')
 
 @main.route('/myLibrary')
+@login_required
 def my_library():
     return render_template('myLibrary.html')
 

@@ -22,15 +22,14 @@
             <h2>图书馆图书借阅后台管理系统</h2>
             <span>LibraryManageSystem</span>
         </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a id="admin_username" href=""></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
     </div>
-    <div class="header_right">
-        <span>您好，&nbsp;
-            <a href="">admin</a>
-            &nbsp;&nbsp;
-            <a href="">退出</a>
-        </span>
-    </div>
-   
     <!-- content -->
     <div class="content">
         <!-- nav -->
@@ -143,6 +142,7 @@
     </div>
     </div>
     <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>    
 </body>
 
 </html>
