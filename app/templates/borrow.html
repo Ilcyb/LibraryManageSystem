@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书管理-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/borrow.css')}}">
+    <script>
+        // window.onload = function(){
+        //     load_admin_username();
+        //     load_books();
+        // }
+    </script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="header_left">
+            <h2>图书馆图书借阅后台管理系统</h2>
+            <span>LibraryManageSystem</span>
+        </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a href="" id="admin_username"></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_book')}}">图书添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_book')}}">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_announcement')}}">公告添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.add_borrow_record')}}">借阅管理</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_collection_add">
+                <p>图书借阅管理</p>
+                <form action="" method="POST">
+                    用户ID：
+                    <input id="user_id" class="user_id" type="text" required="required">
+                    <br>
+                    <br> 藏本ID：
+                    <input id="book_collection_id" class="book_collection_id" type="text" required="required">
+                    <br>
+                    <br>
+                    <input id="save_form" type="button" value="保存">
+                    <input id="cancel_form" type="button" value="取消">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+</body>
+
+</html>
