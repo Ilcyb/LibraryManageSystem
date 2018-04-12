@@ -7,13 +7,25 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/register.css')}}"/>
 </head>
 <body>
-    <!-- caption -->
-    <div class="caption">
-        <h1 class="text-center">图书馆图书借阅管理系统</h1>
-        <p class="text-center">与志同道合的人分享读书的快乐</p>
-    </div>
+    <!--header-->
+    <div class="logo">
+            <div class="header">
+    
+                <div class="left">
+                    <h2>图书馆图书借阅管理系统</h2>
+                    <p>与志同道合的人分享读书的快乐</p>
+                </div>
+    
+                <div class="right">
+                    <a href="{{url_for('main.login')}}">[ 登录 ]</a>
+                </div>
+    
+            </div>
+            <div class="img"></div>
+        </div>
     <!-- form -->
     <form method="post">
+        <h4>注册</h4>
         <input type="text" id="username" name="username" placeholder="用户名"/><br>
         <input type="email" id="email" name="email" placeholder="邮箱地址"/><br>
         <input type="password" id="password" name="password" placeholder="密码"/><br>
