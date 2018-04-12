@@ -4,7 +4,7 @@
 }
 
 body {
-    background: #fff;
+    background: #e3e8e2;
     font-family: arial, verdana, sans-serif, '新宋体';
     width: 90%;
     margin: 0 auto;
@@ -14,66 +14,72 @@ body {
 
 .logo {
     width: 100%;
-    height: 146px;
-    border-bottom: 1px solid #eee;
 }
 
 .header {
     width: 90%;
-    height: 146px;
+    height: 60px;
     margin: 0 auto;
-    /*background: #f9f9f9;*/
+    background: #fff;
+    border-bottom: 5px solid #6aa289;
 }
 
 .header .left {
     width: 60%;
-    height: 146px;
 }
 
 .header .left h2 {
-    font-size: 38px;
-    font-weight: normal;
-    letter-spacing: 4px;
-    margin-left: 8%;
-    padding-top: 5%;
-    cursor: pointer;
-}
-
-.header .left p {
     font-size: 24px;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin-left: 8%;
     padding-top: 1%;
     cursor: pointer;
+    color: #6aa289;
+}
+
+.header .left p {
+    font-size: 18px;
+    letter-spacing: 0px;
+    margin-left: 8%;
+    padding-top: 0%;
+    cursor: pointer;
+    color: #6aa289;
 }
 
 .header .right {
     width: 40%;
-    height: 146px;
     margin: 0 auto;
-    margin-right: 0px;
-    margin-top: -13.2%;
+    margin-right: -20px;
+    margin-top: -11.2%;
 }
 
 .header .right a {
     display: inline-block;
-    color: #000;
-    letter-spacing: 2px;
-    font-size: 16px;
-    margin-left: 28%;
+    color: #6aa289;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-left: 48%;
     padding-top: 22%;
     text-decoration: none;
 }
 
 .header .right a:nth-of-type(2) {
     margin-left: 6%;
+} 
+.header .right a:hover{
+    text-decoration: underline;
+}
+.logo .img{
+    width: 100%;
+    height: 180px;
+    background: url("/static/images/icons/11.jpg")no-repeat center center;
 }
 
 /* detail_book */
 .detail_book{
     width: 100%;
     height: 100%;
-    margin: 1% auto;
+    margin: 0% auto;
     background: rgb(238, 238, 243);
     cursor: pointer;
 }
@@ -85,6 +91,7 @@ body {
     margin: 0% auto;
     border: 8px solid rgb(238, 238, 243);
     border-radius: 4px;
+    margin-top: -0.8%;
 }
 /* 左边 */
 .detail_book .detail_book_list .detail_book_list_left{
@@ -100,6 +107,7 @@ body {
     padding: 18px 2px;
     font-family: Arial, Helvetica, sans-serif;
     cursor: pointer;
+    color: #6aa289;
 }
 .detail_book .detail_book_list_left a{
     font-size: 16px;
@@ -120,30 +128,31 @@ body {
     color: red;
 }
 
-/* 图书借阅信息 刚开始为隐藏，鼠标移上去则显示*/
 .detail_book_list_left table{
     width: 90%;
     text-align: center;
     margin-left: 8px;
     color: rgb(97, 65, 17);
     border-collapse: collapse;
-    display: block;
+    margin-top: 0.5%;
 }
 .detail_book_list_left table th {
-    background: rgb(248, 213, 180);
-    border: 1px solid rgb(247, 162, 35);
+    border: 1px solid #dad1d1;
+    background: rgb(248, 224, 228);
     height: 28px;
     font-size: 15px;
+    width: 20%;
 }
 
 .detail_book_list_left table tr {
-    background: rgb(248, 224, 228);
     height: 28px;
+    border: 1px solid #dad1d1;
 }
 
 .detail_book_list_left table tr td {
-    border: 1px solid rgb(247, 162, 35);
     font-size: 12px;
+    border: 1px solid #dad1d1;
+    color: #6aa289;
 }
 
 /* 评论 */
@@ -156,38 +165,46 @@ body {
     color: rgb(65, 16, 240);
 }
 .detail_book_list_left .book_comment h5{
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 5px;
+    margin-left: 30px;
     font-size: 16px;
-    color: rgb(236, 141, 141);
+    color: #6aa289;
+    font-weight: normal;
 }
 .detail_book_list_left .book_comment p{
     font-size: 14px;
     text-indent: 16px;
-    margin-top: -8px;
+    margin-top: -16px;
+    color: #6aa289;
+    border-bottom: 1px solid #dad1d1;
 }
 
 /* 写评论 */
 .write textarea{
     margin-left: 2%;
+    margin-top: 1%;
     text-indent: 10px;
     font-size: 14px;
     border: 1px solid #dad1d1;
 }
-.write #submit,.write #cancel{
-    width: 55px;
+.write button{
+    width: 65px;
     height: 30px;
     border: none;
     text-decoration: none;
     outline: none;
-    background: rgb(21, 187, 146);
     margin-bottom: 22px;
     margin-top: 10px;
     border-radius: 4px;
     cursor: pointer;
+    color: #6aa289;
+}
+.write button:hover{
+    background: #6aa289;
+    color: #fff;
 }
 .write #submit{
-     margin-left: 70%;
+     margin-left: 65%;
 }
 
 /* 图片 */
@@ -215,11 +232,12 @@ body {
 #book_right li p{
     font-size: 22px;
     display: inline;
+    color: #6aa289;
 }
 #book_right li button{
     width: 90px;
     height: 30px;
-    background: rgb(207, 53, 125);
+    background: #6aa289;
     border: none;
     font-size: 16px;
     margin: 0% 6%;
@@ -229,7 +247,7 @@ body {
 }
 #book_right li button:hover{
     color: #fff;
-    background: rgb(21, 187, 146);
+    background: rgb(207, 53, 125);
 }
 #book_right li{
     font-size: 16px;
@@ -252,6 +270,7 @@ body {
 }
 #book_right .detail{
     font-weight: bold;
+    color: #6aa289;
 }
 
 #book_right .li_book_show a{
@@ -269,24 +288,26 @@ body {
     text-align: center;
     color: rgb(97, 65, 17);
     border-collapse: collapse;
-    display: block;
+    margin-top: 0.5%;
 }
 
 #book_right li table th {
-    background: rgb(248, 213, 180);
-    border: 1px solid rgb(247, 162, 35);
     height: 30px;
     font-size: 15px;
+    background: rgb(248, 224, 228);
+    border: 1px solid #dad1d1;
+    width: 18%;
 }
 
 #book_right li table tr {
-    background: rgb(248, 224, 228);
     height: 30px;
+    border: 1px solid #dad1d1;
 }
 
 #book_right li table tr td {
-    border: 1px solid rgb(247, 162, 35);
+    border: 1px solid #dad1d1;
     font-size: 13px;
+    color: #6aa289;
 }
 
 /* ...footer... */
@@ -294,18 +315,18 @@ body {
 footer.footer {
     text-align: center;
     margin-bottom: 30px;
-    width: 100%;
-    height: 30px;
-    margin: 2% auto;
-}
-
-footer.footer hr {
-    width: 100%;
-    margin: 0 auto;
-    border-bottom: 1px solid rgb(243, 237, 237);
+    width: 90%;
+    margin: 0% auto;
+    background: #fff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 footer.footer p {
-    padding: 0.6%;
-    cursor: pointer;
+    padding-top: 1%;
+    color: #609980;
+    font-weight: bold; 
+}
+.footer p:nth-of-type(2){
+    padding-bottom: 1%;
 }

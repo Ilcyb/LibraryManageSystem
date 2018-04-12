@@ -29,20 +29,23 @@
             </div>
 
         </div>
+        <div class="img"></div>
     </div>
 
     <!--content-->
     <div class="content">
+        <!-- 导航 -->
         <div class="nav">
             <ul>
                 <li class="active">
                     <a href="">本馆书刊检索</a>
                 </li>
                 <li>
-                    <a href="{{url_for('main.my_library')}}">我的图书馆</a>
+                    <a href="{{url_for('main.my_library')}}" class="a_two">我的图书馆</a>
                 </li>
             </ul>
 
+            <!-- 检索栏 -->
             <div class="pane">
                 <form action="" method="POST" target="_blank" role="form">
                     <input type="text" id="inp">
@@ -72,7 +75,6 @@
 
     <!--footer-->
     <footer class="footer">
-        <hr>
         <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
         <p>Mail:
             <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>

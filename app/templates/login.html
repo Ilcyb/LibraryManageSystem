@@ -9,13 +9,25 @@
 </head>
 
 <body>
-    <!-- caption -->
-    <div class="caption">
-        <h1 class="text-center">图书馆图书借阅管理系统</h1>
-        <p class="text-center">与志同道合的人分享读书的快乐</p>
-    </div>
+    <!--header-->
+    <div class="logo">
+            <div class="header">
+    
+                <div class="left">
+                    <h2>图书馆图书借阅管理系统</h2>
+                    <p>与志同道合的人分享读书的快乐</p>
+                </div>
+    
+                <div class="right">
+                    <a href="{{url_for('main.register')}}">[ 注册 ]</a>
+                </div>
+    
+            </div>
+            <div class="img"></div>
+        </div>
     <!-- form -->
     <form method="post" id="form1">
+        <h4>登录</h4>
         <input type="text" id="txt" name="username" placeholder="用户名/邮箱"><br>
         <input type="password" id="psw" password="password" placeholder="密码"><br>
         <button id="login" type="button" onclick="login_req()">登录</button><br>
@@ -23,7 +35,6 @@
     </form>
     <!-- footer -->
     <footer class="footer">
-        <hr>
         <p>图书馆图书借阅管理系统&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&copy;2018</p>
         <p>Mail:
             <a href="mailto:joe@example.com?subject=feedback" "email me">email me</a>
