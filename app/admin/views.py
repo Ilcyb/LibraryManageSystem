@@ -37,3 +37,7 @@ def create_new_announcement():
 @admin.route('/manageAnnouncement')
 def manage_announcement():
     return render_template('manageAnnouncement.html')
+
+@admin.route('/borrow')
+def add_borrow_record():
+    return render_template('borrow.html')
