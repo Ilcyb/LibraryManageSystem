@@ -8,7 +8,9 @@
     <script>
         window.onload = function(){
             isLogin();
-            getAnnouncements();
+            get_personal_info();
+            get_lending_info();
+            get_comments();
         }
     </script>
 </head>
@@ -51,12 +53,13 @@
             <h4>个人资料</h4>
             <div class="per_img"></div>
             <ul class="personal_ul">
-                <li class="per_name">姓名：杨梅</li>
-                <li class="per_username">用户名：ym</li>
-                <li class="per_sex">性别：女</li>
-                <li class="per_level">等级：本科生</li>
-                <li class="per_ins">学院：大数据学院</li>
-                <li class="per_book_num">可借书数量：7</li>
+                <li class="per_name"></li>
+                <li class="per_username"></li>
+                <li class="per_email"></li>                
+                <li class="per_sex"></li>
+                <li class="per_level"></li>
+                <li class="per_ins"></li>
+                <li class="per_book_num"></li>
                 <li class="per_edit"><button class="edit_button">修改个人资料</button></li>
             </ul>
         </div>
@@ -85,12 +88,19 @@
                     <th>预期归还时间</th>
                     <th>操作</th>
                 </tr>
-                <tr>
+                <!-- <tr>
                     <td class="borrow_book"><a href="">Ajax</a></td>
                     <td class="borrow_time">2017.08.12</td>
                     <td class="is_borrow">是</td>
                     <td class="expect_time">2017.09.12</td>
-                    <td class="once_borrow"><button class="once">续借</button></td>
+                    <td class="once_borrow"><button class="once" disabled>续借</button></td>
+                </tr>
+                <tr>
+                    <td><a href="">Ajax</a></td>
+                    <td>2017.08.12</td>
+                    <td>是</td>
+                    <td>2017.09.12</td>
+                    <td><button disabled>续借</button></td>
                 </tr>
                 <tr>
                     <td><a href="">Ajax</a></td>
@@ -98,28 +108,13 @@
                     <td>是</td>
                     <td>2017.09.12</td>
                     <td><button>续借</button></td>
-                </tr>
-                <tr>
-                    <td><a href="">Ajax</a></td>
-                    <td>2017.08.12</td>
-                    <td>是</td>
-                    <td>2017.09.12</td>
-                    <td><button>续借</button></td>
-                </tr>
+                </tr> -->
             </table>
         </div>
 
         <!-- 我的评论 -->
         <div class="my_comment">
             <h4>我的评论</h4>
-            <h5>《Ajax》</h5>
-            <span class="comment_time">2017.08.12</span>
-            <p>Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。
-                    Ajax = 异步 JavaScript 和 XML（标准通用标记语言的子集）。
-                    Ajax 是一种用于创建快速动态网页的技术。
-                    Ajax 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。 [1]  
-                    通过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
-            </p>
         </div>
     </div>
 
@@ -131,6 +126,7 @@
         </p>
     </footer>
     <script src="{{url_for('static', filename='js/index.js')}}"></script>
+    <script src="{{url_for('static', filename='js/myLibrary.js')}}"></script>    
 </body>
 
 </html>

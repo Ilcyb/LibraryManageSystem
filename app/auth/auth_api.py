@@ -181,7 +181,7 @@ def edit_personal_info():
         return jsonify({'edit_statu':True}), 200
 
 
-@auth.route('/lending_history', methods=['GET'])
+@auth.route('/lendingHistory', methods=['GET'])
 def lending_history():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
     if user is None:
@@ -234,7 +234,7 @@ def create_new_comment():
     return '评论成功', 200
 
 
-@auth.route('/comment_history', methods=['GET'])
+@auth.route('/commentHistory', methods=['GET'])
 def get_history_comments():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
     if user is None:
@@ -249,6 +249,7 @@ def get_history_comments():
     for i in range(len(comments)):
         comment_json = {}
         comment_json['book_id'] = comments[i].book_id
+        comment_json['book_name'] = db.session.query(Book.name).filter_by(book_id=comments[i].book_id).first()
         comment_json['content'] = comments[i].content
         comment_json['comment_time'] = comments[i].comment_time
         comments_list.append(comment_json)
