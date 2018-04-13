@@ -53,22 +53,8 @@ function get_lending_info() {
                     var bat_td = document.createElement('td');
                     var bbtn = document.createElement('button');
                     bbtn.innerText = '续借';
-                    bbtn.setAttribute('lendinfo_id', result['lend_info'][i]['lending_info_id']);
-                    bbtn.onclick = function () {
-                        var rn_xhr = new XMLHttpRequest();
-                        rn_xhr.open('GET', '/api/user/renew/' + bbtn.getAttribute('lendinfo_id'));
-                        rn_xhr.send();
-                        rn_xhr.onreadystatechange = function () {
-                            if (rn_xhr.readyState === 4) {
-                                if (rn_xhr.status === 200) {
-                                    alert('续借成功');
-                                    window.location.reload();
-                                } else {
-                                    alert(JSON.parse(rn_xhr.responseText)['reason']);
-                                }
-                            }
-                        }
-                    }
+                    bbtn.value = 'lendinfo_' + result['lend_info'][i]['lending_info_id'];
+                    bbtn.onclick = re_borrow;
                     bat_td.appendChild(bbtn);
                     if (result['lend_info'][i]['returned']) {
                         gh_td.innerText = '是';
@@ -84,6 +70,25 @@ function get_lending_info() {
                     new_tr.appendChild(bat_td);
                     ld_table.appendChild(new_tr);
                 }
+            }
+        }
+    }
+}
+
+function re_borrow(){
+    var event = window.event; //获取当前窗口事件 
+    var obj = event.srcElement ? event.srcElement : event.target;
+    var ld_id = obj.value.split('_')[1];
+    var rn_xhr = new XMLHttpRequest();
+    rn_xhr.open('GET', '/api/user/renew/' + ld_id);
+    rn_xhr.send();
+    rn_xhr.onreadystatechange = function () {
+        if (rn_xhr.readyState === 4) {
+            if (rn_xhr.status === 200) {
+                alert('续借成功');
+                window.location.reload();
+            } else {
+                alert(JSON.parse(rn_xhr.responseText)['reason']);
             }
         }
     }
