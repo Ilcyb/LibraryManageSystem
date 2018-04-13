@@ -32,6 +32,21 @@
         <div class="img"></div>
     </div>
 
+    <!--content-->
+    <div class="content">
+        <!-- 导航 -->
+        <div class="nav">
+            <ul>
+                <li class="active">
+                    <a href="{{url_for('main.index')}}">本馆书刊检索</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.my_library')}}" class="a_two">我的图书馆</a>
+                </li>
+            </ul>
+        </div>
+    </div> 
+
     <!-- detail_book -->
     <div class="detail_book">
         <div class="detail_book_list">
@@ -47,7 +62,7 @@
                         <th>借阅者</th>
                         <th>应归还日期</th>
                     </tr>
-                    <!-- <tr>
+                    <!--<tr>
                         <td>TP393.09/22</td>
                         <td>云南农业大学</td>
                     </tr>
