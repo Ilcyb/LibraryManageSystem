@@ -200,12 +200,12 @@ def lending_history():
                         .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()
         lendinfo_json['book_id'] = db.session.query(BookCollection.book_id)\
                         .filter_by(book_collection_id=lending_infos[i].book_collection_id).first()                        
-        lendinfo_json['lend_time'] = lending_infos[i].lend_time
+        lendinfo_json['lend_time'] = lending_infos[i].lend_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
         lendinfo_json['returned'] = lending_infos[i].returned
         if lendinfo_json['returned']:
-            lendinfo_json['return_time'] = lending_infos[i].return_time
+            lendinfo_json['return_time'] = lending_infos[i].return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
         else:
-            lendinfo_json['expected_return_time'] = lending_infos[i].expected_return_time
+            lendinfo_json['expected_return_time'] = lending_infos[i].expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
         lendinfo_list.append(lendinfo_json)
     returned_json['lend_info'] = lendinfo_list
     return jsonify(returned_json), 200
@@ -251,7 +251,7 @@ def get_history_comments():
         comment_json['book_id'] = comments[i].book_id
         comment_json['book_name'] = db.session.query(Book.name).filter_by(book_id=comments[i].book_id).first()
         comment_json['content'] = comments[i].content
-        comment_json['comment_time'] = comments[i].comment_time
+        comment_json['comment_time'] = comments[i].comment_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
         comments_list.append(comment_json)
     returned_json['comments'] = comments_list
     return jsonify(returned_json), 200

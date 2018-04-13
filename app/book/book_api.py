@@ -756,8 +756,8 @@ def get_lendinfo(book_collection_id):
     for i in range(len(lendinfos)):
         lendinfos_json.append({
             'user': db.session.query(User.name).filter_by(user_id=lendinfos[i].user_id).first(),
-            'lend_time': lendinfos[i].lend_time,
-            'expected_return_time': lendinfos[i].expected_return_time,
+            'lend_time': lendinfos[i].lend_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分'),
+            'expected_return_time': lendinfos[i].expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分'),
             'returned': lendinfos[i].returned
         })
     returned_json['lendinfos'] = lendinfos_json
@@ -860,7 +860,7 @@ def get_book_borrow_info(book_id):
     for i in lendinfos:
         username = db.session.query(User.username).filter_by(user_id=i.user_id).first()
         expected_return_time = i.expected_return_time
-        return_list.append({'username': username, 'expected_return_time':expected_return_time})
+        return_list.append({'username': username, 'expected_return_time':expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')})
     return_dict['length'] = len(lendinfos)
     return_dict['lendinfos'] = return_list
     return jsonify(return_dict), 200
