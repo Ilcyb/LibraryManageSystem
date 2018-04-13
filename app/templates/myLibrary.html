@@ -60,7 +60,7 @@
                 <li class="per_level"></li>
                 <li class="per_ins"></li>
                 <li class="per_book_num"></li>
-                <li class="per_edit"><button class="edit_button">修改个人资料</button></li>
+                <li class="per_edit"><button class="edit_button" onclick="edit_personal_info()">修改个人资料</button></li>
             </ul>
         </div>
 
@@ -68,12 +68,13 @@
         <div class="personal_edit">
             <h4>修改个人资料</h4>
             <ul class="edit_ul">
-                <li class="per_name">姓名：<input type="text"></li>
-                <li class="per_username">用户名：<input type="text"></li>
-                <li class="per_sex">性别：<input type="text"></li>
-                <li class="per_level">等级：<input type="text"></li>
-                <li class="per_ins">学院：<input type="text"></li>
-                <li class="per_edit"><button class="save">保存</button><button class="cansel">取消</button></li>
+                <li class="per_name">姓名：<input type="text" id="edit_name"></li>
+                <li class="per_sex">性别：<select id="edit_sex">
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select></li>
+                <li class="per_ins">学院：<input type="text" id="edit_ins"></li>
+                <li class="per_edit"><button class="save" id="edit_save">保存</button><button class="cansel" onclick="hidden_pernal_info_popups()">取消</button></li>
             </ul>
         </div>
 
@@ -88,27 +89,6 @@
                     <th>预期归还时间</th>
                     <th>操作</th>
                 </tr>
-                <!-- <tr>
-                    <td class="borrow_book"><a href="">Ajax</a></td>
-                    <td class="borrow_time">2017.08.12</td>
-                    <td class="is_borrow">是</td>
-                    <td class="expect_time">2017.09.12</td>
-                    <td class="once_borrow"><button class="once" disabled>续借</button></td>
-                </tr>
-                <tr>
-                    <td><a href="">Ajax</a></td>
-                    <td>2017.08.12</td>
-                    <td>是</td>
-                    <td>2017.09.12</td>
-                    <td><button disabled>续借</button></td>
-                </tr>
-                <tr>
-                    <td><a href="">Ajax</a></td>
-                    <td>2017.08.12</td>
-                    <td>是</td>
-                    <td>2017.09.12</td>
-                    <td><button>续借</button></td>
-                </tr> -->
             </table>
         </div>
 

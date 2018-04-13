@@ -158,17 +158,17 @@ def edit_personal_info():
         name = request_data.get('name')
         sex = request_data.get('sex')
         insitution = request_data.get('insitution')
-        level_id = request_data.get('level_id')
+        level_id = request_data.get('level_id' ,1)
     except KeyError:
         return jsonify({'edit_statu':False, 'reason':'用户信息不完整，修改失败'}), 400
 
     try:
-        levels = db.session.query(Level.level_id).all()
+        levels = [l_id[0] for l_id in db.session.query(Level.level_id).all()]
         if level_id not in levels:
             return jsonify({'edit_statu':False, 'reason':'该等级不存在，修改失败'}), 400
-        if sex not in [0, 1]:
+        if sex not in ['0', '1']:
             return jsonify({'edit_statu':False, 'reason':'性别错误，修改失败'}), 400
-        sex = True if sex == 1 else False
+        sex = True if sex == '1' else False
         user.name = name
         user.sex = sex
         user.insitution = insitution
@@ -178,7 +178,7 @@ def edit_personal_info():
         print(e)
         return jsonify({'edit_statu':False, 'reason':'服务器发生内部错误，请稍后重试'}), 500
     else:
-        return jsonify({'edit_statu':True}), 200
+        return jsonify({'edit_statu':True}), 201
 
 
 @auth.route('/lendingHistory', methods=['GET'])

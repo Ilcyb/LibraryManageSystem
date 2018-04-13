@@ -15,9 +15,9 @@ function get_personal_info() {
                     result['sex'] = '暂无';
                 else if (result['sex'] == true)
                     result['sex'] = '男';
-                else if (result['sex'] == null)
+                else if (result['sex'] == false)
                     result['sex'] = '女';
-                document.getElementsByClassName('per_sex')[0].innerText = '性别：' + result['name'];
+                document.getElementsByClassName('per_sex')[0].innerText = '性别：' + result['sex'];
                 document.getElementsByClassName('per_level')[0].innerText = '等级：' + result['level'];
                 if (result['insitution'] == null)
                     result['insitution'] = '暂无';
@@ -75,7 +75,7 @@ function get_lending_info() {
     }
 }
 
-function re_borrow(){
+function re_borrow() {
     var event = window.event; //获取当前窗口事件 
     var obj = event.srcElement ? event.srcElement : event.target;
     var ld_id = obj.value.split('_')[1];
@@ -120,4 +120,58 @@ function get_comments() {
             }
         }
     }
+}
+
+function edit_personal_info() {
+    var popups = document.getElementsByClassName('personal_edit')[0];
+    popups.style.display = 'block';
+    var pi_xhr = new XMLHttpRequest();
+    var name = document.getElementById('edit_name');
+    var ins = document.getElementById('edit_ins');
+    var sex = document.getElementById('edit_sex');
+    pi_xhr.open('GET', '/api/user/personalInfo');
+    pi_xhr.send();
+    pi_xhr.onreadystatechange = function () {
+        if (pi_xhr.readyState === 4) {
+            if (pi_xhr.status === 200) {
+                var result = JSON.parse(pi_xhr.responseText);
+                name.value = result['name'];
+                ins.value = result['insitution'];
+            }
+        }
+    }
+    var submit = document.getElementById('edit_save');
+    submit.onclick = function(){
+        if(name.value.replace(/\s+/g,"").length == 0 || ins.value.replace(/\s+/g,"").length == 0){
+            alert('请将修改信息填写完整');
+            return;
+        }
+        var ep_xhr = new XMLHttpRequest();
+        ep_xhr.open('POST', '/api/user/personalInfo');
+        ep_xhr.setRequestHeader('Content-Type', 'application/json');
+        ep_xhr.send(JSON.stringify({
+            name: name.value,
+            sex: document.getElementById('edit_sex')[document.getElementById('edit_sex').selectedIndex].value,
+            insitution: ins.value
+        }));
+        ep_xhr.onreadystatechange = function(){
+            if(ep_xhr.readyState === 4){
+                if(ep_xhr.status === 201){
+                    alert('修改个人信息成功');
+                    window.location.reload();
+                }else{
+                    alert(JSON.parse(ep_xhr.responseText)['reason']);
+                }
+            }
+        }
+    }
+}
+
+function hidden_pernal_info_popups() {
+    var popups = document.getElementsByClassName('personal_edit')[0];
+    popups.style.display = 'None';
+    var name = document.getElementById('edit_name');
+    var ins = document.getElementById('edit_ins');
+    name.value = '';
+    ins.value = '';
 }
