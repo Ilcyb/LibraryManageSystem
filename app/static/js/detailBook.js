@@ -93,12 +93,12 @@ function fill_borrow_info(book_id){
                 var b_table = document.getElementsByClassName('borrow_notice')[0];
                 for(var i=0;i<result['length'];i++){
                     var c_tr = document.createElement('tr');
-                    var user_th = document.createElement('th');
-                    var time_th = document.createElement('th');
-                    user_th.innerText = result['lendinfos'][i]['username'];
-                    time_th.innerText = result['lendinfos'][i]['expected_return_time'];
-                    c_tr.appendChild(user_th);
-                    c_tr.appendChild(time_th);
+                    var user_td = document.createElement('td');
+                    var time_td = document.createElement('td');
+                    user_td.innerText = result['lendinfos'][i]['username'];
+                    time_td.innerText = result['lendinfos'][i]['expected_return_time'];
+                    c_tr.appendChild(user_td);
+                    c_tr.appendChild(time_td);
                     b_table.appendChild(c_tr);
                 }
             }
