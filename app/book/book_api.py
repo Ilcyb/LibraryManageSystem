@@ -47,7 +47,7 @@ def fill_book_info_to_dict(book, book_dict):
 
 @book.route('/getBooks/<int:page>', methods=['GET'])
 def get_books(page):
-    per_page = current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']
+    per_page = current_app.config['MANAGE_BOOK_PER_PAGE']
     offset = (page - 1) * per_page
     q = db.session.query(Book)
     length = len(q.all())
@@ -789,27 +789,36 @@ def get_comments(book_id):
 
 @book.route('/borrow', methods=['POST'])
 def borrow_book():
-    request_data = request.get_json()
-    user_id = request_data.get('user_id')
-    book_collection_id = request_data.get('book_collection_id')
-    book_collection = db.session.query(BookCollection).filter_by(book_collection_id=book_collection_id).first()
-    if book_collection == None:
-        return jsonify({'reason': '该藏本不存在，借阅失败'}), 404
-    if book_collection.statu == False:
-        return jsonify({'reason': '该藏本已被借出，不可重复借阅'}), 403
-    user = db.session.query(User).filter_by(user_id=user_id).first()
-    if user == None:
-        return jsonify({'reason': '该用户不存在，借阅失败'}), 404
-    if user.lended_nums >= user.level.can_lended_nums:
-        return jsonify({'reason': '该用户可借阅书籍数量已达上限，借阅失败'}), 403
-    new_lend_info = LendingInfo(user_id, book_collection_id,
-                                datetime.datetime.now() + datetime.timedelta(
-                                    days=current_app.config['DEFAULT_BOOK_BORROW_TIME']))
-    db.session.add(new_lend_info)
-    user.lending_infos.append(new_lend_info)
-    book_collection.lending_infos.append(new_lend_info)
-    db.session.commit()
-    return jsonify({'reason': '借阅成功'}), 200
+    try:
+        request_data = request.get_json()
+        user_id = request_data.get('user_id')
+        book_collection_id = request_data.get('book_collection_id')
+        book_collection = db.session.query(BookCollection).filter_by(book_collection_id=book_collection_id).first()
+        if book_collection == None:
+            return jsonify({'reason': '该藏本不存在，借阅失败'}), 404
+        if book_collection.statu == False:
+            return jsonify({'reason': '该藏本已被借出，不可重复借阅'}), 403
+        user = db.session.query(User).filter_by(user_id=user_id).first()
+        if user == None:
+            return jsonify({'reason': '该用户不存在，借阅失败'}), 404
+        if user.lended_nums >= user.level.can_lended_nums:
+            return jsonify({'reason': '该用户可借阅书籍数量已达上限，借阅失败'}), 403
+        new_lend_info = LendingInfo(user_id, book_collection_id,
+                                    datetime.datetime.now() + datetime.timedelta(
+                                        days=current_app.config['DEFAULT_BOOK_BORROW_TIME']))
+        book_collection.statu = False
+        user.lended_nums += 1
+        db.session.add(new_lend_info)
+        user.lending_infos.append(new_lend_info)
+        book_collection.lending_infos.append(new_lend_info)
+        db.session.commit()
+    except Exception as e:
+        from traceback import print_exc
+        print_exc()
+        print(e)
+        return jsonify({'reason': '服务器出错，请稍后重试'}), 500
+    else:
+        return jsonify({'reason': '借阅成功'}), 201
 
 
 @book.route('/getClassifications', methods=['GET'])

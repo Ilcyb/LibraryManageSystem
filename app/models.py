@@ -120,7 +120,7 @@ class User(db.Model):
     sex = db.Column(db.Boolean, nullable=True)  # True man False female
     insitution = db.Column(db.String(30), nullable=True)
     level_id = db.Column(db.Integer, db.ForeignKey('level_t.level_id'), nullable=True)
-    lended_nums = db.Column(db.Integer, nullable=True)
+    lended_nums = db.Column(db.Integer, nullable=True, default=0)
     lending_infos = db.relationship('LendingInfo', backref='user', lazy=True)
     comments = db.relationship('Comment', backref='user', lazy=True)
     role_id = db.Column(db.Integer, db.ForeignKey('role.role_id'), nullable=False)

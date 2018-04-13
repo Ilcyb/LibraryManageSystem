@@ -8,10 +8,9 @@
     <title>图书管理-后台管理</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/borrow.css')}}">
     <script>
-        // window.onload = function(){
-        //     load_admin_username();
-        //     load_books();
-        // }
+        window.onload = function(){
+            load_admin_username();
+        }
     </script>
 </head>
 
@@ -24,7 +23,7 @@
         </div>
         <div class="header_right">
             <span>您好，&nbsp;
-                <a href="" id="admin_username"></a>
+                <a id="admin_username" href=""></a>
                 &nbsp;&nbsp;
                 <a href="" onclick="logout()">退出</a>
             </span>
@@ -68,15 +67,15 @@
                     <input id="book_collection_id" class="book_collection_id" type="text" required="required">
                     <br>
                     <br>
-                    <input id="save_form" type="button" value="保存">
+                    <input id="save_form" type="button" value="保存" onclick="borrow()">
                     <input id="cancel_form" type="button" value="取消">
                 </form>
             </div>
         </div>
     </div>
 
-    
-    <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/borrow.js')}}"></script>
 </body>
 
 </html>
