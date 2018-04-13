@@ -678,6 +678,59 @@ def get_book_collections(book_id):
     return jsonify(return_json), 200
 
 
+@book.route('/bookcollection/<int:bc_id>', methods=['GET'])
+def get_book_collection_by_id(bc_id):
+    try:
+        book_collection = db.session.query(BookCollection).filter_by(book_collection_id=bc_id).first()
+        if book_collection is None:
+            return jsonify({'reason':'没有此藏本'}), 404
+    except Exception as e:
+        print(e)
+        return jsonify({'reason':'服务器发生错误'}), 500
+    else:
+        return jsonify({'book_collection_id':book_collection.book_collection_id,
+                    'campus':book_collection.campus,
+                    'collection_address':book_collection.collection_address,
+                    'statu':book_collection.statu}), 200
+
+
+@book.route('/bookcollection', methods=['POST'])
+def edit_book_collection():
+    try:
+        request_data = request.get_json()
+        bc_id = request_data.get('id')
+        book_collection = db.session.query(BookCollection).filter_by(book_collection_id=bc_id).first()
+        if book_collection is None:
+            return jsonify({'reason':'没有此藏本'}), 404
+        collection_address = request_data.get('address')
+        campus = request_data.get('campus')
+        book_collection.collection_address = collection_address
+        book_collection.campus = campus
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        return jsonify({'reason':'服务器发生错误'}), 500
+    else:
+        return '修改成功', 201
+
+
+@book.route('/deleteBookCollection/<int:bc_id>', methods=['GET'])
+def delete_book_collection(bc_id):
+    try:
+        book_collection = db.session.query(BookCollection).filter_by(book_collection_id=bc_id).first()
+        if book_collection is None:
+            return jsonify({'reason':'没有此藏本'}), 404
+        db.session.delete(book_collection)
+        db.session.commit()
+    except IntegrityError:
+        return jsonify({'reason':'此藏本被借阅过，无法进行删除'}), 404
+    except Exception as e:
+        print(e)
+        return jsonify({'reason':'服务器发生错误，删除失败'}), 500
+    else:
+        return '删除成功', 200
+
+
 @book.route('/lendinfo/<int:book_collection_id>', methods=['GET'])
 def get_lendinfo(book_collection_id):
     """

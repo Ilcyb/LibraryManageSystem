@@ -8,10 +8,10 @@
     <title>图书管理-后台管理</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/manageBookCollection.css')}}">
     <script>
-        // window.onload = function(){
-        //     load_admin_username();
-        //     load_books();
-        // }
+        window.onload = function(){
+            load_admin_username();
+            load_book_collection();
+        }
     </script>
 </head>
 
@@ -24,7 +24,7 @@
         </div>
         <div class="header_right">
             <span>您好，&nbsp;
-                <a href="" id="admin_username"></a>
+                <a id="admin_username" href=""></a>
                 &nbsp;&nbsp;
                 <a href="" onclick="logout()">退出</a>
             </span>
@@ -62,41 +62,14 @@
                 <p>图书藏本管理</p>
                 <table class="book_table">
                     <tr>
-                        <th>图书藏本</th>
+                        <th>藏本编号</th>
+                        <th>馆藏地址</th>
+                        <th>馆藏校区</th>
                         <th>操作</th>
-                    </tr>
-                    <tr>
-                        <td>javascript Dom编程艺术</td>
-                        <td>
-                            <span class="collection_edit">编辑</span>
-                            <span class="collection_delete">删除</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>javascript Dom编程艺术</td>
-                        <td>
-                            <span class="collection_edit">编辑</span>
-                            <span class="collection_delete">删除</span>
-                        </td>
                     </tr>
                 </table>
             </div>
 
-            <!-- 右下角翻页 -->
-            <div class="paged">
-                <div class="page_content">
-                    <a id="left_page" href="#">
-                        <span class="left"></span>
-                    </a>
-                    <span id="left_num"></span>&nbsp;/&nbsp;
-                    <span id="right_num"></span>
-                    <a id="right_page" href="#">
-                        <span class="right"></span>
-                    </a>
-                    <input id="jump_text" type="number">
-                    <input id="jump" type="button" onclick="jump_page()" value="跳转">
-                </div>
-            </div>
         </div>
     </div>
 
@@ -113,11 +86,12 @@
                 <br>
                 <br>
                 <input id="save_form" type="button" value="保存">
-                <input id="cancel_form" type="button" value="取消" onclick="hidden_book_edit()">
+                <input id="cancel_form" type="button" value="取消" onclick="hidden_bc_edit()">
             </form>
         </div>
     </div>
-    <script src="{{url_for('static', filename='js/manageBook.js')}}"></script>
+    <script src="{{url_for('static', filename='js/manageBookCollection.js')}}"></script>
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>    
 </body>
 
 </html>
