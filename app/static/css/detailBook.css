@@ -277,10 +277,12 @@ body {
 }
 
 /* 图片 */
-.book_img{
-    width: 100px;
-    height: 120px;
-    margin: 4% 30%;
+.book_img img{
+    position: absolute;
+    right: 15%;
+    top: 51%;
+    width: 120px;
+    height: 140px;
 } 
 
 /* 清除浮动 */
