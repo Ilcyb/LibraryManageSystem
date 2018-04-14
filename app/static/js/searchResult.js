@@ -18,6 +18,12 @@ function updateURLParameter(url, param, paramVal) {
     return baseURL + "?" + newAdditionalURL + rows_txt;
 }
 
+function getUrlParam(name) {
+    var url = new URL(window.location.href);
+    var result = url.searchParams.get(name);
+    return result;
+   }
+
 function isLogin() {
     var isLogin_xhr = new XMLHttpRequest();
     isLogin_xhr.open('GET', '/api/user/isLogin');
@@ -112,27 +118,15 @@ function search_req() {
             break;
     }
     var perpage = document.getElementById('show_news')[document.getElementById('show_news').selectedIndex].value;
-    var sortfield =
-        document.getElementById('banner_sort')[document.getElementById('banner_sort').selectedIndex].value;
+    if(getUrlParam('perpage') != null)
+        perpage = getUrlParam('perpage');
+    var sortfield = document.getElementById('banner_sort')[document.getElementById('banner_sort').selectedIndex].value;
+    if(getUrlParam('sortfield') != null)
+    sortfield = getUrlParam('sortfield');
     var page = 1;
-    var params_list = window.location.href.split('?')[1].split('&');
-    for (var i = 0; i < params_list.length; i++) {
-        if (params_list[i].indexOf('perpage') >= 0) {
-            perpage = params_list[i].split('=')[1];
-            continue;
-        }
-        if (params_list[i].indexOf('&page') >= 0) {
-            page = params_list[i].split('=')[1];
-            continue;
-        }
-        if (params_list[i].indexOf('sortfield') >= 0) {
-            sortfield = params_list[i].split('=')[1];
-            continue;
-        }
-    }
-    url = url + '?perpage=' + perpage + '&sortfield=' + sortfield;
-    if (page != 1)
-        url = url + '&page=' + page;
+    if(getUrlParam('page') != null)
+        page = getUrlParam('page');
+    var url = url + '?perpage=' + perpage + '&sortfield=' + sortfield + '&page=' +page;
     search_xhr.open('GET', url);
     search_xhr.send();
     search_xhr.onreadystatechange = function () {
@@ -220,6 +214,7 @@ function search_req() {
                         }, false);
                         li_bs.appendChild(a_s);
                         // 分页的链接生成
+                        page = parseInt(page);
                         var first_page = 1;
                         if (page === 1)
                             var pre_page = 1;
