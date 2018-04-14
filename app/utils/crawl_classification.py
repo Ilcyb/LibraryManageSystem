@@ -2,10 +2,11 @@ import requests
 from bs4 import BeautifulSoup
 from app.utils.user_agent import MY_USER_AGENT
 from random import randint
-from json import dump, load
-from time import sleep
+from json import dump, load, dumps, loads
+from time import sleep, time
+from app.models import Classification
 
-index_url = 'http://www.clcindex.com'
+index_url = r'http://202.203.181.42:9090/opac/getClassNumberTree'
 
 headers = {
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
@@ -16,40 +17,24 @@ headers = {
 
 crawed_urls = ['http://www.baidu.com']
 
-def fetch_classification(url, temp=[], upper=None):
-    while True:
-        try:
-            sleep(randint(2,5))
-            headers['User-Agent'] = MY_USER_AGENT[randint(0,len(MY_USER_AGENT) - 1)]
-            headers['Referer'] = crawed_urls[randint(0,len(crawed_urls) - 1)]
-            classification_index_page = requests.get(url, headers=headers)
-            # proxies = {'http': 'http://139.199.228.34:7322'}
-            classification_index_page.raise_for_status()
-        except requests.exceptions.HTTPError:
-            pass
+def crawl_classification(db, id=1, name='中国分类', upper=None, otherParam='zTreeAsyncTest', timestamp=int(round(time() * 1000))):
+    r = requests.get(index_url, params={'id':id, 'n':name, 'otherParam':otherParam, '_': timestamp} ,headers=headers)
+    c_dict = loads(loads(r.text))
+    for c in c_dict:
+        if c['pId'] == 1:
+            frist_alpha = c['name'][:2]
+            c['name'] = c['name'][2:].strip(r'<B>/')
+            c['name'] = frist_alpha + c['name']
+        if c['isParent']:
+            save_to_db(db, c['name'], upper)
+            crawl_classification(db, id=c['id'], name=c['name'], upper=c['name'])
         else:
-            crawed_urls.append(url)
-            break
-    try:
-        index_doc = BeautifulSoup(classification_index_page.text, 'html.parser')
-        table = index_doc.find(id='catTable')
-        tr_list = table.find_all(attrs={'name':'item-row'})
-        the_turn_dict = dict()
-        if len(tr_list) == 0:
-            return {}
-        for tr in tr_list:
-            td_list = tr.find_all('td')
-            classifiction_name = td_list[1].string.strip() + '.' + td_list[2].string.strip()
-            print('父亲:', upper if upper is not None else '无' ,classifiction_name)
-            sub_url = index_url + td_list[2].a['href']
-            temp.append([upper, classifiction_name])
-            fetch_classification(sub_url, temp, classifiction_name)
-        return temp
-    except Exception as e:
-        print(e)
-        return
+            save_to_db(db, c['name'], upper)
 
-if __name__ == '__main__':
-    result = fetch_classification(index_url)
-    f = open('classifications.json', 'w', encoding='utf-8')
-    dump(result, f)
+def save_to_db(db, classification_name, upper=None):
+    new_classification = Classification(classification_name)
+    db.session.add(new_classification)
+    if upper is not None:
+        upper_classification = db.session.query(Classification).filter_by(name=upper).first()
+        upper_classification.sub_layers.append(new_classification)
+    db.session.commit()

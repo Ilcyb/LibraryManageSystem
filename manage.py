@@ -21,6 +21,13 @@ def re_create_db():
 
 
 @manager.command
+def fill_classification():
+    from app.utils.crawl_classification import crawl_classification
+    crawl_classification(db)
+    print('填充图书类别数据库成功')
+
+
+@manager.command
 def deploy():
     from app.models import Role, Level
     from flask_migrate import upgrade
