@@ -231,7 +231,7 @@ body {
     margin-bottom: 0.1%;
     text-indent: 1em;
 }
-.content .personal_edit ul li #edit_sex{
+.content .personal_edit ul li #edit_sex,.content .personal_edit ul li #edit_level{
     border: 1px solid #e3e6ed;
     margin-top: 0.1%;
     text-indent: 0.8em;
