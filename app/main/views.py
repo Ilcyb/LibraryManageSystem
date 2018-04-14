@@ -1,6 +1,6 @@
 from . import main
 from ..models import Book
-from flask import render_template
+from flask import render_template, redirect, url_for
 from ..utils.decorators import login_required
 
 
@@ -36,5 +36,5 @@ def get_book(book_id):
 
 @main.route('/book/isbn/<string:isbn>')
 def get_book_by_isbn(isbn):
-    Book.query.filter_by(isbn=isbn).first_or_404()
-    return render_template('detailBook.html')
+    book = Book.query.filter_by(isbn=isbn).first_or_404()
+    return redirect(url_for('main.get_book', book_id=book.book_id))
