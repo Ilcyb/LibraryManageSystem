@@ -56,15 +56,18 @@ function add_change_page_href(page, length) {
     if (page == 1)
         left_page.href = current_url + '1';
     else
-        left_page.href = current_url + (page - 1);
+        left_page.href = current_url + (parseInt(page) - 1);
     if (page == max_page)
         right_page.href = current_url + max_page;
     else
-        right_page.href = current_url + (page + 1);
+        right_page.href = current_url + (parseInt(page) + 1);
 }
 
 function jump_page() {
     var jump_page = document.getElementById('jump_text').value;
+    var max_page = document.getElementById('right_num').innerText;
+    if (jump_page > max_page)
+        return
     current_url = window.location.href;
     current_page_index = current_url.lastIndexOf('/');
     current_url = current_url.substr(0, current_page_index + 1);
