@@ -125,6 +125,9 @@ function delete_book(){
     var event = window.event; //获取当前窗口事件 
     var obj = event.srcElement ? event.srcElement : event.target;
     var book_id = obj.parentNode.parentNode.firstChild.innerText;
+    var sure = confirm('确认删除吗？')
+    if(!sure)
+        return;
     var delete_xhr = new XMLHttpRequest();
     delete_xhr.open('GET', '/api/book/deleteBook/' + book_id);
     delete_xhr.send();

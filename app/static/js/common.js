@@ -13,7 +13,7 @@ function load_admin_username() {
 
 function logout() {
     var logout_xhr = new XMLHttpRequest();
-    logout_xhr.open('GET', '/api/user/logout');
+    logout_xhr.open('GET', '/api/user/adminLogout');
     logout_xhr.send();
     logout_xhr.onreadystatechange = function () {
         if (logout_xhr.readyState == 4) {

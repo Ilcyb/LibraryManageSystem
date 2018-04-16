@@ -100,6 +100,9 @@ function delete_bc() {
     var event = window.event; //获取当前窗口事件 
     var obj = event.srcElement ? event.srcElement : event.target;
     var bc_id = obj.id.split('_')[1];
+    var sure = confirm('确认删除吗？')
+    if(!sure)
+        return;
     var del_xhr = new XMLHttpRequest();
     del_xhr.open('GET', '/api/book/deleteBookCollection/' + bc_id);
     del_xhr.send();

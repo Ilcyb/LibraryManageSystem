@@ -112,19 +112,24 @@ def admin_login():
     if the_user == None:
         return jsonify({'login_statu': False, 'reason':'用户名或密码错误'}), 401
     if the_user.check_password(password) and the_user.role.name != 'User':
-        session['username'] = username
-        session['id'] = the_user.user_id
-        session['login'] = True
+        session['admin_username'] = username
         session['isAdmin'] = True
         return jsonify({'login_statu': True, 'url': url_for('admin.manage_book')}), 200
     else:
-        return jsonify({'login_statu': False, 'reason':'用户名或密码错误'}), 401        
+        return jsonify({'login_statu': False, 'reason':'用户名或密码错误'}), 401
+
+
+@auth.route('/adminLogout', methods=['GET'])
+def admin_logout():
+    session['admin_username'] = None
+    session['isAdmin'] = None
+    return jsonify({'page': request.referrer or url_for('main.index')}), 200        
 
 
 @auth.route('/adminInfo', methods=['GET'])
 def get_admin_info():
     if session['isAdmin'] == True:
-        return jsonify({'adminName':session['username']}), 200
+        return jsonify({'adminName':session['admin_username']}), 200
     else:
         return jsonify({'reason':'Not admin'}), 403
 
