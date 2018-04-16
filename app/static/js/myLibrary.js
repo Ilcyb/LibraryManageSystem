@@ -129,6 +129,7 @@ function edit_personal_info() {
     var name = document.getElementById('edit_name');
     var ins = document.getElementById('edit_ins');
     var sex = document.getElementById('edit_sex');
+    var level = document.getElementById('edit_level');
     pi_xhr.open('GET', '/api/user/personalInfo');
     pi_xhr.send();
     pi_xhr.onreadystatechange = function () {
@@ -152,7 +153,8 @@ function edit_personal_info() {
         ep_xhr.send(JSON.stringify({
             name: name.value,
             sex: document.getElementById('edit_sex')[document.getElementById('edit_sex').selectedIndex].value,
-            insitution: ins.value
+            insitution: ins.value,
+            level_id: parseInt(document.getElementById('edit_level')[document.getElementById('edit_level').selectedIndex].value)
         }));
         ep_xhr.onreadystatechange = function(){
             if(ep_xhr.readyState === 4){

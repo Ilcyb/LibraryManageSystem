@@ -102,6 +102,9 @@ function edit(target) {
 
 function a_delete(target) {
     var ann_id = target.getAttribute("id").split("_")[1];
+    var sure = confirm('确认删除吗？')
+    if(!sure)
+        return;
     var delete_xhr = new XMLHttpRequest();
     delete_xhr.open('GET', '/api/user/deleteAnnouncement/' + ann_id);
     delete_xhr.send();
