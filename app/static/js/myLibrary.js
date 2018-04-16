@@ -122,6 +122,28 @@ function get_comments() {
     }
 }
 
+function getLevels() {
+    var s_xhr = new XMLHttpRequest();
+    s_xhr.open('GET', '/api/user/getLevels');
+    s_xhr.send()
+    s_xhr.onreadystatechange = function () {
+        if (s_xhr.readyState === 4) {
+            if (s_xhr.status === 200) {
+                if (s_xhr.getResponseHeader('Content-Type') === 'application/json') {
+                    result = JSON.parse(s_xhr.responseText);
+                    var the_select = document.getElementById('edit_level');
+                    for (var i = 0; i < result['length']; i++) {
+                        var new_option = document.createElement('option');
+                        new_option.value = result['levels'][i]['level_id'];
+                        new_option.innerText = result['levels'][i]['name'];
+                        the_select.appendChild(new_option);
+                    }
+                }
+            }
+        }
+    }
+}
+
 function edit_personal_info() {
     var popups = document.getElementsByClassName('personal_edit')[0];
     popups.style.display = 'block';

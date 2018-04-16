@@ -352,3 +352,13 @@ def delete_announcement(ann_id):
         print(e)
         return jsonify({'delete_statu': False, 'reason':'服务器发生错误，请稍后再试'}), 500
     return jsonify({'delete_statu': True}), 200
+
+
+@auth.route('/getLevels', methods=['GET'])
+def get_all_levels():
+    levels = db.session.query(Level).all()
+    returned_dict = {'length': len(levels)}
+    returned_dict['levels'] = []
+    for level in levels:
+        returned_dict['levels'].append({'name': level.name, 'level_id': level.level_id})
+    return jsonify(returned_dict), 200
