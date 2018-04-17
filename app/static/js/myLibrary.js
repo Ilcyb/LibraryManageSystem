@@ -51,6 +51,7 @@ function get_lending_info() {
                     var gh_td = document.createElement('td');
                     var ex_td = document.createElement('td');
                     var bat_td = document.createElement('td');
+                    var timeout_td = document.createElement('td');
                     var bbtn = document.createElement('button');
                     bbtn.innerText = '续借';
                     bbtn.value = 'lendinfo_' + result['lend_info'][i]['lending_info_id'];
@@ -65,8 +66,14 @@ function get_lending_info() {
                         ex_td.innerText = result['lend_info'][i]['expected_return_time'];
                         disabled = true;
                     }
+                    if (result['lend_info'][i]['timeout']){
+                        timeout_td.innerText = '超期' + result['lend_info'][i]['timeout_time'] + '天';
+                    }else{
+                        timeout_td.innerText = '未超期';
+                    }
                     new_tr.appendChild(gh_td);
                     new_tr.appendChild(ex_td);
+                    new_tr.appendChild(timeout_td);
                     new_tr.appendChild(bat_td);
                     ld_table.appendChild(new_tr);
                 }

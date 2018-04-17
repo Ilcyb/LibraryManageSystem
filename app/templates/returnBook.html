@@ -10,6 +10,7 @@
     <script>
         window.onload = function () {
             load_admin_username();
+            get_lend_infos();
         }
     </script>
 </head>
@@ -80,19 +81,6 @@
                         <th>是否超期</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>你的我的倾城时光</td>
-                        <td>9787536693968</td>
-                        <td>yangmei</td>
-                        <td>2018.01.3</td>
-                        <td>2018.02.3</td>
-                        <td>超期4天</td>
-                        <td>
-                            <button class="return_book">还书</button>
-                            <button class="once_book">续借</button>
-                        </td>
-                    </tr>
                 </table>
 
                 <!-- 右下角翻页 -->
@@ -116,7 +104,7 @@
     </div>
 
     <script src="{{url_for('static', filename='js/common.js')}}"></script>
-    <script src="{{url_for('static', filename='js/borrow.js')}}"></script>
+    <script src="{{url_for('static', filename='js/returnBook.js')}}"></script>
 </body>
 
 </html>

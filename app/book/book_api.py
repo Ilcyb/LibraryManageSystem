@@ -819,6 +819,28 @@ def borrow_book():
         return jsonify({'reason': '借阅成功'}), 201
 
 
+@book.route('/return', methods=['POST'])
+def return_book():
+    try:
+        request_data = request.get_json()
+        lending_info_id = request_data.get('lending_info_id')
+        lending_info = db.session.query(LendingInfo).filter_by(lending_info_id=lending_info_id).first()
+        if lending_info is None:
+            return jsonify({'reason': '该借阅记录不存在，归还失败'}), 404
+        book_collection = db.session.query(BookCollection).filter_by(book_collection_id=lending_info.book_collection_id).first()
+        lending_info.returned = True
+        lending_info.return_time = datetime.datetime.now()
+        if(lending_info.return_time > lending_info.expected_return_time):
+            lending_info.timeout = True
+        book_collection.statu = True
+
+        db.session.commit()
+        return '归还成功', 201
+    except Exception as e:
+        print(e)
+        return jsonify({'reason': '服务器发生错误，请稍后再试'}), 500
+
+
 @book.route('/getClassifications', methods=['GET'])
 def get_classifications():
     classifications = db.session.query(Classification).filter_by(upper_layer_id=None).all()
@@ -858,7 +880,8 @@ def get_book_borrow_info(book_id):
     for i in lendinfos:
         username = db.session.query(User.username).filter_by(user_id=i.user_id).first()
         expected_return_time = i.expected_return_time
-        return_list.append({'username': username, 'expected_return_time':expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')})
+        return_list.append({'username': username, 'expected_return_time':expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分'),
+                            'returned': i.returned})
     return_dict['length'] = len(lendinfos)
     return_dict['lendinfos'] = return_list
     return jsonify(return_dict), 200
@@ -890,3 +913,46 @@ def get_books_by_fully_compliant_name(name):
         returned_json['books'].append(book_dict)
     returned_json['length'] = len(books)
     return jsonify(returned_json), 200
+
+
+@book.route('/getLendingInfos', methods=['GET'])
+def get_lending_infos():
+    try:
+        page = int(request.args.get('page', 1))
+        offset = (page - 1) * current_app.config['LENDING_INFOS_PER_PAGE']
+        q = db.session.query(LendingInfo).filter_by(returned=False)
+
+        length = len(q.all())
+        lending_infos = q.limit(current_app.config['LENDING_INFOS_PER_PAGE']).offset(offset).all()
+
+        return_dict = {'length': length, 'lending_infos': []}
+
+        for lending_info in lending_infos:
+            book_collection = db.session.query(BookCollection).filter_by(book_collection_id=lending_info.book_collection_id).first()
+            book = book_collection.book
+            return_dict['lending_infos'].append({
+                'id': lending_info.lending_info_id,
+                'book_name': book.name,
+                'isbn': book.isbn,
+                'username': lending_info.user.username,
+                'user_id': lending_info.user.user_id,
+                'lend_time': lending_info.lend_time.strftime('%Y.%m.%d'),
+                'expected_return_time': lending_info.expected_return_time.strftime('%Y.%m.%d'),
+                'isExpiration': datetime.datetime.now() > lending_info.expected_return_time,
+                'days': (datetime.datetime.now() - lending_info.expected_return_time).days
+            })
+
+        return jsonify(return_dict), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'reason': '服务器发生错误，请稍后再试'}), 500
+
+
+@book.route('/renew/<int:lending_info_id>', methods=['GET'])
+def renew_borrow(lending_info_id):
+    lending_info = db.session.query(LendingInfo).filter_by(lending_info_id=lending_info_id).first()
+    if lending_info == None:
+        return jsonify({'reason': '此借阅记录不存在，续借失败'}), 404
+    lending_info.expected_return_time += datetime.timedelta(days=current_app.config['DEFAULT_BOOK_BORROW_TIME'])
+    db.session.commit()
+    return '续借成功', 200
