@@ -92,6 +92,8 @@ function fill_borrow_info(book_id){
                 result = JSON.parse(borrow_xhr.responseText);
                 var b_table = document.getElementsByClassName('borrow_notice')[0];
                 for(var i=0;i<result['length'];i++){
+                    if(result['lendinfos'][i]['returned'])
+                        continue;
                     var c_tr = document.createElement('tr');
                     var user_td = document.createElement('td');
                     var time_td = document.createElement('td');
