@@ -225,6 +225,12 @@ table tr td button{
 table tr td button:hover{
     color: #fff;
 }
+table tr td button:disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .65;
+}
 
 /* 操作中点击借书按钮显示弹窗 */
 .mask{
@@ -273,6 +279,7 @@ table tr td button:hover{
     text-indent: 4px;
     margin-top: 0.2%;
     background: #fff;
+    color: #000;
     cursor: text;
     margin-left: 1%;
 }

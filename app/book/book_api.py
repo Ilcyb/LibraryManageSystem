@@ -888,5 +888,5 @@ def get_books_by_fully_compliant_name(name):
         book_dict = {}
         fill_book_info_to_dict(book, book_dict)
         returned_json['books'].append(book_dict)
-    returned_json['length'] = length
+    returned_json['length'] = len(books)
     return jsonify(returned_json), 200
