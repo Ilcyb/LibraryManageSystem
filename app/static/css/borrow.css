@@ -225,6 +225,12 @@ table tr td button{
 table tr td button:hover{
     color: #fff;
 }
+table tr td button:disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .65;
+}
 
 /* 操作中点击借书按钮显示弹窗 */
 .mask{

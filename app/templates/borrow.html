@@ -62,7 +62,7 @@
                 <!-- 图书管理员搜索框 -->
                 <div class="search">
                     <input class="search_inp" type="text" placeholder="书名">
-                    <button class="search_box">搜索</button>
+                    <button class="search_box" onclick="get_books()">搜索</button>
                 </div>
 
                 <table class="book_table">
@@ -74,39 +74,36 @@
                         <th>已外借藏本数量</th>
                         <th>操作</th>
                     </tr>
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td>你的我的倾城时光</td>
                         <td>9787536693968</td>
                         <td>2</td>
                         <td>1</td>
                         <td>
-                            <button class="borrow_book">借书</button>
+                            <button class="borrow_book" disabled="true">借书</button>
                         </td>
-                    </tr>
+                    </tr> -->
                 </table>
 
                 <!-- 点击借书按钮显示弹窗 -->
                 <div class="mask">
                     <div class="book_brw">
                         <p>图书外借</p>
-                        <form action="" class="borrow_form" method="POST">
+                        <form class="borrow_form" method="POST">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;借阅者：
                             <input class="user_brw" id="user_brw" type="text" required="required">
                             <br>
                             <ul class="borrow_ul">
                                 <p>可借阅藏本:</p>
-                                <li>
-                                    <input type="checkbox" name="check_inp" class="check_inp" id="check_inp">
-                                    藏本编号1&nbsp;&nbsp;云南农业大学西馆&nbsp;&nbsp;新校区
-                                </li>
-                                <li>
-                                    <input type="checkbox" name="check_inp" class="check_inp" id="check_inp">
-                                    藏本编号1&nbsp;&nbsp;云南农业大学西馆&nbsp;&nbsp;新校区
-                                </li>
+                                <!-- <li>
+                                    <input type="radio" name="check_inp" class="check_inp" id="check_inp">
+                                    <span>藏本编号1&nbsp;&nbsp;云南农业大学西馆&nbsp;&nbsp;
+                                    新校区</span>
+                                </li> -->
                             </ul>
-                            <button id="submit_borrow">提交</button>
-                            <button id="cancel_borrow" onclick="hidden_hidden_div()">取消</button>
+                            <button id="submit_borrow" onclick="submit_b()">提交</button>
+                            <button id="cancel_borrow" onclick="hidden_window()">取消</button>
                         </form>
                     </div>
                 </div>

@@ -362,3 +362,17 @@ def get_all_levels():
     for level in levels:
         returned_dict['levels'].append({'name': level.name, 'level_id': level.level_id})
     return jsonify(returned_dict), 200
+
+
+@auth.route('/getUserByUsername/<string:username>', methods=['GET'])
+def get_user_by_username(username):
+    try:
+        user = db.session.query(User).filter_by(username=username).first()
+        if user is None:
+            return jsonify({'reason': '该用户不存在'}), 404
+        else:
+            return jsonify({'username': user.username, 'id': user.user_id}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'reason': '服务器发生了错误，请稍后再试'}), 500
+        
