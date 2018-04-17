@@ -18,7 +18,7 @@
     <!-- header -->
     <div class="header">
         <div class="header_left">
-            <h2>图书馆图书借阅后台管理系统</h2>
+            <h2>图书馆图书借阅管理系统</h2>
             <span>LibraryManageSystem</span>
         </div>
         <div class="header_right">
@@ -50,7 +50,10 @@
                         <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
                     </li>
                     <li>
-                        <a href="{{url_for('admin.add_borrow_record')}}">借阅管理</a>
+                        <a href="{{url_for('admin.add_borrow_record')}}">借书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.return_book')}}">还书管理</a>
                     </li>
                 </ul>
             </nav>
@@ -90,9 +93,9 @@
                 <div class="mask">
                     <div class="book_brw">
                         <p>图书外借</p>
-                        <form class="borrow_form" method="POST">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;借阅者：
-                            <input class="user_brw" id="user_brw" type="text" required="required">
+                        <form action="" class="borrow_form" method="POST">
+                            <span>借阅者：</span> 
+                            <input class="user_brw" id="user_brw" type="text" required="required" placeholder="请输入借阅者">
                             <br>
                             <ul class="borrow_ul">
                                 <p>可借阅藏本:</p>
@@ -102,8 +105,8 @@
                                     新校区</span>
                                 </li> -->
                             </ul>
-                            <button id="submit_borrow" onclick="submit_b()">提交</button>
-                            <button id="cancel_borrow" onclick="hidden_window()">取消</button>
+                            <input id="submit_borrow" type="button" onclick="submit_b()" value="提交">
+                            <input id="cancel_borrow" type="button" onclick="hidden_window()" value="取消">
                         </form>
                     </div>
                 </div>

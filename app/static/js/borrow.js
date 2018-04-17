@@ -91,6 +91,8 @@ function get_bc () {
 function hidden_window(){
     var w = document.getElementsByClassName('book_brw')[0];
     w.style.display = 'None';
+    delete_bc_row();
+    document.getElementById('user_brw').value = '';
 }
 
 function delete_row(){
@@ -105,6 +107,15 @@ function delete_row(){
     }
 }
 
+function delete_bc_row(){
+    var ul = document.getElementsByClassName('borrow_ul')[0];
+    var lis = ul.children;
+    lislen = lis.length;
+    for(var i=1;i<lislen;i++){
+        ul.removeChild(ul.lastChild);
+    }
+}
+
 function submit_b(){
     var username = document.getElementById('user_brw');
     if (username.value.replace(/\s+/g, "").length == 0) {
@@ -112,41 +123,37 @@ function submit_b(){
         return;
     }
     var user_xhr = new XMLHttpRequest();
-    var user_id;
     user_xhr.open('GET', '/api/user/getUserByUsername/' + username.value);
     user_xhr.send();
     user_xhr.onreadystatechange = function(){
         if(user_xhr.readyState === 4){
             if(user_xhr.status === 200){
-                user_id = JSON.parse(user_xhr.responseText)['id'];
+                var user_id = JSON.parse(user_xhr.responseText)['id'];
+                var radios = document.getElementsByClassName('check_inp');
+                var book_collection_id;
+                for(var i=0;i<radios.length;i++){
+                    if(radios[i].checked)
+                        book_collection_id = radios[i].value;
+                }
+                
+                var bor_xhr = new XMLHttpRequest();
+                bor_xhr.open('POST', '/api/book/borrow');
+                bor_xhr.setRequestHeader('Content-Type', 'application/json');
+                bor_xhr.send(JSON.stringify({
+                    user_id: user_id,
+                    book_collection_id: book_collection_id
+                }));
+                bor_xhr.onreadystatechange = function(){
+                    if(bor_xhr.readyState === 4){
+                        if(bor_xhr.status === 201){
+                            alert('借阅成功');
+                            window.location.reload();
+                        }
+                    }
+                }
             }else{
                 alert(JSON.parse(user_xhr.responseText)['reason']);
-                return false;
-            }
-        }
-    }
-    if(user_id == null)
-        return;
-    var radios = document.getElementsByClassName('check_inp');
-    var book_collection_id;
-    for(var i=0;i<radios.length;i++){
-        if(radios[i].checked)
-            book_collection_id = radios[i].value;
-    }
-    
-    var bor_xhr = new XMLHttpRequest();
-    bor_xhr.open('POST', '/api/book/borrow');
-    bor_xhr.setRequestHeader('Content-Type', 'application/json');
-    bor_xhr.send(JSON.stringify({
-        user_id: user_id,
-        book_collection_id: book_collection_id
-    }));
-    bor_xhr.onreadystatechange = function(){
-        if(bor_xhr.readyState === 4){
-            if(bor_xhr.status === 201){
-                alert(借阅成功);
-                delete_row();
-                get_bc();
+                return;
             }
         }
     }
