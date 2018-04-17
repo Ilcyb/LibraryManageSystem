@@ -60,11 +60,11 @@ function get_lending_info() {
                     if (result['lend_info'][i]['returned']) {
                         gh_td.innerText = '是';
                         ex_td.innerText = '已归还';
-                        bbtn.disabled = false;
+                        bbtn.disabled = true;
                     } else {
                         gh_td.innerText = '否';
                         ex_td.innerText = result['lend_info'][i]['expected_return_time'];
-                        disabled = true;
+                        bbtn.disabled = false;
                     }
                     if (result['lend_info'][i]['timeout']){
                         timeout_td.innerText = '超期' + result['lend_info'][i]['timeout_time'] + '天';
