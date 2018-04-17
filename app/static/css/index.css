@@ -247,8 +247,8 @@ body {
     height: 25px;
     margin: 0% auto;
     list-style: none;
-    padding-bottom: 1%;
-    padding-top: 1%;
+    padding-bottom: 0.5%;
+    padding-top: 0.5%;
 }
 
 .notice .notice_list ul li a {

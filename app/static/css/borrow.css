@@ -141,46 +141,232 @@ body{
     color: #7c7d7d;
 }
 
-/* 操作中点击编辑按钮显示图书编辑弹窗 */
-.book_collection_add form{
+/* 图书管理员搜索 */
+.content_right .search{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    position: relative;
+}
+.content_right .search .search_inp{
+    width: 230px;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #afb4b9;
+    outline: none;
+    text-indent: 10px;
+}
+.content_right .search .search_box{
+    width: 60px;
+    height: 32px;
+    border: none;
+    background: #5dcec6;
+    font-size: 16px;
+    position: absolute;
+    cursor: pointer;
+}
+.content_right .search button:hover{
+    color: #fff;
+}
+
+/* table */
+.content .content_right table{
+    width: 100%;
+    margin: 0 auto;
+    font-size: 10px;
+    color: #9e9f9f;
+    text-align: center;
+    border-collapse: collapse;
+}
+.content .content_right table tr{
+    width: 100%;
+    height: 30px;
+    border: 1px solid lightcoral;
+}
+.content .content_right table tr th{
+    height: 30px;
+    border: 1px solid #f5f7f9;
+}
+.content .content_right table tr td{
+    height: 30px;
+    border: 1px solid #f5f7f9;
+    text-align: center;
+}
+.content .content_right table tr:nth-child(2n+1){
+    background: #ebeff2;
+}
+table tr th:nth-of-type(1), table tr td:nth-of-type(1){
+    width: 6%;
+}
+table tr th:nth-of-type(2),table tr td:nth-of-type(2){
+    width: 16%;
+}
+table tr th:nth-of-type(3),table tr td:nth-of-type(3){
+    width: 16%;
+}
+table tr th:nth-of-type(4),table tr td:nth-of-type(4){
+    width: 10%;
+} 
+table tr th:nth-of-type(5),table tr td:nth-of-type(5){
+    width: 10%;
+} 
+table tr th:nth-of-type(6),table tr td:nth-of-type(6){
+    width: 20%;
+} 
+table tr td button{
+    width: 45px;
+    height: 25px;
+    line-height: 25px;
+    border: 1px solid #d1d1d1;
+    background: #5dcec6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+table tr td button:hover{
+    color: #fff;
+}
+
+/* 操作中点击借书按钮显示弹窗 */
+.mask{
     width: 80%;
-    height: 300px;
-    margin-left: 10%;
     font-size: 15px;
     color: #7c7d7d;
-    margin-top: 8%;
-    background: #ebeff2;
-    text-align: center;
-    padding-top: 10%;
+    background-color:rgb(245, 212, 216);
+    opacity:1;
+    filter: alpha(opacity=50); 
+    position:absolute; 
+    left: 10%;
+    top:30%;
+    z-index:1;
 }
-.book_collection_add form input{
+.mask .book_brw{
+    width: 100%;
+    margin: 0 auto;
+    display: none; /* 隐藏编辑页面 */
+}
+.content_right .book_brw p{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(240, 235, 235);
+    text-align: center;
+    margin: 1% auto;
+    letter-spacing: 6px;
+    color: #7c7d7d;
+}
+.mask form{
+    width: 600px;
+    text-align: center;
+    margin: 0.5% auto;
+}
+.mask form input{
     width: 200px;
-    height: 30px;
+    height: 28px;
     outline: none;
     text-decoration: none;
     border: 1px solid rgb(163, 203, 241);
     border-radius: 2px;
     text-indent: 4px;
+    margin-top: 0.2%;
 }
-.book_collection_add form span{
-    width: 25px;
+.mask form ul{
+    width: 600px;
+    margin: 0 auto;
+}
+.mask  .book_brw .borrow_ul p{
+    margin-left: -10%;
+    font-size: 15px;
+    border: none;
+}
+.mask form ul li{
+    list-style: none;
     height: 25px;
-    color: rgb(66, 231, 204);
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    line-height: 24px;
+    line-height: 25px;
+    margin-left: 7%;
 }
-.book_collection_add form #save_form,#cancel_form{
-    width: 70px;
+.mask form ul li .check_inp{
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+.mask form button{
+    width: 60px;
     height: 30px;
     font-size: 16px;
     margin-left: 10%;
+    margin-bottom: 1%;
+    border: 1px solid #d1d1d1;
+    background: #5dcec6;
+    border-radius: 4px;
+    cursor: pointer;
 }
-.book_collection_add form #cancel_form{
-    margin-left: 4%;
+.mask form button:hover{
+    color: #fff;
 }
-#cancel_form:hover,#save_form:hover{
-    background: rgb(66, 231, 204);
-    color: rgb(240, 235, 235);
-} 
+/* 点击还书按钮显示弹窗 */
+.mask .book_return{
+    width: 100%;
+    margin: 0 auto;
+    /* display: none; 隐藏编辑页面 */
+}
+.content_right .book_return p{
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+    border-bottom: 1px solid rgb(240, 235, 235);
+    text-align: center;
+    margin: 1% auto;
+    letter-spacing: 6px;
+    color: #7c7d7d;
+}
+.mask .book_return{
+    width: 600px;
+    text-align: center;
+    margin: 0.5% auto;
+}
+.mask .book_return input{
+    width: 200px;
+    height: 28px;
+    outline: none;
+    text-decoration: none;
+    border: 1px solid rgb(163, 203, 241);
+    border-radius: 2px;
+    text-indent: 4px;
+    margin-top: 0.2%;
+}
+.mask .book_return ul{
+    width: 600px;
+    margin: 0 auto;
+}
+.mask .book_return .return_ul p{
+    margin-left: -11%;
+    font-size: 15px;
+    border: none;
+}
+.mask .book_return ul li{
+    list-style: none;
+    height: 25px;
+    line-height: 25px;
+    margin-left: 7%;
+}
+.mask .book_return ul li .check_inp{
+    width: 15px;
+    height: 15px;
+    border: none;
+}
+.mask .book_return button{
+    width: 60px;
+    height: 30px;
+    font-size: 16px;
+    margin-left: 10%;
+    margin-bottom: 1%;
+    border: 1px solid #d1d1d1;
+    background: #5dcec6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.mask button:hover{
+    color: #fff;
+}
