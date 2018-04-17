@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书管理-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/returnBook.css')}}">
+    <script>
+        window.onload = function () {
+            load_admin_username();
+        }
+    </script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="header_left">
+            <h2>图书馆图书借阅管理系统</h2>
+            <span>LibraryManageSystem</span>
+        </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a id="admin_username" href=""></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_book')}}">图书添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_book')}}">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_announcement')}}">公告添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.add_borrow_record')}}">借书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.return_book')}}">还书管理</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_collection_add">
+                <p>图书归还管理</p>
+                <!-- 图书管理员搜索框 -->
+                <div class="search">
+                    <input class="search_book" type="text" placeholder="请输入借出书名">
+                    <input class="search_user" type="text" placeholder="请输入读者名">
+                    <button class="search_box">确定</button>
+                </div>
+
+                <table class="book_table">
+                    <tr>
+                        <th>编号</th>
+                        <th>书名</th>
+                        <th>标准编码</th>
+                        <th>借阅者</th>
+                        <th>借书时间</th>
+                        <th>预期归还时间</th>
+                        <th>是否超期</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>你的我的倾城时光</td>
+                        <td>9787536693968</td>
+                        <td>yangmei</td>
+                        <td>2018.01.3</td>
+                        <td>2018.02.3</td>
+                        <td>超期4天</td>
+                        <td>
+                            <button class="return_book">还书</button>
+                            <button class="once_book">续借</button>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- 右下角翻页 -->
+                <div class="paged">
+                    <div class="page_content">
+                        <a id="left_page" href="#">
+                            <span class="left"></span>
+                        </a>
+                        <span id="left_num">1</span>&nbsp;/&nbsp;
+                        <span id="right_num">1</span>
+                        <a id="right_page" href="#">
+                            <span class="right"></span>
+                        </a>
+                        <input id="jump_text" type="number">
+                        <input id="jump" type="button" onclick="jump_page()" value="跳转">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <script src="{{url_for('static', filename='js/borrow.js')}}"></script>
+</body>
+
+</html>
