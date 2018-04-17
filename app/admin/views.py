@@ -50,3 +50,8 @@ def manage_announcement():
 @admin_required
 def add_borrow_record():
     return render_template('borrow.html')
+
+@admin.route('/return')
+@admin_required
+def return_book():
+    return render_template('returnBook.html')
