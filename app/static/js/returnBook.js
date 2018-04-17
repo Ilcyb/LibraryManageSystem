@@ -26,13 +26,18 @@ function getUrlParam(name) {
 
 
 function get_lend_infos() {
+    var url = '/api/book/getLendingInfos';
     if (getUrlParam('page') == null)
         var page = 1;
     else
         var page = getUrlParam('page');
-
+    url = updateURLParameter(url, 'page', page);
+    if (getUrlParam('username') != null)
+        url = updateURLParameter(url, 'username', getUrlParam('username'))
+    if (getUrlParam('book_name') != null)
+    url = updateURLParameter(url, 'book_name', getUrlParam('book_name'))
     var li_xhr = new XMLHttpRequest();
-    li_xhr.open('GET', '/api/book/getLendingInfos?page=' + page);
+    li_xhr.open('GET', url);
     li_xhr.send();
     li_xhr.onreadystatechange = function () {
         if (li_xhr.readyState === 4) {
@@ -86,6 +91,21 @@ function get_lend_infos() {
             }
         }
     }
+}
+
+function search(){
+    var book_name = document.getElementById('book_name').value;
+    var username = document.getElementById('username').value;
+    if(book_name.replace(/\s+/g, "").length == 0 && username.replace(/\s+/g, "").length == 0){
+        alert('请至少填写一项搜索条件');
+        return;
+    }
+    var url = '/admin/return';
+    if(book_name.replace(/\s+/g, "").length != 0)
+        url = updateURLParameter(url, 'book_name', book_name);
+    if(username.replace(/\s+/g, "").length != 0)
+    url = updateURLParameter(url, 'username', username);
+    window.location.href = url;
 }
 
 function set_page(length, page) {

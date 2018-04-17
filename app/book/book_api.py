@@ -1,5 +1,5 @@
 from flask import abort, current_app, jsonify, request, session, url_for, redirect
-from sqlalchemy import create_engine, desc, or_
+from sqlalchemy import create_engine, desc, or_, and_
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
 from sqlalchemy.exc import IntegrityError
@@ -920,7 +920,11 @@ def get_lending_infos():
     try:
         page = int(request.args.get('page', 1))
         offset = (page - 1) * current_app.config['LENDING_INFOS_PER_PAGE']
+        book_name = request.args.get('book_name', None)
+        username = request.args.get('username', None)
+
         q = db.session.query(LendingInfo).filter_by(returned=False)
+
 
         length = len(q.all())
         lending_infos = q.limit(current_app.config['LENDING_INFOS_PER_PAGE']).offset(offset).all()
@@ -930,6 +934,13 @@ def get_lending_infos():
         for lending_info in lending_infos:
             book_collection = db.session.query(BookCollection).filter_by(book_collection_id=lending_info.book_collection_id).first()
             book = book_collection.book
+            if book_name or username:
+                if book_name:
+                    if book_name != book.name:
+                        continue
+                if username:
+                    if username != lending_info.user.username:
+                        continue
             return_dict['lending_infos'].append({
                 'id': lending_info.lending_info_id,
                 'book_name': book.name,
