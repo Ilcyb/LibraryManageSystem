@@ -876,3 +876,17 @@ def get_book_douban_info(isbn):
         return jsonify({'request':False}), 500
     else:
         return jsonify(json.loads(response.text)), 200
+
+
+@book.route('/getNameFullyCompliantBooks/<string:name>', methods=['GET'])
+def get_books_by_fully_compliant_name(name):
+    books = db.session.query(Book).filter_by(name=name).all()
+
+    returned_json = {}
+    returned_json['books'] = []
+    for book in books:
+        book_dict = {}
+        fill_book_info_to_dict(book, book_dict)
+        returned_json['books'].append(book_dict)
+    returned_json['length'] = length
+    return jsonify(returned_json), 200
