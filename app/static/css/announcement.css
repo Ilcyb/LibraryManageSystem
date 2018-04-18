@@ -18,10 +18,9 @@ body {
 
 .header {
     width: 90%;
-    height: 60px;
+    height: 65px;
     margin: 0 auto;
     background: #fff;
-    border-bottom: 5px solid #6aa289;
 }
 
 .header .left {
@@ -155,22 +154,19 @@ body {
 }
 
 .notice .notice_list h4 {
-    font-size: 24px;
-    color: #609980;
+    font-size: 20px;
     text-align: center;
     font-weight: normal;
-    letter-spacing: 6%;
-    padding-top: 3%;
+    padding-top: 2%;
 }
 
 .notice .notice_list p {
     width: 96%;
     margin: 0.8% auto;
     justify-content: center;
-    text-indent: 36px;
-    letter-spacing: 1px;
-    color: #609980;
-    padding-bottom: 4%;
+    text-indent: 24px;
+    padding-bottom: 2%;
+    font-size: 15px;
 }
 
 /* ...footer... */
@@ -179,17 +175,22 @@ footer.footer {
     text-align: center;
     margin-bottom: 30px;
     width: 90%;
-    margin: 0.1% auto;
+    margin: -0.3% auto;
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: 1px solid #6aa289;
 }
 
 footer.footer p {
     padding-top: 1%;
     color: #609980;
     font-weight: bold; 
+}
+footer.footer p a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+footer.footer p a:hover{
+    text-decoration: underline;
 }
 .footer p:nth-of-type(2){
     padding-bottom: 1%;

@@ -81,15 +81,20 @@ footer.footer {
     width: 90%;
     margin: 0.5% auto;
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: 1px solid #6aa289;
 }
 
 footer.footer p {
     padding-top: 1%;
     color: #609980;
     font-weight: bold; 
+}
+footer.footer p a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+footer.footer p a:hover{
+    text-decoration: underline;
 }
 .footer p:nth-of-type(2){
     padding-bottom: 1%;

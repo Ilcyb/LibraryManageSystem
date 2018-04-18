@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>图书馆图书借阅管理系统</title>
+    <title>欢迎来到图书馆</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
     <script>
         window.onload = function(){
@@ -19,12 +19,12 @@
         <div class="header">
 
             <div class="left">
-                <h2>图书馆图书借阅管理系统</h2>
+                <h2>欢迎来到图书馆</h2>
                 <p>与志同道合的人分享读书的快乐</p>
             </div>
 
             <div class="right">
-                <a href="{{url_for('main.login')}}">[ 登录 ]</a>
+                <a href="{{url_for('main.login')}}">[登录]</a>
                 <a href="{{url_for('main.register')}}">[ 注册 ]</a>
             </div>
 
@@ -47,6 +47,7 @@
 
             <!-- 检索栏 -->
             <div class="pane">
+
                 <form action="" method="POST" target="_blank" role="form">
                     <input type="text" id="inp">
                     <select name="全面" id="sel">
@@ -60,16 +61,56 @@
                     <button type="button" id="search" onclick="book_search()">搜索</button>
                 </form>
             </div>
+        </div>
 
+        <!-- 公告 -->
+        <div class="notice" id="notice">
+            <div class="notice_list">
+                <h4>公&nbsp;&nbsp;&nbsp;&nbsp;告</h4>
+                <ul></ul>
+            </div>
         </div>
     </div>
 
-    <!-- notice -->
-    <div class="notice">
-        <div class="notice_list">
-            <h4>公&nbsp;&nbsp;&nbsp;&nbsp;告</h4>
-            <ul>
-            </ul>
+
+    <!-- 图书展示 -->
+    <div class="book_show">
+        <div class="case_pic">
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/s.jpg" alt="三体">
+                <h4>三体(科幻)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/m.jpg" alt="梦的花嫁">
+                <h4>梦的花嫁(小说)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/q.jpg" alt="情书">
+                <h4>情书(小说)</h4>
+            </div>
+            
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/n.jpg" alt="你一生的故事">
+                <h4>你一生的故事(科幻)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/z.jpg" alt="杀死一只知更鸟">
+                <h4>杀死一只知更鸟(文学)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/n.jpg" alt="你一生的故事">
+                <h4>你一生的故事(科幻)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/z.jpg" alt="杀死一只知更鸟">
+                <h4>杀死一只知更鸟(文学)</h4>
+            </div>
+            <div class="case_pic_1">
+                <img src="/static/images/BookImages/n.jpg" alt="你一生的故事">
+                <h4>你一生的故事(科幻)</h4>
+            </div>
+        </div>
+
         </div>
     </div>
 
