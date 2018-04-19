@@ -55,3 +55,8 @@ def add_borrow_record():
 @admin_required
 def return_book():
     return render_template('returnBook.html')
+
+@admin.route('/lendingHistory')
+@admin_required
+def lending_history():
+    return render_template('lending_history.html')
