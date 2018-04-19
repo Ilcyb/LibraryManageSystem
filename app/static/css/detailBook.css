@@ -18,10 +18,9 @@ body {
 
 .header {
     width: 90%;
-    height: 60px;
+    height: 65px;
     margin: 0 auto;
     background: #fff;
-    border-bottom: 5px solid #6aa289;
 }
 
 .header .left {
@@ -78,8 +77,6 @@ body {
 
 .content {
     width: 100%;
-    border-radius: 10px;
-    background: rgb(238, 238, 243);
     margin: 0% auto;
 }
 
@@ -150,8 +147,8 @@ body {
     width: 100%;
     height: 100%;
     margin: 0% auto;
-    background: rgb(238, 238, 243);
     cursor: pointer;
+    padding-top: 0.9%;
 }
 .detail_book .detail_book_list{
     width: 90%;
@@ -159,36 +156,28 @@ body {
     background: #fff;
     border-bottom: 1px solid rgb(202, 215, 241);
     margin: 0% auto;
-    border: 8px solid rgb(238, 238, 243);
+    border: 1px solid rgb(238, 238, 243);
     border-radius: 4px;
     margin-top: -0.8%;
 }
+
 /* 左边 */
 .detail_book .detail_book_list .detail_book_list_left{
-    width: 40%;
+    width: 100%;
     height: 100%;
-    margin: 0 3.5%;
-    float: left;
-} 
- .detail_book_list_left p{
-    font-size: 35px;
-    margin-top: 15px;
-    margin-left: 10px;
-    padding: 18px 2px;
-    font-family: Arial, Helvetica, sans-serif;
-    cursor: pointer;
-    color: #6aa289;
+    position: absolute;
+    left: 34%;
+    top: 66%;
 }
 .detail_book .detail_book_list_left a{
-    font-size: 16px;
+    font-size: 14px;
     text-decoration: none;
     margin-left: 10px;
     margin-top: 20px;
-    color: rgb(65, 16, 240);
+    color: #8a8a8a;
 }
 .detail_book_list_left a:hover{
     text-decoration: underline;
-    color: red;
 }
 .detail_book_list_left #borrow_new{
     color: rgb(65, 16, 240);
@@ -212,7 +201,7 @@ body {
 }
 .borrow_notice th {
     border: 1px solid #dad1d1;
-    background: rgb(248, 224, 228);
+    background: rgb(252, 240, 242);
     height: 28px;
     font-size: 15px;
     width: 20%;
@@ -221,7 +210,7 @@ body {
 .borrow_notice tr td {
     font-size: 13px;
     border: 1px solid #dad1d1;
-    color: #6aa289;
+    color: #8a8a8a;
 }
 
 /* 评论 */
@@ -231,20 +220,17 @@ body {
     margin-left: 8px;
     background: url("/static/images/icons/edit_icon.png")no-repeat 17%;
     background-size: 20px 22px;
-    color: rgb(65, 16, 240);
 }
 .detail_book_list_left .book_comment h5{
     margin-top: 5px;
     margin-left: 30px;
     font-size: 16px;
-    color: #bcc0bc;;
     font-weight: normal;
 }
 .detail_book_list_left .book_comment p{
     font-size: 14px;
     text-indent: 16px;
     margin-top: -16px;
-    color: #6aa289;
     border-bottom: 1px solid #dad1d1;
 }
 
@@ -279,8 +265,8 @@ body {
 /* 图片 */
 .book_img img{
     position: absolute;
-    right: 15%;
-    top: 51%;
+    left: 72%;
+    top: 52%;
     width: 120px;
     height: 140px;
 } 
@@ -292,29 +278,29 @@ body {
 
 /* 右边 */
 .detail_book .detail_book_list .detail_book_list_right{
-    width: 53%;
+    width: 99%;
     display: block;
-    float: left;
+    /* float: left; */
 }
 #book_right{
-    list-style: none;
     margin: 35px 10%;
+}
+#book_right li:nth-of-type(1){
+    list-style: none;
 }
 #book_right li p{
     font-size: 22px;
     display: inline;
-    color: #6aa289;
 }
 #book_right li button{
     width: 90px;
     height: 30px;
-    background: #6aa289;
+    background: #8a8a8a;
     border: none;
     font-size: 16px;
     margin: 0% 6%;
     cursor: pointer;
     color: #fff;
-    border-radius: 4px;
 }
 #book_right li button:hover{
     color: #fff;
@@ -327,33 +313,24 @@ body {
 #book_right .li_book_intro p{
     text-indent: 16px;
     display: block;
-    font-size: 13px;
-    margin-left: 4%;
+    font-size: 14px;
+    margin-left: 2%;
+    color: #666;
 }
 #book_right .li_book_name{
     margin-top: 20px;
 }
 #book_right .li_book_author span{
-    color: rgb(65, 16, 240);
+    color: #8a8a8a;
 }
 #book_right .li_book_name span{
     color: red;
 }
-#book_right .detail{
-    font-weight: bold;
-    color: #6aa289;
-}
-
-#book_right .li_book_show a{
-    color: rgb(65, 16, 240);
-    text-decoration: none;
-}
-#book_right .li_book_show a:hover{
-    text-decoration: underline;
-    color: red;
-} 
 
 /* table原本为隐藏 */
+#book_right li:nth-of-type(8){
+    list-style: none;
+}
 #book_right li table{
     width: 100%;
     text-align: center;
@@ -365,7 +342,7 @@ body {
 #book_right li table th {
     height: 30px;
     font-size: 15px;
-    background: rgb(248, 224, 228);
+    background: rgb(252, 240, 242);
     border: 1px solid #dad1d1;
     width: 18%;
 }
@@ -378,7 +355,7 @@ body {
 #book_right li table tr td {
     border: 1px solid #dad1d1;
     font-size: 13px;
-    color: #6aa289;
+    color: #8a8a8a;
 }
 
 /* ...footer... */
@@ -387,16 +364,22 @@ footer.footer {
     text-align: center;
     margin-bottom: 30px;
     width: 90%;
-    margin: 0% auto;
+    margin: 0.5% auto;
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
 footer.footer p {
     padding-top: 1%;
     color: #609980;
     font-weight: bold; 
+}
+footer.footer p a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+footer.footer p a:hover{
+    text-decoration: underline;
 }
 .footer p:nth-of-type(2){
     padding-bottom: 1%;

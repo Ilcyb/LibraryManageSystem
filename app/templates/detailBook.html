@@ -20,7 +20,7 @@
     <div class="logo">
         <div class="header">
             <div class="left">
-                <h2>图书馆图书借阅管理系统</h2>
+                <h2>欢迎来到图书馆</h2>
                 <p>与志同道合的人分享读书的快乐</p>
             </div>
 
@@ -50,56 +50,12 @@
     <!-- detail_book -->
     <div class="detail_book">
         <div class="detail_book_list">
-            <!-- detail_book_list_left -->
-            <div class="detail_book_list_left">
-                <p>Item Details</p>
-                <a id="same_author" href="">查找<span id="s_book_author" style="color: red"></span>的其它作品</a>
-                <br>
-                <a id="same_topic" href="">查找<span id="s_book_topic" style="color: red"></span>主题的其它作品</a>
-                <a id="borrow_new" href="">图书借阅信息</a>
-                <table class="borrow_notice">
-                    <tr>
-                        <th>借阅者</th>
-                        <th>应归还日期</th>
-                    </tr>
-                    <!--<tr>
-                        <td>TP393.09/22</td>
-                        <td>云南农业大学</td>
-                    </tr>
-                    <tr>
-                        <td>TP393.09/22</td>
-                        <td>云南农业大学</td>
-                    </tr>
-                    <tr>
-                        <td>TP393.09/22</td>
-                        <td>云南农业大学</td>
-                    </tr>
-                    <tr>
-                        <td>TP393.09/22</td>
-                        <td>云南农业大学</td>
-                    </tr>
-                    <tr>
-                        <td>TP393.09/22</td>
-                        <td>云南农业大学</td>
-                    </tr> -->
-                </table>
-
-                <!-- book_comment -->
-                <div class="book_comment">
-                    <h4>图书评论</h4>
-                </div>
-                <!-- 写评论 -->
-                <div class="write">
-                    <textarea name="write_comment" id="write_comment" cols="56" rows="10" placeholder="评论..."></textarea>
-                    <button id="submit" type="button" onclick="submit_comment()">提交</button>
-                    <button id="cancel">取消</button>
-                </div>
-            </div>
+        
             <!-- 右边内容 -->
             <div class="detail_book_list_right">
                 <ul id="book_right">
                     <li>
-                        <p>馆藏详细信息</p><button>借阅提醒</button>
+                        <p>馆藏详细信息</p><!-- <button>借阅提醒</button> -->
                     </li>
                     <li class="li_book_name">书名：
                         <span id="book_name"></span>
@@ -114,7 +70,6 @@
                     <li class="li_book_publish">出版社：人民邮电出版社 2006.04 北京</li>
                     <li class="detail">馆藏分布状况</li>
                     <li class="li_book_show">
-                        <a id="a_show" href="">馆藏预览</a>
                         <table id="collections_table" class="collects_show">
                             <tr>
                                 <th>索书号</th>
@@ -124,7 +79,52 @@
                             </tr>
                         </table>
                     </li>
+                    <!-- <li id="borrow_new">图书借阅信息</li>
+                    <table class="borrow_notice">
+                        <tr>
+                            <th>借阅者</th>
+                            <th>应归还日期</th>
+                        </tr>
+                        <!--<tr>
+                            <td>TP393.09/22</td>
+                            <td>云南农业大学</td>
+                        </tr>
+                        <tr>
+                            <td>TP393.09/22</td>
+                            <td>云南农业大学</td>
+                        </tr>
+                        <tr>
+                            <td>TP393.09/22</td>
+                            <td>云南农业大学</td>
+                        </tr>
+                        <tr>
+                            <td>TP393.09/22</td>
+                            <td>云南农业大学</td>
+                        </tr>
+                        <tr>
+                            <td>TP393.09/22</td>
+                            <td>云南农业大学</td>
+                        </tr> -->
+                    <!-- </table> -->
                 </ul>
+            </div>
+
+            <!-- detail_book_list_left -->
+            <div class="detail_book_list_left">
+                <a id="same_author" href="">查找<span id="s_book_author" style="color: red"></span>的其它作品</a>
+                <br>
+                <a id="same_topic" href="">查找<span id="s_book_topic" style="color: red"></span>主题的其它作品</a>
+
+                <!-- book_comment -->
+                <!-- <div class="book_comment">
+                    <h4>图书评论</h4>
+                </div> -->
+                <!-- 写评论 -->
+                <!-- <div class="write">
+                    <textarea name="write_comment" id="write_comment" cols="56" rows="10" placeholder="评论..."></textarea>
+                    <button id="submit" type="button" onclick="submit_comment()">提交</button>
+                    <button id="cancel">取消</button>
+                </div> -->
             </div>
 
             <!-- 图片、提醒 -->
@@ -132,7 +132,6 @@
             <div class="book_img">
                 <img id="book_img" src="" alt="">
             </div>
-
             <!-- 清除浮动 -->
             <div class="clear"></div>
         </div>

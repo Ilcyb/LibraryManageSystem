@@ -18,10 +18,9 @@ body {
 
 .header {
     width: 90%;
-    height: 60px;
+    height: 65px;
     margin: 0 auto;
     background: #fff;
-    border-bottom: 5px solid #6aa289;
 }
 
 .header .left {
@@ -151,19 +150,16 @@ body {
 
 /* 个人资料 */
 .content .personal{
-    width: 26%;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    width: 25%;
     background: #fff;
     margin-left: 0.4%;
     float: left;
 }
 .content .personal h4{
     text-align: center;
-    color: #6aa289;
     margin-top: 1%;
     padding: 3% 2%;
-    border-bottom: 3px solid #609980;
+    border-bottom: 1px solid #609980;
 }
 .content .personal .per_img{
     width: 90px;
@@ -177,7 +173,6 @@ body {
 }
 .content .personal li{
     text-decoration: none;
-    color: #6aa289;
     list-style-type: square;
     font-size: 15px;
     padding-bottom: 0.1%;
@@ -259,7 +254,7 @@ body {
 
 /* 我的借阅历史 */
 .content .borrow_content{
-    width: 73%;
+    width: 73.8%;
     margin-right: 0.5%;
     border-top-right-radius: 4px;
     background: #fff;
@@ -267,10 +262,9 @@ body {
 }
 .content .borrow_content h4{
     text-align: center;
-    color: #6aa289;
     margin-top: 1%;
     padding: 0.75% 1%;
-    border-bottom: 3px solid #609980;
+    border-bottom: 1px solid #609980;
 }
 .content .borrow_content table{
     width: 100%;
@@ -294,6 +288,7 @@ body {
 }
 .content .borrow_content table td a{
     text-decoration: none;
+    color: #666;
 }
 .content .borrow_content table td a:hover{
     text-decoration: underline;
@@ -315,6 +310,21 @@ body {
     box-shadow: none;
     opacity: .65;
 }
+.content .borrow_content span{
+    width: 30px;
+    height: 30px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+.content .borrow_content .left{
+    margin-left: 10%;
+}
+.content .borrow_content .right{
+    margin-left: 70%;
+}
+
 /* 我的评论 */
 .content .my_comment{
     clear: both;
@@ -360,17 +370,24 @@ footer.footer {
     text-align: center;
     margin-bottom: 30px;
     width: 89.5%;
-    margin: 0.5% auto;
+    margin: 1.5% auto;
     background: #fff;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top: 1px solid #6aa289;
+    border-top: 2px solid #e3e6ed;
+    clear: both;
 }
 
 footer.footer p {
     padding-top: 1%;
     color: #609980;
     font-weight: bold; 
+}
+footer.footer p a{
+    color: #000;
+    font-weight: normal;
+    text-decoration: none;
+}
+footer.footer p a:hover{
+    text-decoration: underline;
 }
 .footer p:nth-of-type(2){
     padding-bottom: 1%;

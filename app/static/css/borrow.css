@@ -303,7 +303,7 @@ table tr td button:disabled{
     height: 15px;
     border: none;
 }
-.mask form input{
+.mask form #submit_borrow,.mask form #cancel_borrow{
     width: 60px;
     height: 30px;
     font-size: 16px;
@@ -314,6 +314,9 @@ table tr td button:disabled{
     border-radius: 4px;
     cursor: pointer;
 }
-.mask form input:hover{
+.mask form #cancel_borrow:hover{
+    color: #fff;
+}
+.mask form #submit_borrow:hover{
     color: #fff;
 }
