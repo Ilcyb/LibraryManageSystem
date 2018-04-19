@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图书管理-后台管理</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/lendingHistory.css')}}">
+    <script>
+        window.onload = function () {
+            load_admin_username();
+            get_lend_infos();
+        }
+    </script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="header">
+        <div class="header_left">
+            <h2>图书馆图书借阅管理系统</h2>
+            <span>LibraryManageSystem</span>
+        </div>
+        <div class="header_right">
+            <span>您好，&nbsp;
+                <a id="admin_username" href=""></a>
+                &nbsp;&nbsp;
+                <a href="" onclick="logout()">退出</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- content -->
+    <div class="content">
+        <!-- nav -->
+        <div class="nav_left">
+            <nav>
+                <ul>
+                    <li>目录</li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_book')}}">图书添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_book')}}">图书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.create_new_announcement')}}">公告添加</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.manage_announcement')}}">公告管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.add_borrow_record')}}">借书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.return_book')}}">还书管理</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('admin.lending_history')}}">借阅历史</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- content_right -->
+        <div class="content_right">
+            <div class="book_collection_add">
+                <p>图书借阅历史</p>
+                <!-- 图书管理员搜索框 -->
+                <div class="search">
+                    <input class="search_book" id="book_name" type="text" placeholder="请输入借出书名">
+                    <input class="search_user" id="username" type="text" placeholder="请输入读者名">
+                    <button class="search_box" onclick="search()">确定</button>
+                </div>
+
+                <table class="book_table">
+                    <tr>
+                        <th>编号</th>
+                        <th>书名</th>
+                        <th>标准编码</th>
+                        <th>借阅者</th>
+                        <th>借书时间</th>
+                        <th>归还时间</th>
+                        <th>是否超期</th>
+                        <th>状态</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>三体</td>
+                        <td>123456789</td>
+                        <td>2014310553</td>
+                        <td>2018.02.05</td>
+                        <td>2018.03.01</td>
+                        <td>否</td>
+                        <td>已归还</td>
+                    </tr>
+                </table>
+
+                <!-- 右下角翻页 -->
+                <div class="paged">
+                    <div class="page_content">
+                        <a id="left_page" href="#">
+                            <span class="left"></span>
+                        </a>
+                        <span id="left_num">1</span>&nbsp;/&nbsp;
+                        <span id="right_num">1</span>
+                        <a id="right_page" href="#">
+                            <span class="right"></span>
+                        </a>
+                        <input id="jump_text" type="number">
+                        <input id="jump" type="button" onclick="jump_page()" value="跳转">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="{{url_for('static', filename='js/common.js')}}"></script>
+    <!-- <script src="{{url_for('static', filename='js/returnBook.js')}}"></script> -->
+</body>
+
+</html>
