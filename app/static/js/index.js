@@ -32,7 +32,7 @@ function logout() {
             if (logout_xhr.status == 200) {
                 if (logout_xhr.getResponseHeader('Content-Type') === 'application/json') {
                     result = JSON.parse(logout_xhr.responseText);
-                    window.location.href = result.page;//浏览器加载一个新页面
+                    window.location.href = result.page; //浏览器加载一个新页面
                 }
             }
         }
@@ -65,28 +65,57 @@ function getAnnouncements() {
     }
 }
 
-function book_search(){
+function book_search() {
     var search_input = document.getElementById('inp');
     var drop_list = document.getElementById('sel');
     var drop_list_index = drop_list.selectedIndex;
-    switch(drop_list_index){
+    switch (drop_list_index) {
         case 0:
-        window.location.href = '/searchResult?type=allField&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=allField&keyword=' + search_input.value;
+            break;
         case 1:
-        window.location.href = '/searchResult?type=bookName&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=bookName&keyword=' + search_input.value;
+            break;
         case 2:
-        window.location.href = '/searchResult?type=author&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=author&keyword=' + search_input.value;
+            break;
         case 3:
-        window.location.href = '/searchResult?type=publishHouse&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=publishHouse&keyword=' + search_input.value;
+            break;
         case 4:
-        window.location.href = '/searchResult?type=isbn&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=isbn&keyword=' + search_input.value;
+            break;
         case 5:
-        window.location.href = '/searchResult?type=topic&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=topic&keyword=' + search_input.value;
+            break;
+    }
+}
+
+function get_random_books() {
+    var nums = 10;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/api/book/getRandomBooks/' + nums);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                var f_div = document.getElementsByClassName('case_pic')[0];
+                for (var i = 0; i < result['length']; i++) {
+                    var book_a = document.createElement('a');
+                    book_a.href = '/book/' + result['books'][i]['id'];
+                    var new_div = document.createElement('div');
+                    new_div.className = 'case_pic_1';
+                    var book_img = document.createElement('img');
+                    book_img.src = result['books'][i]['image'];
+                    new_div.appendChild(book_img);
+                    var book_name = document.createElement('h4');
+                    book_name.innerText = result['books'][i]['name'];
+                    new_div.appendChild(book_name);
+                    book_a.appendChild(new_div);
+                    f_div.appendChild(book_a);
+                }
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@ from .. import db
 from ..models import Author, Book, Classification, PublishHouse, \
     book_author, BookCollection, LendingInfo, User, Notice, Comment
 from ..utils.bookSortEnum import bookSortEnum
+from random import randint, sample
 import datetime
 import json
 
@@ -903,7 +904,7 @@ def get_book_douban_info(isbn):
 
 @book.route('/getNameFullyCompliantBooks/<string:name>', methods=['GET'])
 def get_books_by_fully_compliant_name(name):
-    books = db.session.query(Book).filter_by(name=name).all()
+    books = db.session.query(Book).filter((Book.name.ilike('%' + name + '%'))).all()
 
     returned_json = {}
     returned_json['books'] = []
@@ -936,7 +937,7 @@ def get_lending_infos():
             book = book_collection.book
             if book_name or username:
                 if book_name:
-                    if book_name != book.name:
+                    if book_name not in book.name:
                         continue
                 if username:
                     if username != lending_info.user.username:
@@ -967,3 +968,25 @@ def renew_borrow(lending_info_id):
     lending_info.expected_return_time += datetime.timedelta(days=current_app.config['DEFAULT_BOOK_BORROW_TIME'])
     db.session.commit()
     return '续借成功', 200
+
+
+@book.route('/getRandomBooks/<int:nums>')
+def get_random_num_books(nums):
+    book_ids = [id_tuple[0] for id_tuple in db.session.query(Book.book_id).all()]
+    choose_book_ids = []
+
+    if nums > len(book_ids):
+        nums = len(book_ids)
+
+    choose_book_ids = sample(book_ids, nums)
+
+    books = [db.session.query(Book).filter_by(book_id=b_id).first() for b_id in choose_book_ids]
+
+    returned_json = {}
+    returned_json['books'] = []
+    for book in books:
+        book_dict = {}
+        fill_book_info_to_dict(book, book_dict)
+        returned_json['books'].append(book_dict)
+    returned_json['length'] = nums
+    return jsonify(returned_json), 200
