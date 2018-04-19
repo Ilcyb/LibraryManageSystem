@@ -953,6 +953,52 @@ def get_lending_infos():
         return jsonify({'reason': '服务器发生错误，请稍后再试'}), 500
 
 
+@book.route('/getAllLendingInfos', methods=['GET'])
+def get_all_lending_infos():
+    try:
+        page = int(request.args.get('page', 1))
+        offset = (page - 1) * current_app.config['LENDING_INFOS_PER_PAGE']
+        book_name = request.args.get('book_name', None)
+        username = request.args.get('username', None)
+
+        q = db.session.query(LendingInfo)
+
+
+        length = len(q.all())
+        lending_infos = q.limit(current_app.config['LENDING_INFOS_PER_PAGE']).offset(offset).all()
+
+        return_dict = {'length': length, 'lending_infos': []}
+
+        for lending_info in lending_infos:
+            book_collection = db.session.query(BookCollection).filter_by(book_collection_id=lending_info.book_collection_id).first()
+            book = book_collection.book
+            if book_name or username:
+                if book_name:
+                    if book_name not in book.name:
+                        continue
+                if username:
+                    if username != lending_info.user.username:
+                        continue
+            return_dict['lending_infos'].append({
+                'id': lending_info.lending_info_id,
+                'book_name': book.name,
+                'isbn': book.isbn,
+                'username': lending_info.user.username,
+                'user_id': lending_info.user.user_id,
+                'lend_time': lending_info.lend_time.strftime('%Y.%m.%d'),
+                'expected_return_time': lending_info.expected_return_time.strftime('%Y.%m.%d'),
+                'isExpiration': datetime.datetime.now() > lending_info.expected_return_time,
+                'days': (datetime.datetime.now() - lending_info.expected_return_time).days,
+                'returned_time': lending_info.return_time.strftime('%Y.%m.%d') if lending_info.return_time  is not None else None,
+                'returned': lending_info.returned
+            })
+
+        return jsonify(return_dict), 200
+    except Exception as e:
+        print(e)
+        return jsonify({'reason': '服务器发生错误，请稍后再试'}), 500
+
+
 @book.route('/renew/<int:lending_info_id>', methods=['GET'])
 def renew_borrow(lending_info_id):
     lending_info = db.session.query(LendingInfo).filter_by(lending_info_id=lending_info_id).first()

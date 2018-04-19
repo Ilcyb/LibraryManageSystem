@@ -28,6 +28,13 @@ def fill_classification():
 
 
 @manager.command
+def crawl_books_from_douban():
+    from app.utils.crawl_classification import crawl_douban_top_250
+    if crawl_douban_top_250(db):
+        print('爬取豆瓣图书TOP250成功')
+
+
+@manager.command
 def deploy():
     from app.models import Role, Level
     from flask_migrate import upgrade
