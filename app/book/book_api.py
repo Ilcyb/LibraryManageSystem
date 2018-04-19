@@ -494,58 +494,51 @@ def edit_book():
     image = request_json.get('image', None)
 
     try:
-        engine = create_engine(current_app.config['SQLALCHEMY_DATABASE_URI'])
-        Session = sessionmaker(bind=engine, autoflush=False)
-        session = Session()
-    except Exception as e:
-        print(e)
-        return jsonify({'created': False, 'reason': '服务器发生错误'}), 500
+        if isbn != book.isbn:
+            same_isbn = db.session.query(Book).filter_by(isbn=isbn).first()
+            if same_isbn is not None:
+                return jsonify({
+                    'created': False,
+                    'reason': 'ISBN号重复，书籍资料修改失败'
+                }), 403
 
-    try:
-        same_isbn = session.query(Book).filter_by(isbn=isbn).first()
-        if same_isbn is not None:
-            return jsonify({
-                'created': False,
-                'reason': 'ISBN号重复，书籍资料修改失败'
-            }), 403
-
-        publish_house = session.query(PublishHouse).filter_by(
+        publish_house = db.session.query(PublishHouse).filter_by(
             name=publish_house_name).first()
         if not publish_house:  # 如果数据库中没有这个出版社的话，则创建该出版社的信息
             publish_house = PublishHouse(publish_house_name)
-            session.add(publish_house)
+            db.session.add(publish_house)
 
-        session.commit()
+        old_authors = book.authors
+        for author in old_authors:
+            author.books.remove(book)
 
+        for author_name in authors:
+            author = db.session.query(Author).filter_by(name=author_name).first()
+            if author is None:
+                new_author = Author(author_name)
+                db.session.add(new_author)
+                new_author.books.append(book)
+            else:
+                author.books.append(book)
+
+        publish_house.books.append(book)
         book.isbn = isbn
         book.classification_id = classification
-        book.publish_house_id = publish_house.publish_house_id
-        # book.authors.clear()
-        # session.commit()
-        # for author_name in authors:
-        #     author = session.query(Author).filter_by(name=author_name).first()
-        #     if not author:
-        #         new_author = Author(author_name)
-        #         session.add(new_author)
-        #         book.authors.append(new_author)
-        #     else:
-        #         book.authors.append(author)
-
         book.language = language
         book.name = name
         book.topic = topic
         book.publish_date = publish_date
         book.call_number = call_number
         book.image = image
-        session.commit()
+        db.session.commit()
     except Exception as e:
-        session.rollback()
+        db.session.rollback()
         from traceback import print_exc
         print_exc()
         # print(e)
         return jsonify({'created': False, 'reason': '服务器发生错误'}), 500
     finally:
-        session.close()
+        db.session.close()
 
     return jsonify({'created': True}), 201
 
