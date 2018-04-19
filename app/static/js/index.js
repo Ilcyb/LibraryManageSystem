@@ -32,7 +32,7 @@ function logout() {
             if (logout_xhr.status == 200) {
                 if (logout_xhr.getResponseHeader('Content-Type') === 'application/json') {
                     result = JSON.parse(logout_xhr.responseText);
-                    window.location.href = result.page;//浏览器加载一个新页面
+                    window.location.href = result.page; //浏览器加载一个新页面
                 }
             }
         }
@@ -65,28 +65,28 @@ function getAnnouncements() {
     }
 }
 
-function book_search(){
+function book_search() {
     var search_input = document.getElementById('inp');
     var drop_list = document.getElementById('sel');
     var drop_list_index = drop_list.selectedIndex;
-    switch(drop_list_index){
+    switch (drop_list_index) {
         case 0:
-        window.location.href = '/searchResult?type=allField&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=allField&keyword=' + search_input.value;
+            break;
         case 1:
-        window.location.href = '/searchResult?type=bookName&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=bookName&keyword=' + search_input.value;
+            break;
         case 2:
-        window.location.href = '/searchResult?type=author&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=author&keyword=' + search_input.value;
+            break;
         case 3:
-        window.location.href = '/searchResult?type=publishHouse&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=publishHouse&keyword=' + search_input.value;
+            break;
         case 4:
-        window.location.href = '/searchResult?type=isbn&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=isbn&keyword=' + search_input.value;
+            break;
         case 5:
-        window.location.href = '/searchResult?type=topic&keyword=' + search_input.value;
-        break;
+            window.location.href = '/searchResult?type=topic&keyword=' + search_input.value;
+            break;
     }
 }
