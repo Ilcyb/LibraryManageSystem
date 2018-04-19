@@ -304,6 +304,12 @@ body {
     color: #fff;
     background: #6aa289;
 }
+.content .borrow_content table td button:disabled{
+    pointer-events: none;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: .65;
+}
 .content .borrow_content span{
     width: 30px;
     height: 30px;

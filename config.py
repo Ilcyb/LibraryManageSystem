@@ -14,6 +14,7 @@ class Config:
     ADMIN_USERNAME = 'admin'
     BOOK_LENDINFO_NUMS = 5
     DEFAULT_BOOK_BORROW_TIME = 30
+    DEFAULT_PERSON_LENDING_HISTORY_PER_PAGE = 10
 
 
 class DevelopmentConfig(Config):

@@ -56,7 +56,7 @@ function get_lend_infos() {
                     isbn_td.innerText = result['lending_infos'][i]['isbn'];
                     new_tr.appendChild(isbn_td);
                     var user_td = document.createElement('td');
-                    user_td.innerText = result['lending_infos'][i]['username'] + '(' + result['lending_infos'][i]['user_id'] + ')';
+                    user_td.innerText = result['lending_infos'][i]['username'];
                     new_tr.appendChild(user_td);
                     var lend_time_td = document.createElement('td');
                     lend_time_td.innerText = result['lending_infos'][i]['lend_time'];

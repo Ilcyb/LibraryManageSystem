@@ -28,9 +28,9 @@ function get_personal_info() {
     }
 }
 
-function get_lending_info() {
+function get_lending_info(page) {
     var ldi_xhr = new XMLHttpRequest();
-    ldi_xhr.open('GET', '/api/user/lendingHistory');
+    ldi_xhr.open('GET', '/api/user/lendingHistory?page=' + page);
     ldi_xhr.send();
     ldi_xhr.onreadystatechange = function () {
         if (ldi_xhr.readyState === 4) {
@@ -60,15 +60,15 @@ function get_lending_info() {
                     if (result['lend_info'][i]['returned']) {
                         gh_td.innerText = '是';
                         ex_td.innerText = '已归还';
-                        bbtn.disabled = false;
+                        bbtn.disabled = true;
                     } else {
                         gh_td.innerText = '否';
                         ex_td.innerText = result['lend_info'][i]['expected_return_time'];
-                        disabled = true;
+                        bbtn.disabled = false;
                     }
-                    if (result['lend_info'][i]['timeout']){
+                    if (result['lend_info'][i]['timeout']) {
                         timeout_td.innerText = '超期' + result['lend_info'][i]['timeout_time'] + '天';
-                    }else{
+                    } else {
                         timeout_td.innerText = '未超期';
                     }
                     new_tr.appendChild(gh_td);
@@ -171,8 +171,8 @@ function edit_personal_info() {
         }
     }
     var submit = document.getElementById('edit_save');
-    submit.onclick = function(){
-        if(name.value.replace(/\s+/g,"").length == 0 || ins.value.replace(/\s+/g,"").length == 0){
+    submit.onclick = function () {
+        if (name.value.replace(/\s+/g, "").length == 0 || ins.value.replace(/\s+/g, "").length == 0) {
             alert('请将修改信息填写完整');
             return;
         }
@@ -185,12 +185,12 @@ function edit_personal_info() {
             insitution: ins.value,
             level_id: parseInt(document.getElementById('edit_level')[document.getElementById('edit_level').selectedIndex].value)
         }));
-        ep_xhr.onreadystatechange = function(){
-            if(ep_xhr.readyState === 4){
-                if(ep_xhr.status === 201){
+        ep_xhr.onreadystatechange = function () {
+            if (ep_xhr.readyState === 4) {
+                if (ep_xhr.status === 201) {
                     alert('修改个人信息成功');
                     window.location.reload();
-                }else{
+                } else {
                     alert(JSON.parse(ep_xhr.responseText)['reason']);
                 }
             }
@@ -205,4 +205,38 @@ function hidden_pernal_info_popups() {
     var ins = document.getElementById('edit_ins');
     name.value = '';
     ins.value = '';
+}
+
+function delete_lending_infos() {
+    var table = document.getElementsByClassName('per_borrow')[0];
+    var rowNumber = table.rows.length;
+    for (var i = 0; i < rowNumber; i++) {
+        if (i != 0) {
+            table.deleteRow(i);
+            rowNumber = rowNumber - 1;
+            i = i - 1;
+        }
+    }
+}
+
+function left_lending_infos() {
+    var page_input = document.getElementById('lending_page');
+    var page_value = parseInt(page_input.value);
+    if (page_value == 1)
+        return;
+    else {
+        page = parseInt(page_value) - 1;
+        delete_lending_infos();
+        get_lending_info(page);
+        page_input.value = page;
+    }
+}
+
+function right_lending_infos() {
+    var page_input = document.getElementById('lending_page');
+    var page_value = parseInt(page_input.value);
+    page = parseInt(page_value) + 1;
+    delete_lending_infos();
+    get_lending_info(page);
+    page_input.value = page;
 }

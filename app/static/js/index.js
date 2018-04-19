@@ -90,3 +90,32 @@ function book_search() {
             break;
     }
 }
+
+function get_random_books() {
+    var nums = 10;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/api/book/getRandomBooks/' + nums);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var result = JSON.parse(xhr.responseText);
+                var f_div = document.getElementsByClassName('case_pic')[0];
+                for (var i = 0; i < result['length']; i++) {
+                    var book_a = document.createElement('a');
+                    book_a.href = '/book/' + result['books'][i]['id'];
+                    var new_div = document.createElement('div');
+                    new_div.className = 'case_pic_1';
+                    var book_img = document.createElement('img');
+                    book_img.src = result['books'][i]['image'];
+                    new_div.appendChild(book_img);
+                    var book_name = document.createElement('h4');
+                    book_name.innerText = result['books'][i]['name'];
+                    new_div.appendChild(book_name);
+                    book_a.appendChild(new_div);
+                    f_div.appendChild(book_a);
+                }
+            }
+        }
+    }
+}

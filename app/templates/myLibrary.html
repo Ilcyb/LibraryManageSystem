@@ -9,7 +9,7 @@
         window.onload = function(){
             isLogin();
             get_personal_info();
-            get_lending_info();
+            get_lending_info(1);
             get_comments();
             getLevels();
         }
@@ -82,6 +82,7 @@
         </div>
 
         <!-- 我的借阅 -->
+        <input type="hidden" id="lending_page" value="1">
         <div class="borrow_content">
             <h4>我的借阅</h4>
             <table class="per_borrow">
@@ -94,8 +95,8 @@
                     <th>操作</th>
                 </tr>
             </table>
-            <span class="left"><</span>
-            <span class="right">></span>
+            <span class="left" id="lending_info_left" onclick="left_lending_infos()"><</span>
+            <span class="right" id="lending_info_right" onclick="right_lending_infos()">></span>
         </div>
 
         <!-- 我的评论 -->

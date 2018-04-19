@@ -191,11 +191,11 @@ def lending_history():
     user = db.session.query(User).filter_by(user_id=session.get('id', None)).first()
     if user is None:
         abort(404, '用户不存在')
-    page = request.args.get('page', 1)
+    page = int(request.args.get('page', 1))
     lending_infos = db.session.query(LendingInfo).filter_by(user_id=user.user_id)\
                         .order_by(LendingInfo.lend_time)\
-                        .limit(current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE'])\
-                        .offset((page - 1) * current_app.config['DEFAULT_SEARCH_RESULT_PER_PAGE']).all()
+                        .limit(current_app.config['DEFAULT_PERSON_LENDING_HISTORY_PER_PAGE'])\
+                        .offset((page - 1) * current_app.config['DEFAULT_PERSON_LENDING_HISTORY_PER_PAGE']).all()
     returned_json = {'length': len(lending_infos)}
     lendinfo_list = []
     for i in range(len(lending_infos)):
