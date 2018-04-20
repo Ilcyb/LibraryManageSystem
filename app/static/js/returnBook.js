@@ -114,7 +114,9 @@ function set_page(length, page) {
     var right_num = document.getElementById('right_num');
     var left_page = document.getElementById('left_page');
     var right_page = document.getElementById('right_page');
-    var max_page = Math.ceil(length / 15);
+    var max_page = Math.ceil(length / 10);
+    left_num.innerText = page;
+    right_num.innerText = max_page;
     if (page == 1) {
         left_page.href = updateURLParameter(now_url, 'page', 1);
         if (max_page > 1)
