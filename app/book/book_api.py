@@ -823,6 +823,7 @@ def return_book():
             return jsonify({'reason': '该借阅记录不存在，归还失败'}), 404
         book_collection = db.session.query(BookCollection).filter_by(book_collection_id=lending_info.book_collection_id).first()
         lending_info.returned = True
+        lending_info.user.lended_nums -= 1
         lending_info.return_time = datetime.datetime.now()
         if(lending_info.return_time > lending_info.expected_return_time):
             lending_info.timeout = True

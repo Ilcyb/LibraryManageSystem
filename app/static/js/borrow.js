@@ -148,6 +148,8 @@ function submit_b(){
                         if(bor_xhr.status === 201){
                             alert('借阅成功');
                             window.location.reload();
+                        }else{
+                            alert(JSON.parse(bor_xhr.responseText)['reason'])
                         }
                     }
                 }
