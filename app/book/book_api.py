@@ -918,8 +918,13 @@ def get_lending_infos():
         book_name = request.args.get('book_name', None)
         username = request.args.get('username', None)
 
-        q = db.session.query(LendingInfo).filter_by(returned=False)
+        q = db.session.query(LendingInfo)\
+                            .join(User).join(BookCollection).filter(LendingInfo.returned==False)
 
+        if username is not None:
+            q = q.filter(User.username == username)
+        if book_name is not None:
+            q = q.filter(BookCollection.book_name.ilike("%" + book_name + "%"))
 
         length = len(q.all())
         lending_infos = q.limit(current_app.config['LENDING_INFOS_PER_PAGE']).offset(offset).all()
@@ -945,7 +950,9 @@ def get_lending_infos():
                 'lend_time': lending_info.lend_time.strftime('%Y.%m.%d'),
                 'expected_return_time': lending_info.expected_return_time.strftime('%Y.%m.%d'),
                 'isExpiration': datetime.datetime.now() > lending_info.expected_return_time,
-                'days': (datetime.datetime.now() - lending_info.expected_return_time).days
+                'days': (datetime.datetime.now() - lending_info.expected_return_time).days,
+                'returned_time': lending_info.return_time.strftime('%Y.%m.%d') if lending_info.return_time  is not None else None,
+                'returned': lending_info.returned
             })
 
         return jsonify(return_dict), 200
@@ -962,8 +969,13 @@ def get_all_lending_infos():
         book_name = request.args.get('book_name', None)
         username = request.args.get('username', None)
 
-        q = db.session.query(LendingInfo)
+        q = db.session.query(LendingInfo)\
+                            .join(User).join(BookCollection)
 
+        if username is not None:
+            q = q.filter(User.username == username)
+        if book_name is not None:
+            q = q.filter(BookCollection.book_name.ilike("%" + book_name + "%"))
 
         length = len(q.all())
         lending_infos = q.limit(current_app.config['LENDING_INFOS_PER_PAGE']).offset(offset).all()
