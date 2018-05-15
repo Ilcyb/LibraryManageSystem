@@ -133,13 +133,10 @@ function jump_page() {
     var page = document.getElementById('jump_text').value;
     if (page.replace(/\s+/g, "").length == 0)
         return;
-    if (!page.isNaN())
+    if (page < 1)
         return;
-    var right_page = document.getElementById('right_page');
-    max_page = getUrlParam('page');
-    if (max_page == null)
-        max_page = 1;
-    if (page > max_page)
+    var right_page = document.getElementById('right_num').innerText;
+    if (page > right_page)
         return;
     window.location.href = updateURLParameter(window.location.href, 'page', page);
 }

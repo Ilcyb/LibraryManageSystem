@@ -14,6 +14,12 @@ function createNewBook() {
     var call_number = document.getElementById('call_number').value;
     var image = document.getElementById('image').value;
     var cnb_xhr = new XMLHttpRequest();
+
+    if(isbn.length != 10 && isbn.length != 13){
+        alert("isbn号只能为10位或13位");
+        return;
+    }
+
     cnb_xhr.open('POST', '/api/book/book');
     cnb_xhr.setRequestHeader('Content-Type', 'application/json');
     cnb_xhr.send(JSON.stringify({
