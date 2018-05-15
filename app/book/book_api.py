@@ -950,7 +950,8 @@ def get_lending_infos():
                 'lend_time': lending_info.lend_time.strftime('%Y.%m.%d'),
                 'expected_return_time': lending_info.expected_return_time.strftime('%Y.%m.%d'),
                 'isExpiration': datetime.datetime.now() > lending_info.expected_return_time,
-                'days': (datetime.datetime.now() - lending_info.expected_return_time).days,
+                'days': (datetime.datetime.now() - lending_info.expected_return_time).days\
+                    if not lending_info.returned else (lending_info.return_time - lending_info.expected_return_time).days,
                 'returned_time': lending_info.return_time.strftime('%Y.%m.%d') if lending_info.return_time  is not None else None,
                 'returned': lending_info.returned
             })
@@ -1001,7 +1002,8 @@ def get_all_lending_infos():
                 'lend_time': lending_info.lend_time.strftime('%Y.%m.%d'),
                 'expected_return_time': lending_info.expected_return_time.strftime('%Y.%m.%d'),
                 'isExpiration': datetime.datetime.now() > lending_info.expected_return_time,
-                'days': (datetime.datetime.now() - lending_info.expected_return_time).days,
+                'days': (datetime.datetime.now() - lending_info.expected_return_time).days\
+                    if not lending_info.returned else (lending_info.return_time - lending_info.expected_return_time).days,
                 'returned_time': lending_info.return_time.strftime('%Y.%m.%d') if lending_info.return_time  is not None else None,
                 'returned': lending_info.returned
             })

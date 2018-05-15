@@ -67,7 +67,7 @@ function get_lending_info(page) {
                         bbtn.disabled = false;
                     }
                     if (result['lend_info'][i]['timeout']) {
-                        timeout_td.innerText = '超期' + result['lend_info'][i]['timeout_time'] + '天';
+                        timeout_td.innerText = '超期 ' + result['lend_info'][i]['timeout_time'] + ' 天';
                     } else {
                         timeout_td.innerText = '未超期';
                     }

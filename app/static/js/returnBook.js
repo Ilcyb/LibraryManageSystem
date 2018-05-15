@@ -67,7 +67,7 @@ function get_lend_infos() {
                     var is_expiration = result['lending_infos'][i]['isExpiration'];
                     var days_td = document.createElement('td');
                     if (is_expiration) {
-                        days_td.innerText = result['lending_infos'][i]['days'];
+                        days_td.innerText = '超期 ' + result['lending_infos'][i]['days'] + ' 天';
                     } else {
                         days_td.innerText = '未超期';
                         days_td.style.color = '#000000';
