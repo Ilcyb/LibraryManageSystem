@@ -211,7 +211,8 @@ def lending_history():
             lendinfo_json['return_time'] = lending_infos[i].return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
         else:
             lendinfo_json['expected_return_time'] = lending_infos[i].expected_return_time.strftime('%Y{y}%m{m}%d{d} %H{h}%M{M}').format(y='年', m='月', d='日', h='时', M='分')
-        lendinfo_json['timeout'] = datetime.datetime.now() > lending_infos[i].expected_return_time
+        lendinfo_json['timeout'] = datetime.datetime.now() > lending_infos[i].expected_return_time \
+                                    if not lending_infos[i].returned else lending_infos[i].timeout
         if lendinfo_json['timeout']:
             lendinfo_json['timeout_time'] = (datetime.datetime.now() - lending_infos[i].expected_return_time).days\
                     if not lending_infos[i].returned else (lending_infos[i].return_time - lending_infos[i].expected_return_time).days
